@@ -1,9 +1,11 @@
 using Cadasvan01.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace Cadasvan01.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,8 +20,14 @@ namespace Cadasvan01.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Motorista")]
         public IActionResult Privacy()
         {
+
+            //get usuario logado
+            //if (usuario.EnumTipo != Motorista)
+            // return RedirectToAction("Login", "Account");
+
             return View();
         }
 
