@@ -2,8 +2,8 @@
 {
     public enum UsuarioEnum
     {
-        Admin = 0,
-        Motorista = 1,
-        Aluno = 2,
+        Admin = 1,
+        Motorista = 2,
+        Aluno = 3,
     }
 }

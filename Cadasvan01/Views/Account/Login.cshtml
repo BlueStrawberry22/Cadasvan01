@@ -1,0 +1,32 @@
+﻿@model Cadasvan01.ViewModel.LoginViewModel
+
+@{
+    ViewBag.Title = "Login de Usuário";
+}
+<h3>Login</h3>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Senha"></label>
+                <input asp-for="Senha" class="form-control" />
+                <span asp asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="RememberMe">
+                        <input asp-for="RememberMe" />
+                        @Html.DisplayNameFor(m => m.RememberMe)
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class=" btn btn-primary mt-3">Login</button>
+        </form>
+    </div>
+</div>

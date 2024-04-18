@@ -1,11 +1,29 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Cadasvan01.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cadasvan01.ViewModel
 {
     public class RegisterViewModel
     {
+
+        //Campos personalizado do Usuario
         [Required(ErrorMessage = "Item obrigatório.")]
         public string NomeCompleto { get; set; }
+
+        [Required(ErrorMessage = "Item obrigatório.")]
+        public string CPF { get; set; }
+
+        public int CidadeId { get; set; }
+        public string Endereco { get; set; }
+
+        [MaxLength(11)]
+        public string? CNH { get; set; }
+
+        [MaxLength(7)]
+        public string Placa { get; set; }
+        public UsuarioEnum Tipo { get; set; }
+
+        //Campos padrões do Identity
 
         [Required(ErrorMessage = "Item obrigatório.")]
         [EmailAddress(ErrorMessage = "Informe um endereço de email válido.")]
@@ -18,11 +36,8 @@ namespace Cadasvan01.ViewModel
         [Required(ErrorMessage = "Item obrigatório.")]
         [Display(Name = "Confirme a senha")]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "As senhas devem ser iguais.")]
+        [Compare(nameof(Senha), ErrorMessage = "As senhas devem ser iguais.")]
         public string ConfirmaSenha { get; set; }
 
-        [Required(ErrorMessage = "Item obrigatório.")]
-        public string CPF { get; set; }    
-        public string Telefone { get; set; }
     }
 }

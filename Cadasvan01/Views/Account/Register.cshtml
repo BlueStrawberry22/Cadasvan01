@@ -1,0 +1,78 @@
+﻿@model Cadasvan01.ViewModel.RegisterViewModel
+
+@{
+    ViewBag.Title = "Registro de Usuário";
+}
+<h3>Registrar Usuário</h3>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomeCompleto"></label>
+                <input asp-for="NomeCompleto" class="form-control" />
+                <span asp asp-validation-for="NomeCompleto" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CPF"></label>
+                <input asp-for="CPF" class="form-control" />
+                <span asp asp-validation-for="CPF" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Endereco"></label>
+                <input asp-for="Endereco" class="form-control" />
+                <span asp asp-validation-for="Endereco" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CidadeId"></label>
+                <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades"></select>
+                <span asp asp-validation-for="CidadeId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="CNH"></label>
+                <input asp-for="CNH" class="form-control" />
+                <span asp asp-validation-for="CNH" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Placa"></label>
+                <input asp-for="Placa" class="form-control" />
+                <span asp asp-validation-for="Placa" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Tipo"></label>
+                <select asp-for="Tipo" asp-items="ViewBag.SelectTipo" class="form-control"></select>
+                <span asp asp-validation-for="Tipo" class="text-danger"></span>
+            </div>
+
+
+
+
+            <hr />
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Senha"></label>
+                <input asp-for="Senha" class="form-control" />
+                <span asp asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmaSenha"></label>
+                <input asp-for="ConfirmaSenha" class="form-control" />
+                <span asp asp-validation-for="ConfirmaSenha" class="text-danger"></span>
+            </div>
+            <button type="submit" class=" btn btn-primary mt-3">Registrar</button>
+        </form>
+    </div>
+</div>
