@@ -7,12 +7,14 @@ namespace Cadasvan01.ViewModel
     {
 
         //Campos personalizado do Usuario
+        [Display(Name = "Nome Completo")]
         [Required(ErrorMessage = "Item obrigatório.")]
         public string NomeCompleto { get; set; }
 
         [Required(ErrorMessage = "Item obrigatório.")]
         public string CPF { get; set; }
 
+        [Display(Name = "Cidade")]
         public int CidadeId { get; set; }
         public string Endereco { get; set; }
 
