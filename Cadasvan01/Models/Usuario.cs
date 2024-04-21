@@ -31,8 +31,8 @@ namespace Cadasvan01.Models
        // [ForeignKey("CidadeId")]
         public virtual Cidade? Cidade { get; set; }
 
-       // public virtual ICollection<ConfirmacaoDePresenca>? ConfirmadosAluno { get; set; }
-       // public virtual ICollection<ConfirmacaoDePresenca>? ConfirmadosMotorista { get; set; }
+        //public virtual ICollection<ConfirmacaoDePresenca>? ConfirmadosAluno { get; set; }
+        //public virtual ICollection<ConfirmacaoDePresenca>? ConfirmadosMotorista { get; set; }
 
     }
 }

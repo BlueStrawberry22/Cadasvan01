@@ -18,5 +18,6 @@ namespace Cadasvan01.Data
         public DbSet<Cidade> Cidades { get; set; }  
 
         public DbSet<ConfirmacaoDePresenca> Presencas { get; set;}
+        public DbSet<Aviso> Avisos { get; set; }    
     }
 }
