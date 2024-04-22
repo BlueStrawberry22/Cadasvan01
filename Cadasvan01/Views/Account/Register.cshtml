@@ -16,7 +16,7 @@
 
             <div class="form-group">
                 <label asp-for="CPF"></label>
-                <input asp-for="CPF" class="form-control" />
+                <input asp-for="CPF" class="form-control" maxlength="14" />
                 <span asp asp-validation-for="CPF" class="text-danger"></span>
             </div>
 
@@ -51,11 +51,7 @@
                 <select asp-for="Tipo" asp-items="ViewBag.SelectTipo" class="form-control"></select>
                 <span asp asp-validation-for="Tipo" class="text-danger"></span>
             </div>
-
-
-
-
-            <hr />
+            <br>
             <div class="form-group">
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" />
@@ -72,7 +68,8 @@
                 <input asp-for="ConfirmaSenha" class="form-control" />
                 <span asp asp-validation-for="ConfirmaSenha" class="text-danger"></span>
             </div>
-            <button type="submit" class=" btn btn-primary mt-3">Registrar</button>
+            <br>
+            <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
     </div>
 </div>

@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Cadasvan01.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.PortableExecutable;
 
 namespace Cadasvan01.Models
 {
@@ -29,5 +30,9 @@ namespace Cadasvan01.Models
 
        // [ForeignKey("CidadeId")]
         public virtual Cidade? Cidade { get; set; }
+
+        //public virtual ICollection<ConfirmacaoDePresenca>? ConfirmadosAluno { get; set; }
+        //public virtual ICollection<ConfirmacaoDePresenca>? ConfirmadosMotorista { get; set; }
+
     }
 }

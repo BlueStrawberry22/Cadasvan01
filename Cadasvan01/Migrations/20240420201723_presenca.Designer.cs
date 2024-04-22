@@ -4,6 +4,7 @@ using Cadasvan01.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240420201723_presenca")]
+    partial class presenca
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,25 +24,6 @@ namespace Cadasvan01.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Cadasvan01.Models.Aviso", b =>
-                {
-                    b.Property<int>("AvisoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AvisoId"));
-
-                    b.Property<DateTime>("DataDoAviso")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Mensagem")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AvisoId");
-
-                    b.ToTable("Avisos");
-                });
 
             modelBuilder.Entity("Cadasvan01.Models.Cidade", b =>
                 {
