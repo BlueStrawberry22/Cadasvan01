@@ -107,10 +107,11 @@ namespace Cadasvan01.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "home");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
