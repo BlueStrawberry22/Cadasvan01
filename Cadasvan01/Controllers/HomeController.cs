@@ -20,7 +20,6 @@ namespace Cadasvan01.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Motorista")]
         public IActionResult Privacy()
         {
 
