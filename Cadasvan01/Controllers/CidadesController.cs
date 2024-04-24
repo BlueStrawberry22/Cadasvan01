@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cadasvan01.Data;
 using Cadasvan01.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cadasvan01.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class CidadesController : Controller
     {
         private readonly ApplicationDbContext _context;
