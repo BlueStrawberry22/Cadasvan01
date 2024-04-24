@@ -21,6 +21,7 @@ namespace Cadasvan01.Controllers
         }
 
         // GET: Avisos
+
         public async Task<IActionResult> Index()
         {
             return View(await _context.Avisos.ToListAsync());
