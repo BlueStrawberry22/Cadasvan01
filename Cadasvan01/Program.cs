@@ -6,10 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 
-internal class Program
-{
-    private static void Main(string[] args)
-    {
         var builder = WebApplication.CreateBuilder(args);
 
 
@@ -17,6 +13,7 @@ internal class Program
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 
 
         //antigo
@@ -29,7 +26,7 @@ internal class Program
 
 
         builder.Services.AddControllersWithViews();
-        builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+        // builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 
         var app = builder.Build();
 
@@ -50,8 +47,7 @@ internal class Program
         app.UseStaticFiles();
         app.UseRouting();
 
-        SeedUserRoleInitial.SeedRoles();
-        SeedUserRoleInitial.SeedUsers();
+
 
         app.UseAuthorization();
 
@@ -70,5 +66,14 @@ internal class Program
 
 
         app.Run();
-    }
-}
+   /*     void CriarPerfisUsuarios(WebApplication app)
+        {
+            var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+            using (var scope = scopedFactory.CreateScope())
+            {
+                var service = scope.ServiceProvider.GetService<ISeedUserRoleInitial>();
+                service.SeedUsers();
+                service.SeedRoles();
+            }
+        }*/
+  

@@ -93,6 +93,7 @@ namespace Cadasvan01.Controllers
                 if (result.Succeeded) //se sucesso manda ele fazer login e redireciona para a home
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _userManager.AddToRoleAsync(user, "Aluno");
                     return RedirectToAction("Index", "home");
                 }
 

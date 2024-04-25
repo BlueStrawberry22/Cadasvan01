@@ -53,7 +53,7 @@ namespace Cadasvan01.Services
                 user.SecurityStamp = Guid.NewGuid().ToString();
                
 
-                IdentityResult result = _userManager.CreateAsync(user, "Cadasvan@2024").Result;
+                IdentityResult result = _userManager.CreateAsync(user, "Numsey#20").Result;
 
                 if (result.Succeeded)
                 {
@@ -73,7 +73,7 @@ namespace Cadasvan01.Services
                 user.SecurityStamp = Guid.NewGuid().ToString();
 
 
-                IdentityResult result = _userManager.CreateAsync(user, "Cadasvan@2024").Result;
+                IdentityResult result = _userManager.CreateAsync(user, "Numsey#20").Result;
 
                 if (result.Succeeded)
                 {
@@ -93,7 +93,7 @@ namespace Cadasvan01.Services
                 user.SecurityStamp = Guid.NewGuid().ToString();
 
 
-                IdentityResult result = _userManager.CreateAsync(user, "Cadasvan@2024").Result;
+                IdentityResult result = _userManager.CreateAsync(user, "Numsey#20").Result;
 
                 if (result.Succeeded)
                 {
