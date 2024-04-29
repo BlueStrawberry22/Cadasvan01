@@ -27,11 +27,32 @@
             </div>
 
             <div class="form-group">
+                <label asp-for="CNH"></label>
+                <input asp-for="CNH" class="form-control" />
+                <span asp asp-validation-for="CNH" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Placa"></label>
+                <input asp-for="Placa" class="form-control" />
+                <span asp asp-validation-for="Placa" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Tipo"></label>
+                <input asp-for="Tipo" class="form-control" />
+                <span asp asp-validation-for="Tipo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <label asp-for="CidadeId"></label>
                 <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades"></select>
                 <span asp asp-validation-for="CidadeId" class="text-danger"></span>
             </div>
+
+
             <br>
+
             <div class="form-group">
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" />

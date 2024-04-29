@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Cadasvan01.Controllers
 {
+    [Authorize]
     public class AvisosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,12 +22,14 @@ namespace Cadasvan01.Controllers
         }
 
         // GET: Avisos
+
         public async Task<IActionResult> Index()
         {
             return View(await _context.Avisos.ToListAsync());
         }
 
         // GET: Avisos/Details/5
+        [Authorize(Roles = "Motorista")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,7 +47,7 @@ namespace Cadasvan01.Controllers
             return View(aviso);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Motorista")]
         // GET: Avisos/Create
         public IActionResult Create()
         {
@@ -56,7 +59,8 @@ namespace Cadasvan01.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AvisoId,Mensagem,DataDoAviso")] Aviso aviso)
+        [Authorize(Roles = "Motorista")]
+        public async Task<IActionResult> Create(Aviso aviso)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +72,7 @@ namespace Cadasvan01.Controllers
         }
 
         // GET: Avisos/Edit/5
+        [Authorize(Roles = "Motorista")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -88,7 +93,8 @@ namespace Cadasvan01.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AvisoId,Mensagem,DataDoAviso")] Aviso aviso)
+        [Authorize(Roles = "Motorista")]
+        public async Task<IActionResult> Edit(int id, Aviso aviso)
         {
             if (id != aviso.AvisoId)
             {
@@ -119,6 +125,7 @@ namespace Cadasvan01.Controllers
         }
 
         // GET: Avisos/Delete/5
+        [Authorize(Roles = "Motorista")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,6 +146,7 @@ namespace Cadasvan01.Controllers
         // POST: Avisos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Motorista")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var aviso = await _context.Avisos.FindAsync(id);

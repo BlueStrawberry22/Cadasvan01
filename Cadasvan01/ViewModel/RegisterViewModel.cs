@@ -12,6 +12,7 @@ namespace Cadasvan01.ViewModel
         public string NomeCompleto { get; set; }
 
         [Required(ErrorMessage = "Item obrigatório.")]
+        [MaxLength(11)]
         public string CPF { get; set; }
 
         [Display(Name = "Cidade")]
