@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cadasvan01.Controllers
+namespace Cadasvan01.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles ="Admin")]
     public class AccountController : Controller
     {
         public readonly UserManager<Usuario> _userManager;
@@ -22,36 +24,6 @@ namespace Cadasvan01.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login()
-        {
-            //logout
-            await _signInManager.SignOutAsync();
-            return View();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        
-        public async Task<IActionResult> Login(LoginViewModel model)
-        {
-            var user = await _userManager.FindByEmailAsync(model.Email);
-
-            var result = await _signInManager.PasswordSignInAsync(user, model.Senha, model.RememberMe, false);
-            if (result.Succeeded)
-            {
-
-                return RedirectToAction(nameof(Index), "Home");
-            }
-            else
-            {
-                return View();
-            }
-        }
-
 
         [HttpGet]
         public async Task<IActionResult> Register()
@@ -80,8 +52,9 @@ namespace Cadasvan01.Controllers
                     Email = model.Email,
                     NomeCompleto = model.NomeCompleto,
                     CPF = model.CPF,
-                    Tipo = Enums.UsuarioEnum.Aluno,
-                    Placa = "",
+                    Tipo = Enums.UsuarioEnum.Motorista,
+                    CNH = model.CNH,
+                    Placa = model.Placa,
                     CidadeId = model.CidadeId,
                     Endereco = model.Endereco
 
@@ -92,7 +65,7 @@ namespace Cadasvan01.Controllers
                 if (result.Succeeded) //se sucesso manda ele fazer login e redireciona para a home
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    await _userManager.AddToRoleAsync(user, "Aluno");
+                    await _userManager.AddToRoleAsync(user, "Motorista");
                     return RedirectToAction("Index", "home");
                 }
 
@@ -101,24 +74,6 @@ namespace Cadasvan01.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-            return View();
-        }
-
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet]
-        [Route("/Account/AccessDenied")]
-        public ActionResult AccessDenied()
-        {
             return View();
         }
     }

@@ -26,9 +26,38 @@ using Microsoft.Extensions.DependencyInjection;
 
 
         builder.Services.AddControllersWithViews();
-        // builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+        builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("Admin",
+                politica =>
+                {
+                    politica.RequireRole("Admin");
+                });
+            options.AddPolicy("Aluno",
+                politica =>
+                {
+                    politica.RequireRole("Aluno");
+                });
+            options.AddPolicy("Motorista",
+                politica =>
+                {
+                    politica.RequireRole("Motorista");
+                });
+        });
 
         var app = builder.Build();
+        
+        using (var serviceScope = app.Services.CreateScope())
+        {
+            var services = serviceScope.ServiceProvider;
+
+            var servicoSeed = services.GetRequiredService<ISeedUserRoleInitial>();
+
+            servicoSeed.SeedRoles();
+            servicoSeed.SeedUsers();
+        }
 
 
         if (app.Environment.IsDevelopment())

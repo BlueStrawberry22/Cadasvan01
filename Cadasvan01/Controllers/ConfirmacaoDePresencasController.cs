@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cadasvan01.Data;
 using Cadasvan01.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cadasvan01.Controllers
 {
+    [Authorize]
     public class ConfirmacaoDePresencasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +22,7 @@ namespace Cadasvan01.Controllers
         }
 
         // GET: ConfirmacaoDePresencas
+
         public async Task<IActionResult> Index()
         {
             var motoristaID = "motoristaID";
@@ -32,6 +35,7 @@ namespace Cadasvan01.Controllers
         }
 
         // GET: ConfirmacaoDePresencas/Details/5
+        [Authorize(Roles = "Aluno")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -52,6 +56,7 @@ namespace Cadasvan01.Controllers
         }
 
         // GET: ConfirmacaoDePresencas/Create
+        [Authorize(Roles = "Aluno")]
         public IActionResult Create()
         {
             ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto"); ;
@@ -64,7 +69,9 @@ namespace Cadasvan01.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ConfirmacaoDePresencaID,UsuarioId,MotoristaId,ConfirmadoPresencaIda,ConfirmadoPresencaVolta,DataViagem")] ConfirmacaoDePresenca confirmacaoDePresenca)
+        [Authorize(Roles = "Aluno")]
+
+        public async Task<IActionResult> Create(ConfirmacaoDePresenca confirmacaoDePresenca)
         {
             if (ModelState.IsValid)
             {
@@ -72,12 +79,14 @@ namespace Cadasvan01.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MotoristaId"] = new SelectList(_context.Usuarios, "Id", "Id", confirmacaoDePresenca.MotoristaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", confirmacaoDePresenca.UsuarioId);
+            ViewData["MotoristaId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.MotoristaId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.UsuarioId);
             return View(confirmacaoDePresenca);
         }
 
         // GET: ConfirmacaoDePresencas/Edit/5
+        [Authorize(Roles = "Aluno")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,8 +99,8 @@ namespace Cadasvan01.Controllers
             {
                 return NotFound();
             }
-            ViewData["MotoristaId"] = new SelectList(_context.Usuarios, "Id", "Id", confirmacaoDePresenca.MotoristaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", confirmacaoDePresenca.UsuarioId);
+            ViewData["MotoristaId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.MotoristaId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.UsuarioId);
             return View(confirmacaoDePresenca);
         }
 
@@ -100,7 +109,9 @@ namespace Cadasvan01.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ConfirmacaoDePresencaID,UsuarioId,MotoristaId,ConfirmadoPresencaIda,ConfirmadoPresencaVolta,DataViagem")] ConfirmacaoDePresenca confirmacaoDePresenca)
+        [Authorize(Roles = "Aluno")]
+
+        public async Task<IActionResult> Edit(int id, ConfirmacaoDePresenca confirmacaoDePresenca)
         {
             if (id != confirmacaoDePresenca.ConfirmacaoDePresencaID)
             {
@@ -127,12 +138,13 @@ namespace Cadasvan01.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MotoristaId"] = new SelectList(_context.Usuarios, "Id", "Id", confirmacaoDePresenca.MotoristaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", confirmacaoDePresenca.UsuarioId);
+            ViewData["MotoristaId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.MotoristaId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.UsuarioId);
             return View(confirmacaoDePresenca);
         }
 
         // GET: ConfirmacaoDePresencas/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -155,6 +167,7 @@ namespace Cadasvan01.Controllers
         // POST: ConfirmacaoDePresencas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var confirmacaoDePresenca = await _context.Presencas.FindAsync(id);
