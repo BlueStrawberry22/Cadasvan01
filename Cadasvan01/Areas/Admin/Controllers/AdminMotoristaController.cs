@@ -2,7 +2,6 @@
 using Cadasvan01.Extensions;
 using Cadasvan01.Models;
 using Cadasvan01.ViewModel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,61 +10,59 @@ using Microsoft.EntityFrameworkCore;
 namespace Cadasvan01.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin")]
-    public class AccountController : Controller
+    public class AdminMotoristaController : Controller
     {
-        public readonly UserManager<Usuario> _userManager;
-        public readonly SignInManager<Usuario> _signInManager;
+        private readonly UserManager<Usuario> _userManager;
         public readonly ApplicationDbContext _context;
 
-        public AccountController(ApplicationDbContext context, UserManager<Usuario> userManager, SignInManager<Usuario> signInManager)
+        public AdminMotoristaController(UserManager<Usuario> userManager)
         {
-            _context = context;
             _userManager = userManager;
-            _signInManager = signInManager;
+        }
+
+        // Ação para criar um perfil de motorista
+        public IActionResult Index()
+        {
+            return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> Register()
         {
-            //recupera os tipos do enum e monta um selectlist
             ViewData["SelectTipo"] = SelectListExtensions.MontarSelectListParaEnum(new Usuario().Tipo);
 
-            //consulta nas cidades em ordem alfabética
             var cidades = await _context.Cidades.OrderBy(o => o.Nome).ToListAsync();
 
-            //monta um selectList com as cidades
             ViewData["Cidades"] = new SelectList(cidades, "CidadeId", "Nome");
 
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(MotoristaViewModel model)
         {
             if (ModelState.IsValid)
             {
-                //criando um usuario com os dados que vem da viewModel
-                var user = new Usuario
+                var motorista = new Usuario
                 {
                     UserName = model.Email,
                     Email = model.Email,
                     NomeCompleto = model.NomeCompleto,
                     CPF = model.CPF,
-                    Tipo = Enums.UsuarioEnum.Motorista,
+                    Tipo = model.Tipo,
                     CNH = model.CNH,
                     Placa = model.Placa,
                     CidadeId = model.CidadeId,
                     Endereco = model.Endereco
-
                 };
-                //usando identity para criar usuário
-                var result = await _userManager.CreateAsync(user, model.Senha);
 
-                if (result.Succeeded) 
+                var result = await _userManager.CreateAsync(motorista, model.Senha);
+
+                if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "Motorista");
-                    return RedirectToAction("Index");
+                    await _userManager.AddToRoleAsync(motorista, "Motorista");
+
+                    return RedirectToAction("Index", "Motorista");
                 }
 
                 foreach (var error in result.Errors)
@@ -73,7 +70,9 @@ namespace Cadasvan01.Areas.Admin.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-            return View();
+
+            return View(model);
         }
     }
+
 }

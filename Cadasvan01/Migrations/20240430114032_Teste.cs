@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Cadasvan01.Migrations
 {
     /// <inheritdoc />
-    public partial class DbInitial : Migration
+    public partial class Teste : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,6 +23,20 @@ namespace Cadasvan01.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Avisos",
+                columns: table => new
+                {
+                    AvisoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Mensagem = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DataDoAviso = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Avisos", x => x.AvisoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,8 +136,8 @@ namespace Cadasvan01.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -167,8 +181,8 @@ namespace Cadasvan01.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -180,6 +194,33 @@ namespace Cadasvan01.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Presencas",
+                columns: table => new
+                {
+                    ConfirmacaoDePresencaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UsuarioId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ConfirmadoPresencaIda = table.Column<bool>(type: "bit", nullable: false),
+                    ConfirmadoPresencaVolta = table.Column<bool>(type: "bit", nullable: false),
+                    DataViagemConfirmada = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Presencas", x => x.ConfirmacaoDePresencaID);
+                    table.ForeignKey(
+                        name: "FK_Presencas_AspNetUsers_MotoristaId",
+                        column: x => x.MotoristaId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Presencas_AspNetUsers_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -225,6 +266,16 @@ namespace Cadasvan01.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Presencas_MotoristaId",
+                table: "Presencas",
+                column: "MotoristaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Presencas_UsuarioId",
+                table: "Presencas",
+                column: "UsuarioId");
         }
 
         /// <inheritdoc />
@@ -244,6 +295,12 @@ namespace Cadasvan01.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Avisos");
+
+            migrationBuilder.DropTable(
+                name: "Presencas");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

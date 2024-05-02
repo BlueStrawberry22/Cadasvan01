@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Cadasvan01.Controllers
 {
+    [Area("Admin")]
     [Authorize(Roles ="Admin")]
     public class CidadesController : Controller
     {

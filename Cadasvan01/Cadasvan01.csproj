@@ -30,8 +30,14 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Admin\Views\Cidades\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Cidades\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Cidades\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Cidades\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Cidades\Index.cshtml" />
   </ItemGroup>
 
 </Project>

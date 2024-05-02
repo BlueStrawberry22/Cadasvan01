@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Cadasvan01.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Motoristas";
+}
+
+<h1>Motoristas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nome Completo
+            </th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+                    <tr>
+                        <td>
+                    @user.NomeCompleto
+                        </td>
+                        <td>
+                    @user.Email
+                        </td>
+                        <td>
+                            <!-- Adicione links para ações de edição, detalhes e exclusão aqui -->
+                        </td>
+                    </tr>
+        }
+    </tbody>
+</table>
