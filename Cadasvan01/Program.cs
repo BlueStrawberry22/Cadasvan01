@@ -84,17 +84,16 @@ using Microsoft.Extensions.DependencyInjection;
             name: "areas",
             pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+       app.MapControllerRoute(
+           name: "default",
+           pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
         //app.MapRazorPages();
 
 
 
-
-        app.Run();
+app.Run();
    /*     void CriarPerfisUsuarios(WebApplication app)
         {
             var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
