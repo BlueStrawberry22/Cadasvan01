@@ -11,6 +11,33 @@
         <label asp-for="NomeCompleto">Nome Completo</label>
         <input asp-for="NomeCompleto" class="form-control" />
     </div>
+    </br>
+    <div class="form-group">
+        <label asp-for="CPF">CPF</label>
+        <input asp-for="CPF" class="form-control" />
+    </div>
+    </br>
+    <div class="form-group">
+        <label asp-for="CidadeId">Cidade</label>
+        <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades"></select>
+    </div>
+    </br>
+    <div class="form-group">
+        <label asp-for="Endereco">Endereço</label>
+        <input asp-for="Endereco" class="form-control" />
+    </div>
+    </br>
+    <div class="form-group">
+        <label asp-for="CNH">CNH</label>
+        <input asp-for="CNH" class="form-control" />
+    </div>
+    </br>
+    <div class="form-group">
+        <label asp-for="Placa">Placa do veículo</label>
+        <input asp-for="Placa" class="form-control" />
+    </div>
     <!-- Adicione outros campos aqui (email, cidade etc.) -->
     <button type="submit" class="btn btn-primary">Salvar</button>
+    </br>
+    <a asp-area="Admin" asp-controller="AdminListaMotoristas" asp-action="ListaMotoristas">Voltar para a lista</a>
 </form>

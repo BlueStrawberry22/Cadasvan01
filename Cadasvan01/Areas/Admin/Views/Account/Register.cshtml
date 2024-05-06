@@ -47,9 +47,8 @@
             <div class="form-group">
                 <label asp-for="CidadeId"></label>
                 <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades"></select>
-                <span asp asp-validation-for="CidadeId" class="text-danger"></span>
+                <span asp asp-validation-for="CidadeId" asp-items="ViewBag.Cidades" class="text-danger"></span>
             </div>
-
 
             <br>
 

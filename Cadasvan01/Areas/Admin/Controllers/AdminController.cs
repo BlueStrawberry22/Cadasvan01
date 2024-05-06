@@ -14,10 +14,6 @@ namespace Cadasvan01.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-                
-       
+        }   
     }
-
 }

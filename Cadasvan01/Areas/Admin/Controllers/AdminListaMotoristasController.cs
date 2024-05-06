@@ -79,7 +79,7 @@ namespace Cadasvan01.Areas.Admin.Controllers
             return View(motorista);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeletarConfirmado(string id)
         {
@@ -92,7 +92,7 @@ namespace Cadasvan01.Areas.Admin.Controllers
             _context.Usuarios.Remove(motorista);
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("ListaMotoristas", "AdminListaMotoristas");
         }
 
     }

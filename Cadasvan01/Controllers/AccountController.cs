@@ -43,8 +43,16 @@ namespace Cadasvan01.Controllers
             var result = await _signInManager.PasswordSignInAsync(user, model.Senha, model.RememberMe, false);
             if (result.Succeeded)
             {
-
-                return RedirectToAction(nameof(Index), "Home");
+                if (await _userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    // Redirecione para a home do admin
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    // Redirecione para a home padrão (ou outra página, se necessário)
+                    return RedirectToAction(nameof(Index), "Home");
+                }
             }
             else
             {

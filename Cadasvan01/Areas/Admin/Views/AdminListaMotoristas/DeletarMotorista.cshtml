@@ -1,4 +1,4 @@
-﻿@model Usuario
+﻿@model Cadasvan01.Models.Usuario
 
 @{
     ViewData["Title"] = "Excluir Motorista";
@@ -8,10 +8,11 @@
 
 <p>Tem certeza de que deseja excluir o perfil de @Model.NomeCompleto?</p>
 
-<form asp-area="Admin" asp-controller="AdminListaMotorista" asp-action="DeletarMotorista">
+<form asp-area="Admin" asp-controller="AdminListaMotoristas" asp-action="DeletarConfirmado">
     <input type="hidden" asp-for="Id" />
     <button type="submit" class="btn btn-danger">Excluir</button>
 </form>
+
 
 <div>
     <a asp-area="admin" asp-controller="admin" asp-action="Index">Voltar para a Lista</a>

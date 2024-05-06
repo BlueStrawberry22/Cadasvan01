@@ -1,23 +1,54 @@
 ﻿@model Cadasvan01.Models.Usuario
 
 @{
-    ViewData["Title"] = "Detalhes do Motorista";
+    ViewData["Title"] = "Details";
 }
 
 <h1>Detalhes do Motorista</h1>
 
 <div>
+    <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomeCompleto)
+            Nome Completo
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NomeCompleto)
         </dd>
+        <dt class = "col-sm-2">
+            CPF
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CPF)
+        </dd>
+        <dt class = "col-sm-2">
+            Cidade
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CidadeId)
+        </dd>
+        <dt class = "col-sm-2">
+            Endereço
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Endereco)
+        </dd>
+        <dt class = "col-sm-2">
+            CNH
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CNH)
+        </dd>
+        <dt class = "col-sm-2">
+            Placa do veículo
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Placa)
+        </dd>
     </dl>
-    <!-- Adicione outros campos aqui (email, cidade etc.) -->
 </div>
 
 <div>
-    <a asp-action="Index">Voltar para a Lista</a>
+    <a asp-area="Admin" asp-controller="AdminListaMotoristas" asp-action="EditarMotorista" asp-route-id="@Model?.Id">Editar</a> |
+    <a asp-area="Admin" asp-controller="AdminListaMotoristas" asp-action="ListaMotoristas">Voltar para a Lista</a>
 </div>

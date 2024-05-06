@@ -65,7 +65,7 @@ namespace Cadasvan01.Areas.Admin.Controllers
                 if (result.Succeeded) 
                 {
                     await _userManager.AddToRoleAsync(user, "Motorista");
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Admin");
                 }
 
                 foreach (var error in result.Errors)
