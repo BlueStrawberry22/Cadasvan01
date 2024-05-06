@@ -1,0 +1,18 @@
+﻿@model Usuario
+
+@{
+    ViewData["Title"] = "Excluir Motorista";
+}
+
+<h1>Excluir Motorista</h1>
+
+<p>Tem certeza de que deseja excluir o perfil de @Model.NomeCompleto?</p>
+
+<form asp-area="Admin" asp-controller="AdminListaMotorista" asp-action="DeletarMotorista">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Excluir</button>
+</form>
+
+<div>
+    <a asp-area="admin" asp-controller="admin" asp-action="Index">Voltar para a Lista</a>
+</div>

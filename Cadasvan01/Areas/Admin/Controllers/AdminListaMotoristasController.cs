@@ -3,6 +3,7 @@ using Cadasvan01.Enums;
 using Cadasvan01.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cadasvan01.Areas.Admin.Controllers
 {
@@ -30,14 +31,14 @@ namespace Cadasvan01.Areas.Admin.Controllers
             return View(motoristas);
         }
 
-        public IActionResult EditarMotorista(int? id)
+        public IActionResult EditarMotorista(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var motorista = _context.Usuarios.FirstOrDefault(u => u.Tipo == UsuarioEnum.Motorista);
+            var motorista = _context.Usuarios.FirstOrDefault(u => u.Id.ToString() == id);
             if (motorista == null)
             {
                 return NotFound();
@@ -46,14 +47,14 @@ namespace Cadasvan01.Areas.Admin.Controllers
             return View(motorista);
         }
 
-        public IActionResult DetalhesMotorista(int? id)
+        public IActionResult DetalhesMotorista(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var motorista = _context.Usuarios.FirstOrDefault(u => u.Tipo == UsuarioEnum.Motorista);
+            var motorista = _context.Usuarios.FirstOrDefault(u => u.Id.ToString() == id);
             if (motorista == null)
             {
                 return NotFound();
@@ -61,5 +62,38 @@ namespace Cadasvan01.Areas.Admin.Controllers
 
             return View(motorista);
         }
+
+        public IActionResult DeletarMotorista(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var motorista = _context.Usuarios.FirstOrDefault(u => u.Id.ToString() == id);
+            if (motorista == null)
+            {
+                return NotFound();
+            }
+
+            return View(motorista);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletarConfirmado(string id)
+        {
+            var motorista = _context.Usuarios.FirstOrDefault(u => u.Id.ToString() == id);
+            if (motorista == null)
+            {
+                return NotFound();
+            }
+
+            _context.Usuarios.Remove(motorista);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
