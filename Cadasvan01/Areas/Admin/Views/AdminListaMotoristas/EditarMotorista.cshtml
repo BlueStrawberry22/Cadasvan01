@@ -1,0 +1,16 @@
+﻿@model Cadasvan01.Models.Usuario
+
+@{
+    ViewData["Title"] = "Editar Motorista";
+}
+
+<h1>Editar Motorista</h1>
+
+<form asp-action="EditarMotorista">
+    <div class="form-group">
+        <label asp-for="NomeCompleto">Nome Completo</label>
+        <input asp-for="NomeCompleto" class="form-control" />
+    </div>
+    <!-- Adicione outros campos aqui (email, cidade etc.) -->
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>

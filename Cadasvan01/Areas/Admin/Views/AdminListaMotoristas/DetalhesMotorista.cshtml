@@ -1,0 +1,23 @@
+﻿@model Cadasvan01.Models.Usuario
+
+@{
+    ViewData["Title"] = "Detalhes do Motorista";
+}
+
+<h1>Detalhes do Motorista</h1>
+
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeCompleto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NomeCompleto)
+        </dd>
+    </dl>
+    <!-- Adicione outros campos aqui (email, cidade etc.) -->
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a Lista</a>
+</div>

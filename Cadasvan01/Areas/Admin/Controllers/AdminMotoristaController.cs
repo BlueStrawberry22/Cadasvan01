@@ -1,4 +1,5 @@
 ﻿using Cadasvan01.Data;
+using Cadasvan01.Enums;
 using Cadasvan01.Extensions;
 using Cadasvan01.Models;
 using Cadasvan01.ViewModel;
@@ -12,7 +13,7 @@ namespace Cadasvan01.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminMotoristaController : Controller
     {
-        private readonly UserManager<Usuario> _userManager;
+        public readonly UserManager<Usuario> _userManager;
         public readonly ApplicationDbContext _context;
 
         public AdminMotoristaController(UserManager<Usuario> userManager)
@@ -73,6 +74,7 @@ namespace Cadasvan01.Areas.Admin.Controllers
 
             return View(model);
         }
+       
     }
 
 }
