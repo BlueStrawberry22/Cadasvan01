@@ -1,6 +1,7 @@
 ﻿using Cadasvan01.Data;
 using Cadasvan01.Enums;
 using Cadasvan01.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Cadasvan01.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminListaMotoristasController : Controller
     {
         public readonly UserManager<Usuario> _userManager;
