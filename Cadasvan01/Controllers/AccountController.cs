@@ -48,11 +48,16 @@ namespace Cadasvan01.Controllers
                     // Redirecione para a home do admin
                     return RedirectToAction("Index", "Admin");
                 }
+                else if (await _userManager.IsInRoleAsync(user, "Motorista"))
+                {
+                    return RedirectToAction("Index", "Motorista");
+                }
                 else
                 {
                     // Redirecione para a home padrão (ou outra página, se necessário)
                     return RedirectToAction(nameof(Index), "Home");
                 }
+                
             }
             else
             {
