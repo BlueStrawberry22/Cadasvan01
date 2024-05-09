@@ -1,8 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Cadasvan01.Models;
+using Cadasvan01.Services;
+using Cadasvan01.Data;
+using Microsoft.EntityFrameworkCore;
+using Cadasvan01.Enums;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
     [Area("Motorista")]
+    [Authorize]
     public class MotoristaController : Controller
     {
         public IActionResult Index()
@@ -10,4 +18,5 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             return View();
         }
     }
+
 }
