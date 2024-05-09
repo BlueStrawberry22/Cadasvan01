@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
@@ -27,6 +28,7 @@ namespace Cadasvan01.Areas.Motorista.Controllers
         {
             var alunos = _context.Usuarios
                 .Where(u => u.Tipo == UsuarioEnum.Aluno)
+                .Include(u => u.Cidade)
                 .ToList();
 
             return View(alunos);
@@ -35,4 +37,5 @@ namespace Cadasvan01.Areas.Motorista.Controllers
     }
 
 }
+
 

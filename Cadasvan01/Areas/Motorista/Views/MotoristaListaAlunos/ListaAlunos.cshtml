@@ -19,12 +19,18 @@
     <tbody>
         @foreach (var user in Model)
         {
-                <tr>
-                    <td>@user.NomeCompleto</td>
-                    <td>@user.Endereco</td>
-                    <td>@user.Cidade</td>
-                    <!--Tenho que fazer a cidade aparecer de alguma forma.-->
-                </tr>
+            <tr>
+                <td>@user.NomeCompleto</td>
+                <td>@user.Endereco</td>
+                <td>
+                    @if (user.Cidade != null){
+                        @user.Cidade.Nome
+                    }
+                    else{
+                        <span class="text-danger">Cidade não encontrada</span>
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>

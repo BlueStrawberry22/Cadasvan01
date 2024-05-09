@@ -15,7 +15,6 @@ namespace Cadasvan01.Models
 
         public int CidadeId { get; set; }
 
-
         public string Endereco { get; set; }
 
         [MaxLength(11)]
@@ -23,9 +22,7 @@ namespace Cadasvan01.Models
 
         [MaxLength(7)]
         public string Placa { get; set; }
-        //[Phone]
-        // [DataType(DataType.PhoneNumber)]
-        //public string Telefone { get; set; }
+        
         public UsuarioEnum Tipo { get; set; }
 
        // [ForeignKey("CidadeId")]
