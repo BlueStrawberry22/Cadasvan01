@@ -11,7 +11,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Cadasvan01.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Motorista")]
     public class AccountController : Controller
     {
         public readonly UserManager<Usuario> _userManager;

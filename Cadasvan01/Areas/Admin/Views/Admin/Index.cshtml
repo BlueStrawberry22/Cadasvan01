@@ -6,9 +6,18 @@
            <h2>Esta é a área do Administrador</h2>
         </p>
     </div>
-    <a asp-area="Admin" asp-controller="Cidades" asp-action="Index">Cidades</a>
-    <br/>
-    <a asp-area="Admin" asp-controller="Account" asp-action="Register">Registro de motoristas</a>
-    <br/>
-    <a asp-area="Admin" asp-controller="AdminListaMotoristas" asp-action="ListaMotoristas">Lista de usuários</a>
+    <div>
+        <h5> Para adicionar uma nova cidade basta clicar:</h5>
+        <a asp-area="Admin" asp-controller="Cidades" asp-action="Index">Cidades</a>
+    </div>
+    <br />
+    <div>
+        <h5> Para criar um novo usuario de motorista:</h5>
+        <a asp-area="Admin" asp-controller="Account" asp-action="Register">Registro de motoristas</a>
+    </div>
+    <br />
+    <div>
+        <h5> Verificar a lista de usuários cadastrado no sistema:</h5>
+        <a asp-area="Admin" asp-controller="AdminListaMotoristas" asp-action="ListaMotoristas">Lista de usuários</a>
+    </div>
 </div>

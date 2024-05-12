@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
     [Area("Motorista")]
-    [Authorize]
+   
+    [Authorize(Roles = "Motorista")]
+    [Authorize(Roles = "Admin")]
     public class MotoristaController : Controller
     {
         public IActionResult Index()

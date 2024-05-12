@@ -56,7 +56,7 @@ namespace Cadasvan01.Controllers
         }
 
         // GET: ConfirmacaoDePresencas/Create
-        [Authorize(Roles = "Aluno")]
+        
         public IActionResult Create()
         {
             ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto"); ;
@@ -69,7 +69,7 @@ namespace Cadasvan01.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Aluno")]
+        
 
         public async Task<IActionResult> Create(ConfirmacaoDePresenca confirmacaoDePresenca)
         {
@@ -85,7 +85,7 @@ namespace Cadasvan01.Controllers
         }
 
         // GET: ConfirmacaoDePresencas/Edit/5
-        [Authorize(Roles = "Aluno")]
+        
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -109,7 +109,7 @@ namespace Cadasvan01.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Aluno")]
+        
 
         public async Task<IActionResult> Edit(int id, ConfirmacaoDePresenca confirmacaoDePresenca)
         {
