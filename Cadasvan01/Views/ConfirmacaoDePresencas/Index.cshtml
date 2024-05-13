@@ -50,9 +50,13 @@
                 @Html.DisplayFor(modelItem => item.Motorista.NomeCompleto)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ConfirmacaoDePresencaID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ConfirmacaoDePresencaID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ConfirmacaoDePresencaID">Delete</a>
+                
+             <a asp-action="Edit" asp-route-id="@item.ConfirmacaoDePresencaID" class="btn btn-outline-primary btn-sm">Editar</a>
+
+             <a asp-action="Details" asp-route-id="@item.ConfirmacaoDePresencaID" class="btn btn-outline-info btn-sm">Detalhes</a>
+
+             <a asp-action="Delete" asp-route-id="@item.ConfirmacaoDePresencaID" class="btn btn-outline-danger btn-sm">Deletar</a>
+               
             </td>
         </tr>
 }
