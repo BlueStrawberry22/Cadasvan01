@@ -26,11 +26,12 @@ namespace Cadasvan01.Controllers
         public async Task<IActionResult> Index()
         {
             var motoristaID = "motoristaID";
+            var alunoID = "AlunoId";
             var usuariosConfirmados = await _context.Presencas.Where(w => w.DataViagemConfirmada == DateTime.Now)
                 .ToListAsync();
 
 
-            var applicationDbContext = _context.Presencas.Include(c => c.Motorista).Include(c => c.Usuario);
+            var applicationDbContext = _context.Presencas.Include(c => c.Motorista).Include(c => c.Aluno);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -45,7 +46,7 @@ namespace Cadasvan01.Controllers
 
             var confirmacaoDePresenca = await _context.Presencas
                 .Include(c => c.Motorista)
-                .Include(c => c.Usuario)
+                .Include(c => c.Aluno)
                 .FirstOrDefaultAsync(m => m.ConfirmacaoDePresencaID == id);
             if (confirmacaoDePresenca == null)
             {
@@ -60,7 +61,7 @@ namespace Cadasvan01.Controllers
         public IActionResult Create()
         {
             ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto"); ;
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Aluno), "Id", "NomeCompleto");
+            ViewData["AlunoId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Aluno), "Id", "NomeCompleto");
             return View();
         }
 
@@ -80,7 +81,7 @@ namespace Cadasvan01.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MotoristaId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.MotoristaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.UsuarioId);
+            ViewData["AlunoId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.AlunoId);
             return View(confirmacaoDePresenca);
         }
 
@@ -100,7 +101,7 @@ namespace Cadasvan01.Controllers
                 return NotFound();
             }
             ViewData["MotoristaId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.MotoristaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.UsuarioId);
+            ViewData["AlunoId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.AlunoId);
             return View(confirmacaoDePresenca);
         }
 
@@ -139,7 +140,7 @@ namespace Cadasvan01.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MotoristaId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.MotoristaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.UsuarioId);
+            ViewData["AlunoId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", confirmacaoDePresenca.AlunoId);
             return View(confirmacaoDePresenca);
         }
 
@@ -154,7 +155,7 @@ namespace Cadasvan01.Controllers
 
             var confirmacaoDePresenca = await _context.Presencas
                 .Include(c => c.Motorista)
-                .Include(c => c.Usuario)
+                .Include(c => c.Aluno)
                 .FirstOrDefaultAsync(m => m.ConfirmacaoDePresencaID == id);
             if (confirmacaoDePresenca == null)
             {

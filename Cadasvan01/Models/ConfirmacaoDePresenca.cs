@@ -9,7 +9,7 @@ namespace Cadasvan01.Models
 
 
 
-        public string UsuarioId { get; set; }
+        public string AlunoId { get; set; }
         public string MotoristaId { get; set; }
         public bool ConfirmadoPresencaIda { get; set; }
         public bool ConfirmadoPresencaVolta { get; set; }
@@ -17,7 +17,7 @@ namespace Cadasvan01.Models
         public DateTime DataViagemConfirmada {  get; set; }
 
 
-        public virtual Usuario Usuario { get; set; }
+        public virtual Usuario Aluno { get; set; }
         public virtual Usuario Motorista { get; set; }
     }
 }

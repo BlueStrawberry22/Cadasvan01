@@ -13,37 +13,43 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UsuarioId" class="control-label"></label>
-                <select asp-for="UsuarioId" class ="form-control" asp-items="ViewBag.UsuarioId"></select>
+                <label asp-for="Aluno" class="control-label"></label>
+                <select asp-for="AlunoId" class="form-control" asp-items="ViewBag.AlunoId"></select>
             </div>
+            <br />
             <div class="form-group">
                 <label asp-for="MotoristaId" class="control-label"></label>
-                <select asp-for="MotoristaId" class ="form-control" asp-items="ViewBag.MotoristaId"></select>
+                <select asp-for="MotoristaId" class="form-control" asp-items="ViewBag.MotoristaId"></select>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="ConfirmadoPresencaIda" /> @Html.DisplayNameFor(model => model.ConfirmadoPresencaIda)
+            <p></p>
+            <div class="form-group form-switch">
+                <label class="form-check-label" for="flexSwitchCheckDefault">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" asp-for="ConfirmadoPresencaIda" /> Confirme sua ida 
                 </label>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="ConfirmadoPresencaVolta" /> @Html.DisplayNameFor(model => model.ConfirmadoPresencaVolta)
+            <br />
+            <div class="form-group form-switch">
+                <label class="form-check-label" for="flexSwitchCheckDefault">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" asp-for="ConfirmadoPresencaVolta" />Confirme sua volta
                 </label>
             </div>
+            <p></p>
             <div class="form-group">
                 <label asp-for="DataViagemConfirmada" class="control-label"></label>
                 <input asp-for="DataViagemConfirmada" class="form-control" />
                 <span asp-validation-for="DataViagemConfirmada" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-outline-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <p><p>
+    <a asp-action="Index" class="btn btn-outline-dark">Back to List</a>
 </div>
 
 @section Scripts {
