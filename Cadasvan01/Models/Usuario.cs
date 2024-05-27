@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using Cadasvan01.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection.PortableExecutable;
 
 namespace Cadasvan01.Models
 {
@@ -22,14 +20,16 @@ namespace Cadasvan01.Models
 
         [MaxLength(7)]
         public string Placa { get; set; }
-        
+
         public UsuarioEnum Tipo { get; set; }
 
-       // [ForeignKey("CidadeId")]
+        // Foreign key for Motorista (if this user is an Aluno)
+        public string? MotoristaId { get; set; }
+        public virtual Usuario? Motorista { get; set; }
+
+        // Collection of Alunos (if this user is a Motorista)
+        public virtual ICollection<Usuario>? Alunos { get; set; }
+
         public virtual Cidade? Cidade { get; set; }
-
-        //public virtual ICollection<ConfirmacaoDePresenca>? ConfirmadosAluno { get; set; }
-        //public virtual ICollection<ConfirmacaoDePresenca>? ConfirmadosMotorista { get; set; }
-
     }
 }

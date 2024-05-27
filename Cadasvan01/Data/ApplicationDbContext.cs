@@ -1,7 +1,6 @@
 ﻿using Cadasvan01.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore;
 
 namespace Cadasvan01.Data
 {
@@ -11,11 +10,22 @@ namespace Cadasvan01.Data
             : base(options)
         {
         }
+
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Cidade> Cidades { get; set; }
+        public DbSet<ConfirmacaoDePresenca> Presencas { get; set; }
+        public DbSet<Aviso> Avisos { get; set; }
+        public DbSet<CodigoVinculacao> CodigosVinculacao { get; set; }
 
-        public DbSet<Cidade> Cidades { get; set; }  
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        public DbSet<ConfirmacaoDePresenca> Presencas { get; set;}
-        public DbSet<Aviso> Avisos { get; set; }    
+            modelBuilder.Entity<Usuario>()
+                .HasMany(u => u.Alunos)
+                .WithOne(u => u.Motorista)
+                .HasForeignKey(u => u.MotoristaId)
+                .IsRequired(false);
+        }
     }
 }

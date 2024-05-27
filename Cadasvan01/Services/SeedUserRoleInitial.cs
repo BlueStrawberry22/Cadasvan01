@@ -76,6 +76,7 @@ namespace Cadasvan01.Services
                     NormalizedEmail = email.ToUpper(),
                     EmailConfirmed = true,
                     LockoutEnabled = false,
+                    MotoristaId = null,
                     CidadeId = 1,
                     SecurityStamp = Guid.NewGuid().ToString()
                 };

@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Vincular Motorista";
+}
+
+<h2>Vincular Motorista</h2>
+
+<form method="post" asp-action="VincularMotorista" asp-controller="AlunoCodigo">
+    <div>
+        <label for="codigo">Código de Vinculação</label>
+        <input type="text" id="codigo" name="codigo" required />
+    </div>
+    <button type="submit">Vincular</button>
+</form>
+
+@if (!String.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
