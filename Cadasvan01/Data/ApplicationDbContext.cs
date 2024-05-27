@@ -11,8 +11,6 @@ namespace Cadasvan01.Data
             : base(options)
         {
         }
-
-
         public DbSet<Usuario> Usuarios { get; set; }
 
         public DbSet<Cidade> Cidades { get; set; }  

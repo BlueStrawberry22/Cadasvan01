@@ -8,21 +8,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cadasvan01.Areas.Admin.Controllers
+namespace Cadasvan01.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin")]
-    public class AccountController : Controller
+    [Authorize("Admin")]
+    public class AdminAccountController : Controller
     {
         public readonly UserManager<Usuario> _userManager;
-        public readonly SignInManager<Usuario> _signInManager;
         public readonly ApplicationDbContext _context;
 
-        public AccountController(ApplicationDbContext context, UserManager<Usuario> userManager, SignInManager<Usuario> signInManager)
+        public AdminAccountController(ApplicationDbContext context, UserManager<Usuario> userManager)
         {
             _context = context;
             _userManager = userManager;
-            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -45,7 +43,6 @@ namespace Cadasvan01.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                //criando um usuario com os dados que vem da viewModel
                 var user = new Usuario
                 {
                     UserName = model.Email,
@@ -53,13 +50,12 @@ namespace Cadasvan01.Areas.Admin.Controllers
                     NomeCompleto = model.NomeCompleto,
                     CPF = model.CPF,
                     Tipo = Enums.UsuarioEnum.Motorista,
-                    CNH = model.CNH,
                     Placa = model.Placa,
+                    CNH = model.CNH,
                     CidadeId = model.CidadeId,
                     Endereco = model.Endereco
-
+                    
                 };
-                //usando identity para criar usuário
                 var result = await _userManager.CreateAsync(user, model.Senha);
 
                 if (result.Succeeded) 
@@ -73,6 +69,13 @@ namespace Cadasvan01.Areas.Admin.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+            return View();
+        }
+
+        [HttpGet]
+        [Route("/Account/AccessDenied")]
+        public ActionResult AccessDenied()
+        {
             return View();
         }
     }

@@ -35,30 +35,48 @@ namespace Cadasvan01.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View(model);
+            }
 
             var result = await _signInManager.PasswordSignInAsync(user, model.Senha, model.RememberMe, false);
             if (result.Succeeded)
             {
                 if (await _userManager.IsInRoleAsync(user, "Admin"))
                 {
-                    // Redirecione para a home do admin
                     return RedirectToAction("Index", "Admin");
+                }
+                else if (await _userManager.IsInRoleAsync(user, "Motorista"))
+                {
+                    return RedirectToAction("Index", "Motorista");
+                }
+                else if (await _userManager.IsInRoleAsync(user, "Aluno"))
+                {
+                    return RedirectToAction("Index", "Aluno");
                 }
                 else
                 {
-                    // Redirecione para a home padrão (ou outra página, se necessário)
                     return RedirectToAction(nameof(Index), "Home");
                 }
             }
             else
             {
-                return View();
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View(model);
             }
         }
+
+
 
 
         [HttpGet]
@@ -77,31 +95,29 @@ namespace Cadasvan01.Controllers
         }
 
         [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                //criando um usuario com os dados que vem da viewModel
                 var user = new Usuario
                 {
                     UserName = model.Email,
                     Email = model.Email,
                     NomeCompleto = model.NomeCompleto,
                     CPF = model.CPF,
-                    Tipo = Enums.UsuarioEnum.Aluno,
-                    Placa = "",
+                    Tipo = model.Tipo,  // Use the type from the model
+                    Placa = model.Placa ?? string.Empty,
                     CidadeId = model.CidadeId,
                     Endereco = model.Endereco
-
                 };
-                //usando identity para criar usuário
-                var result = await _userManager.CreateAsync(user, model.Senha);
 
-                if (result.Succeeded) //se sucesso manda ele fazer login e redireciona para a home
+                var result = await _userManager.CreateAsync(user, model.Senha);
+                if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, model.Tipo.ToString());  // Add to role based on the user type
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    await _userManager.AddToRoleAsync(user, "Aluno");
-                    return RedirectToAction("Index", "home");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 foreach (var error in result.Errors)
@@ -109,8 +125,15 @@ namespace Cadasvan01.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-            return View();
+
+            // Re-populate the view data in case of errors
+            ViewData["SelectTipo"] = SelectListExtensions.MontarSelectListParaEnum(new Usuario().Tipo);
+            var cidades = await _context.Cidades.OrderBy(o => o.Nome).ToListAsync();
+            ViewData["Cidades"] = new SelectList(cidades, "CidadeId", "Nome");
+
+            return View(model);
         }
+
 
 
 

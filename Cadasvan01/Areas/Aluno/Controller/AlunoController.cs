@@ -6,17 +6,17 @@ using Cadasvan01.Data;
 using Microsoft.EntityFrameworkCore;
 using Cadasvan01.Enums;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
-    [Area("Motorista")]
-    [Authorize(Roles ="Motorista")]
-    public class MotoristaController : Controller
+    [Area("Aluno")]
+    [Authorize(Roles = "Aluno")]
+    public class AlunoController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
     }
-
 }

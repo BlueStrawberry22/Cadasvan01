@@ -10,7 +10,7 @@ using System;
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
     [Area("Motorista")]
-    [Authorize]
+    [Authorize(Roles ="Motorista")]
     public class MotoristaListaAlunosController : Controller
     {
         public readonly UserManager<Usuario> _userManager;

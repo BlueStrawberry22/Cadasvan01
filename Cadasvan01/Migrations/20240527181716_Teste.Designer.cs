@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240430114032_Teste")]
+    [Migration("20240527181716_Teste")]
     partial class Teste
     {
         /// <inheritdoc />
