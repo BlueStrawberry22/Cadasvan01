@@ -32,4 +32,5 @@ namespace Cadasvan01.Models
 
         public virtual Cidade? Cidade { get; set; }
     }
+
 }

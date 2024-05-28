@@ -1,41 +1,78 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
-using Cadasvan01.Data;
 using Cadasvan01.Models;
-using Microsoft.AspNetCore.Identity;
+using Cadasvan01.Services;
+using Cadasvan01.Data;
+using Microsoft.EntityFrameworkCore;
+using Cadasvan01.Enums;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
     [Area("Motorista")]
-    [Authorize(Roles = "Motorista")]
+    [Authorize(Roles="Motorista")]
+    
     public class MotoristaController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Usuario> _userManager;
 
-        public MotoristaController(ApplicationDbContext context)
+        public MotoristaController(ApplicationDbContext context, UserManager<Usuario> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
-        [Authorize(Roles ="Aluno")]
-
-        [HttpGet]
-        public async Task<IActionResult> InfosMotorista(string id)
+        
+        public async Task<IActionResult> Index()
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                return NotFound();
-            }
+            var motoristaId = _userManager.GetUserId(User);
+            var motorista = await _context.Usuarios
+                .Include(u => u.Alunos)
+                .ThenInclude(a => a.Cidade)
+                .FirstOrDefaultAsync(u => u.Id == motoristaId);
 
-            var motorista = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
             if (motorista == null)
             {
                 return NotFound();
             }
 
-            return View(motorista);
+            var model = new MotoristaIndexViewModel
+            {
+                Motorista = motorista,
+                AlunosVinculados = motorista.Alunos.ToList()
+            };
+
+            return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> AlunosVinculados()
+        {
+            var motoristaId = _userManager.GetUserId(User);
+            var motorista = await _context.Usuarios
+                .Include(m => m.Alunos)
+                    .ThenInclude(a => a.Cidade)
+                .FirstOrDefaultAsync(m => m.Id == motoristaId);
+
+            if (motorista == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new MotoristaIndexViewModel
+            {
+                Motorista = motorista,
+                AlunosVinculados = motorista.Alunos.ToList()
+            };
+
+            return View(viewModel);
         }
     }
+
+
+    public class MotoristaIndexViewModel
+    {
+        public Usuario Motorista { get; set; }
+        public List<Usuario> AlunosVinculados { get; set; }
+    }
+
 }

@@ -1,0 +1,41 @@
+﻿@model Cadasvan01.Areas.Motorista.Controllers.MotoristaIndexViewModel
+
+<h2>Alunos Vinculados</h2>
+
+@if (Model.AlunosVinculados != null && Model.AlunosVinculados.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome Completo</th>
+                <th>Email</th>
+                <th>Cidade</th>
+                <th>Endereço</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var aluno in Model.AlunosVinculados)
+            {
+                <tr>
+                    <td>@aluno.NomeCompleto</td>
+                    <td>@aluno.Email</td>
+                    <td>
+                        @if (aluno.Cidade != null)
+                        {
+                            @aluno.Cidade.Nome
+                        }
+                        else
+                        {
+                            <span class="text-danger">Cidade não encontrada</span>
+                        }
+                    </td>
+                    <td>@aluno.Endereco</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Você não tem alunos vinculados.</p>
+}

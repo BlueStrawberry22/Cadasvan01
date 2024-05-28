@@ -1,15 +1,8 @@
-﻿
-<br />
-<div class="container">
-    <div class="jumbotron">
-        <p>
-           <h2>Esta é a área do Motorista.</h2>
-        </p>
+﻿@model Cadasvan01.Areas.Motorista.Controllers.MotoristaIndexViewModel
 
-</div>
-    <a asp-area="Motorista" asp-controller="MotoristaCodigo" asp-action="GerarCodigo">Gerar um código de vinculação</a>
-    <br />
-    <a asp-area="Motorista" asp-controller="MotoristaListaAlunos" asp-action="ListaAlunos">Alunos e endereços</a>
-    <br />
-    
-</div>
+<h2>Bem-vindo, @Model.Motorista.NomeCompleto</h2>
+
+<a asp-area="Motorista" asp-controller="MotoristaCodigo" asp-action="GerarCodigo">Gerar um código de vinculação</a>
+<p><a href="@Url.Action("AlunosVinculados", "Motorista", new { area = "Motorista" })">Ver Alunos Vinculados</a></p>
+
+
