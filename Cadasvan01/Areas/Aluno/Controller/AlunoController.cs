@@ -48,12 +48,28 @@ namespace Cadasvan01.Areas.Aluno.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> InfosMotorista(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var motorista = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            if (motorista == null)
+            {
+                return NotFound();
+            }
+
+            return View(motorista);
+        }
     }
-    [Area("Aluno")]
-    [Authorize(Roles = "Aluno")]
+    [Authorize(Roles ="Aluno")]
+
     public class AlunoIndexViewModel
     {
-        
         public Usuario Aluno { get; set; }
         public Usuario Motorista { get; set; }
     }

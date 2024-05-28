@@ -4,12 +4,14 @@
 
 @if (Model.Motorista != null)
 {
-    <partial name="_MotoristaInfo" model="Model.Motorista" />
+    <p>Você está vinculado a um motorista.</p>
+    <a href="@Url.Action("InfosMotorista", "Aluno", new { id = Model.Motorista.Id, area = "Aluno" })">Ver informações do motorista</a>
 }
 else
 {
     <p>Você ainda não está vinculado a um motorista.</p>
-    <a asp-area="Aluno" asp-controller="AlunoCodigo" asp-action="VincularMotorista">Se vincule a um motorista</a>
 }
+
+
 <br />
 

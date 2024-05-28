@@ -1,22 +1,41 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Cadasvan01.Models;
-using Cadasvan01.Services;
-using Cadasvan01.Data;
 using Microsoft.EntityFrameworkCore;
-using Cadasvan01.Enums;
-using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using System.Threading.Tasks;
+using Cadasvan01.Data;
+using Cadasvan01.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
     [Area("Motorista")]
-    [Authorize(Roles ="Motorista")]
+    [Authorize(Roles = "Motorista")]
     public class MotoristaController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public MotoristaController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
+        }
+        [Authorize(Roles ="Aluno")]
+
+        [HttpGet]
+        public async Task<IActionResult> InfosMotorista(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var motorista = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            if (motorista == null)
+            {
+                return NotFound();
+            }
+
+            return View(motorista);
         }
     }
-
 }
