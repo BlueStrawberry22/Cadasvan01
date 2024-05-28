@@ -1,4 +1,5 @@
 ﻿using Cadasvan01.Data;
+using Cadasvan01.Enums;
 using Cadasvan01.Extensions;
 using Cadasvan01.Models;
 using Cadasvan01.ViewModel;
@@ -79,6 +80,7 @@ namespace Cadasvan01.Controllers
 
 
 
+
         [HttpGet]
         public async Task<IActionResult> Register()
         {
@@ -95,7 +97,6 @@ namespace Cadasvan01.Controllers
         }
 
         [HttpPost]
-        [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -106,7 +107,7 @@ namespace Cadasvan01.Controllers
                     Email = model.Email,
                     NomeCompleto = model.NomeCompleto,
                     CPF = model.CPF,
-                    Tipo = model.Tipo,  // Use the type from the model
+                    Tipo = UsuarioEnum.Aluno,  // Use the type from the model
                     Placa = model.Placa ?? string.Empty,
                     CidadeId = model.CidadeId,
                     Endereco = model.Endereco
@@ -115,9 +116,9 @@ namespace Cadasvan01.Controllers
                 var result = await _userManager.CreateAsync(user, model.Senha);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, model.Tipo.ToString());  // Add to role based on the user type
+                    await _userManager.AddToRoleAsync(user, "Aluno");
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Aluno");
                 }
 
                 foreach (var error in result.Errors)
@@ -133,6 +134,7 @@ namespace Cadasvan01.Controllers
 
             return View(model);
         }
+
 
 
 

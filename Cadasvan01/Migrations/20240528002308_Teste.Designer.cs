@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240527181716_Teste")]
+    [Migration("20240528002308_Teste")]
     partial class Teste
     {
         /// <inheritdoc />
@@ -60,6 +60,30 @@ namespace Cadasvan01.Migrations
                     b.HasKey("CidadeId");
 
                     b.ToTable("Cidades");
+                });
+
+            modelBuilder.Entity("Cadasvan01.Models.CodigoVinculacao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<string>("MotoristaId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MotoristaId");
+
+                    b.ToTable("CodigosVinculacao");
                 });
 
             modelBuilder.Entity("Cadasvan01.Models.ConfirmacaoDePresenca", b =>
@@ -160,6 +184,9 @@ namespace Cadasvan01.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("MotoristaId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("NomeCompleto")
                         .HasColumnType("nvarchar(max)");
 
@@ -200,6 +227,8 @@ namespace Cadasvan01.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CidadeId");
+
+                    b.HasIndex("MotoristaId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -318,6 +347,17 @@ namespace Cadasvan01.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Cadasvan01.Models.CodigoVinculacao", b =>
+                {
+                    b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
+                        .WithMany()
+                        .HasForeignKey("MotoristaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Motorista");
+                });
+
             modelBuilder.Entity("Cadasvan01.Models.ConfirmacaoDePresenca", b =>
                 {
                     b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
@@ -341,7 +381,13 @@ namespace Cadasvan01.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
+                        .WithMany("Alunos")
+                        .HasForeignKey("MotoristaId");
+
                     b.Navigation("Cidade");
+
+                    b.Navigation("Motorista");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -398,6 +444,11 @@ namespace Cadasvan01.Migrations
             modelBuilder.Entity("Cadasvan01.Models.Cidade", b =>
                 {
                     b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
+                {
+                    b.Navigation("Alunos");
                 });
 #pragma warning restore 612, 618
         }

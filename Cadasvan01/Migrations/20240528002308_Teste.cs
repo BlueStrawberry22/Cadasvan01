@@ -85,6 +85,7 @@ namespace Cadasvan01.Migrations
                     CNH = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
                     Placa = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: true),
                     Tipo = table.Column<int>(type: "int", nullable: false),
+                    MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -103,6 +104,11 @@ namespace Cadasvan01.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_AspNetUsers_MotoristaId",
+                        column: x => x.MotoristaId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Cidades_CidadeId",
                         column: x => x.CidadeId,
@@ -197,6 +203,26 @@ namespace Cadasvan01.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CodigosVinculacao",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Codigo = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CodigosVinculacao", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CodigosVinculacao_AspNetUsers_MotoristaId",
+                        column: x => x.MotoristaId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Presencas",
                 columns: table => new
                 {
@@ -261,11 +287,21 @@ namespace Cadasvan01.Migrations
                 column: "CidadeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_MotoristaId",
+                table: "AspNetUsers",
+                column: "MotoristaId");
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CodigosVinculacao_MotoristaId",
+                table: "CodigosVinculacao",
+                column: "MotoristaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Presencas_MotoristaId",
@@ -298,6 +334,9 @@ namespace Cadasvan01.Migrations
 
             migrationBuilder.DropTable(
                 name: "Avisos");
+
+            migrationBuilder.DropTable(
+                name: "CodigosVinculacao");
 
             migrationBuilder.DropTable(
                 name: "Presencas");

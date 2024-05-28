@@ -71,12 +71,5 @@ namespace Cadasvan01.Controllers
             }
             return View();
         }
-
-        [HttpGet]
-        [Route("/Account/AccessDenied")]
-        public ActionResult AccessDenied()
-        {
-            return View();
-        }
     }
 }

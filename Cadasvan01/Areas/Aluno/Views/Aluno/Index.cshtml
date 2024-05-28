@@ -1,13 +1,15 @@
-﻿<br />
-<div class="container">
-    <div class="jumbotron">
-        <p>
-            <h2>Esta é a área do Aluno.</h2>
-        </p>
+﻿@model Cadasvan01.Areas.Aluno.Controllers.AlunoIndexViewModel
 
-    </div>
+<h2>Bem-vindo, @Model.Aluno.NomeCompleto</h2>
+
+@if (Model.Motorista != null)
+{
+    <partial name="_MotoristaInfo" model="Model.Motorista" />
+}
+else
+{
+    <p>Você ainda não está vinculado a um motorista.</p>
     <a asp-area="Aluno" asp-controller="AlunoCodigo" asp-action="VincularMotorista">Se vincule a um motorista</a>
-    <br />
+}
+<br />
 
-
-</div>
