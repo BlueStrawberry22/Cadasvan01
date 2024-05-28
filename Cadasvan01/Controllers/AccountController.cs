@@ -106,7 +106,7 @@ namespace Cadasvan01.Controllers
                     Email = model.Email,
                     NomeCompleto = model.NomeCompleto,
                     CPF = model.CPF,
-                    Tipo = model.Tipo,  // Use the type from the model
+                    Tipo = Enums.UsuarioEnum.Aluno,  // Use the type from the model
                     Placa = model.Placa ?? string.Empty,
                     CidadeId = model.CidadeId,
                     Endereco = model.Endereco
@@ -115,8 +115,8 @@ namespace Cadasvan01.Controllers
                 var result = await _userManager.CreateAsync(user, model.Senha);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, model.Tipo.ToString());  // Add to role based on the user type
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _userManager.AddToRoleAsync(user, "Aluno");
                     return RedirectToAction("Index", "Home");
                 }
 
