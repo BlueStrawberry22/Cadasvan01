@@ -55,7 +55,24 @@ namespace Cadasvan01.Areas.Aluno.Controllers
 
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> InfosMotorista(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var motorista = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            if (motorista == null)
+            {
+                return NotFound();
+            }
+
+            return View(motorista);
+        }
     }
+
 
     public class AlunoIndexViewModel
     {
