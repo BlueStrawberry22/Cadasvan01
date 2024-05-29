@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Cadasvan01.Models.Aviso>
+
+<h2>Avisos</h2>
+<a asp-action="Criar">Criar Novo Aviso</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Conteudo</th>
+            <th>DataPublicacao</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aviso in Model)
+        {
+            <tr>
+                <td>@aviso.Titulo</td>
+                <td>@aviso.Conteudo</td>
+                <td>@aviso.DataPublicacao</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@aviso.AvisoId">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@aviso.AvisoId">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

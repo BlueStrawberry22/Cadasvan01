@@ -1,0 +1,16 @@
+﻿@model Cadasvan01.Models.Aviso
+
+<h2>Editar Aviso</h2>
+
+<form asp-action="Editar" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="AvisoId" />
+        <label asp-for="Titulo"></label>
+        <input asp-for="Titulo" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Conteudo"></label>
+        <textarea asp-for="Conteudo" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>

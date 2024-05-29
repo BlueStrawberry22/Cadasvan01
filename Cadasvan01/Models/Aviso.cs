@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cadasvan01.Models
 {
@@ -6,12 +6,15 @@ namespace Cadasvan01.Models
     {
         public int AvisoId { get; set; }
 
+        [Required]
+        public string Titulo { get; set; }
 
-        public string Mensagem { get; set; }
-        public DateTime DataDoAviso { get; set; }
+        [Required]
+        public string Conteudo { get; set; }
 
-        // public virtual Usuario Usuario { get; set; }
-        // public virtual Usuario Motorista { get; set; }
+        public DateTime DataPublicacao { get; set; } = DateTime.Now;
 
+        public string MotoristaId { get; set; }
+        public virtual Usuario Motorista { get; set; }
     }
 }

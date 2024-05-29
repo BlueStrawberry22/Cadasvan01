@@ -1,6 +1,6 @@
 ﻿@model Cadasvan01.Areas.Motorista.Controllers.MotoristaIndexViewModel
 
-<h2>Alunos Vinculados</h2>
+<h2>Alunos e endereços</h2>
 
 @if (Model.AlunosVinculados != null && Model.AlunosVinculados.Count > 0)
 {
@@ -8,7 +8,6 @@
         <thead>
             <tr>
                 <th>Nome Completo</th>
-                <th>Email</th>
                 <th>Cidade</th>
                 <th>Endereço</th>
             </tr>
@@ -18,7 +17,6 @@
             {
                 <tr>
                     <td>@aluno.NomeCompleto</td>
-                    <td>@aluno.Email</td>
                     <td>
                         @if (aluno.Cidade != null)
                         {

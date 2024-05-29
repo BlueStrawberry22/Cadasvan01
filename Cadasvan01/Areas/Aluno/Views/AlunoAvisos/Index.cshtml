@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Cadasvan01.Models.Aviso>
+
+<h2>Avisos do Motorista</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Conteudo</th>
+            <th>DataPublicacao</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aviso in Model)
+        {
+            <tr>
+                <td>@aviso.Titulo</td>
+                <td>@aviso.Conteudo</td>
+                <td>@aviso.DataPublicacao</td>
+            </tr>
+        }
+    </tbody>
+</table>
