@@ -7,11 +7,8 @@
     <p>Você está vinculado a um motorista.</p>
     <a href="@Url.Action("InfosMotorista", "Aluno", new { id = Model.Motorista.Id, area = "Aluno" })">Ver informações do motorista</a>
     <br>
-
-    <a asp-area="Aluno" asp-controller="AlunoAvisos" asp-action="index" class="btn btn-primary">Avisos</a>
     <br />
-
-    
+    @Html.Partial("_AlunoAvisosPartial", Model.Avisos)
 }
 else
 {

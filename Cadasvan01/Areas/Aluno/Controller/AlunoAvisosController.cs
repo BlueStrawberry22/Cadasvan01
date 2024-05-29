@@ -35,7 +35,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
                 .Where(a => a.MotoristaId == aluno.MotoristaId)
                 .ToListAsync();
 
-            return View(avisos);
+            return PartialView("_AlunoAvisosPartial", avisos);
         }
     }
 }
