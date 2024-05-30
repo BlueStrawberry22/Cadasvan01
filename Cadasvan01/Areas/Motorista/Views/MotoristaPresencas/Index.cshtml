@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Cadasvan01.Models.Presenca>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataViagem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConfirmaIda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConfirmaVolta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Usuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Motorista)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataViagem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConfirmaIda)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConfirmaVolta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Motorista.Id)
+            </td>
+            <td>
+               
+                <a asp-action="Details" asp-route-id="@item.PresencaId">Details</a> |
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

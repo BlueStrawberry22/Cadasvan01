@@ -8,6 +8,9 @@
     <a href="@Url.Action("InfosMotorista", "Aluno", new { id = Model.Motorista.Id, area = "Aluno" })" class="styled-link">
         Motorista contratado<span class="arrow">></span>
     </a>
+    <div>
+        <a asp-area="Aluno" asp-controller="AlunoPresencas" asp-action="Index">Presenças</a>
+    </div>
     <br />
     @Html.Partial("_AlunoAvisosPartial", Model.Avisos)
 }

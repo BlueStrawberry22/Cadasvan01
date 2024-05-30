@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Cadasvan01.Models.Presenca>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Data
+            </th>
+            <th>
+                Vai a facul
+            </th>
+            <th>
+                Volta da facul
+            </th>
+            <th>
+                Seu motorista
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var presenca in Model) {
+        <tr>
+            <td>
+                @presenca.DataViagem)
+            </td>
+            <td>
+                @presenca.ConfirmaIda)
+            </td>
+            <td>
+                @presenca.ConfirmaVolta)
+            </td>
+            <td>
+                @presenca.Motorista.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@presenca.PresencaId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@presenca.PresencaId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@presenca.PresencaId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
