@@ -90,8 +90,8 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             {
                 return NotFound();
             }
-            ViewData["MotoristaId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", presenca.MotoristaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "NomeCompleto", presenca.UsuarioId);
+            ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto"); ;
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Aluno), "Id", "NomeCompleto");
             return View(presenca);
         }
 

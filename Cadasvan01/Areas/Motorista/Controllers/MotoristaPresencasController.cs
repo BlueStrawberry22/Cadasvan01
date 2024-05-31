@@ -26,19 +26,31 @@ namespace Cadasvan01.Areas.Motorista.Controllers
         // GET: Motorista/MotoristaPresencas
         public async Task<IActionResult> Index()
         {
-            var alunoId = _userManager.GetUserId(User);
-            var aluno = await _context.Usuarios.FindAsync(alunoId);
-            if (aluno == null || aluno.MotoristaId == null)
+            var applicationDbContext = _context.Presencas.Include(p => p.Motorista).Include(p => p.Usuario);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        // está comentado pois primerio precisamos ver se está funcionando o jeito casual 
+
+
+     /*   public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
 
             var presenca = await _context.Presencas
-                .Where(a => a.MotoristaId == aluno.MotoristaId)
-                .ToListAsync();
+                .Include(p => p.Motorista)
+                .Include(p => p.Usuario)
+                .FirstOrDefaultAsync(m => m.PresencaId == id);
+            if (presenca == null)
+            {
+                return NotFound();
+            }
 
-            return PartialView("_MotoristaAvisosPartial", presenca);
-        }
+            return View(presenca);
+        }*/
 
     }
 }

@@ -39,7 +39,6 @@
     <None Include="Areas\Admin\Views\Cidades\Edit.cshtml" />
     <None Include="Areas\Admin\Views\Cidades\Index.cshtml" />
     <None Include="Areas\Aluno\Views\Aluno\Index.cshtml" />
-    <None Include="Areas\Motorista\Views\MotoristaPresencas\Index.cshtml" />
   </ItemGroup>
 
 </Project>
