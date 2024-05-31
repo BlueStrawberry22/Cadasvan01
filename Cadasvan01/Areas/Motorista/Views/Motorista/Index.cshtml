@@ -4,6 +4,10 @@
 
 </p>
 
+<div>
+    <a asp-area="Motorista" asp-controller="MotoristaPresencas" asp-action="Index" class="btn btn-primary">Presenca</a>
+</div>
+
 <a asp-area="Motorista" asp-controller="MotoristaCodigo" asp-action="GerarCodigo" class="btn btn-primary">Gerar um código de vinculação</a>
 </p>
 <a href="@Url.Action("AlunosVinculados", "Motorista", new { area = "Motorista" })" class="btn btn-primary">Ver Alunos Vinculados</a></p>

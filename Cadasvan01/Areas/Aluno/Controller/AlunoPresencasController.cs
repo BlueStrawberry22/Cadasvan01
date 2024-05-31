@@ -7,28 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cadasvan01.Data;
 using Cadasvan01.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace Cadasvan01.Areas.Aluno.Controllers
 {
     [Area("Aluno")]
-    [Authorize(Roles = "Aluno")]
     public class AlunoPresencasController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<Usuario> _userManager;
 
-        public AlunoPresencasController(ApplicationDbContext context, UserManager<Usuario> userManager)
+        public AlunoPresencasController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
         // GET: Aluno/AlunoPresencas
         public async Task<IActionResult> Index()
         {
-            var motoristaID = _userManager.GetUserId(User);
+            var motoristaID = "motoristaID";
             var usuariosConfirmados = await _context.Presencas.Where(w => w.DataViagem == DateTime.Now)
                 .ToListAsync();
 
@@ -59,7 +54,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
         // GET: Aluno/AlunoPresencas/Create
         public IActionResult Create()
         {
-            ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto");
+            ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto"); ;
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Aluno), "Id", "NomeCompleto");
             return View();
         }
@@ -69,7 +64,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Presenca presenca)
+        public async Task<IActionResult> Create([Bind("PresencaId,UsuarioId,MotoristaId,DataViagem,ConfirmaIda,ConfirmaVolta")] Presenca presenca)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +100,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Presenca presenca)
+        public async Task<IActionResult> Edit(int id, [Bind("PresencaId,UsuarioId,MotoristaId,DataViagem,ConfirmaIda,ConfirmaVolta")] Presenca presenca)
         {
             if (id != presenca.PresencaId)
             {
