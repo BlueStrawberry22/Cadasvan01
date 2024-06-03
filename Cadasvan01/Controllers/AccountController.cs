@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Cadasvan01.Controllers
 {
@@ -16,12 +17,17 @@ namespace Cadasvan01.Controllers
         public readonly UserManager<Usuario> _userManager;
         public readonly SignInManager<Usuario> _signInManager;
         public readonly ApplicationDbContext _context;
+        public readonly IWebHostEnvironment _webHostEnviroment;
 
-        public AccountController(ApplicationDbContext context, UserManager<Usuario> userManager, SignInManager<Usuario> signInManager)
+        public AccountController(ApplicationDbContext context, 
+            UserManager<Usuario> userManager,
+            SignInManager<Usuario> signInManager,
+            IWebHostEnvironment webHostEnviroment)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            _webHostEnviroment = webHostEnviroment;
         }
 
         [HttpGet]
@@ -101,16 +107,30 @@ namespace Cadasvan01.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                if (model.ImagemPerfil != null)
+                {
+                    string folder = "images/perfil";
+                    folder += Guid.NewGuid().ToString()+ "_" + model.ImagemPerfil.FileName;
+
+                    model.CaminhoImagemPerfil = "/"+folder;
+
+                    string serverFolder = Path.Combine(_webHostEnviroment.WebRootPath, folder);
+
+                    await model.ImagemPerfil.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+                }
+                
                 var user = new Usuario
                 {
                     UserName = model.Email,
                     Email = model.Email,
                     NomeCompleto = model.NomeCompleto,
                     CPF = model.CPF,
-                    Tipo = UsuarioEnum.Aluno,  // Use the type from the model
+                    Tipo = UsuarioEnum.Aluno,
                     Placa = model.Placa ?? string.Empty,
                     CidadeId = model.CidadeId,
-                    Endereco = model.Endereco
+                    Endereco = model.Endereco,
+                    CaminhoImagemPerfil = model.CaminhoImagemPerfil,
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Senha);
@@ -134,9 +154,6 @@ namespace Cadasvan01.Controllers
 
             return View(model);
         }
-
-
-
 
 
         [HttpPost]

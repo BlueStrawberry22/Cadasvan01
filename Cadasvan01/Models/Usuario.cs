@@ -6,6 +6,7 @@ namespace Cadasvan01.Models
 {
     public class Usuario : IdentityUser
     {
+        public string? CaminhoImagemPerfil { get; set; }
         public string NomeCompleto { get; set; }
 
         [MaxLength(11)]

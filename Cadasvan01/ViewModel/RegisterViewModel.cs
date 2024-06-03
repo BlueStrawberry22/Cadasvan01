@@ -7,6 +7,12 @@ namespace Cadasvan01.ViewModel
     {
 
         //Campos personalizado do Usuario
+            // Outros campos já existentes...
+
+        [Display(Name = "Imagem de Perfil")]
+        public IFormFile? ImagemPerfil { get; set; }
+
+        public string? CaminhoImagemPerfil { get; set; }
         [Display(Name = "Nome Completo")]
         [Required(ErrorMessage = "Item obrigatório.")]
         public string NomeCompleto { get; set; }

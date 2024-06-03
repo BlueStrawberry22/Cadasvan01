@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="wwwroot\images\perfil\" />
   </ItemGroup>
 
   <ItemGroup>

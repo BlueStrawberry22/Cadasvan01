@@ -69,6 +69,11 @@ namespace Cadasvan01.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+
+            ViewData["SelectTipo"] = SelectListExtensions.MontarSelectListParaEnum(new Usuario().Tipo);
+            var cidades = await _context.Cidades.OrderBy(o => o.Nome).ToListAsync();
+            ViewData["Cidades"] = new SelectList(cidades, "CidadeId", "Nome");
+
             return View();
         }
     }
