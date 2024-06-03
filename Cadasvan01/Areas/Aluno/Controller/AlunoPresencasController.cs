@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cadasvan01.Data;
 using Cadasvan01.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cadasvan01.Areas.Aluno.Controllers
 {
@@ -14,10 +15,13 @@ namespace Cadasvan01.Areas.Aluno.Controllers
     public class AlunoPresencasController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Usuario> _userManager;
 
-        public AlunoPresencasController(ApplicationDbContext context)
+        public AlunoPresencasController(ApplicationDbContext context, UserManager<Usuario> userManager)
         {
             _context = context;
+            _userManager = userManager;
+
         }
 
         // GET: Aluno/AlunoPresencas
@@ -54,6 +58,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
         // GET: Aluno/AlunoPresencas/Create
         public IActionResult Create()
         {
+            
             ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto"); ;
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Aluno), "Id", "NomeCompleto");
             return View();

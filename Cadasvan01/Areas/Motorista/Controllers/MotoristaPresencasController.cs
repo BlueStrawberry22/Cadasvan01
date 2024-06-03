@@ -26,6 +26,18 @@ namespace Cadasvan01.Areas.Motorista.Controllers
         // GET: Motorista/MotoristaPresencas
         public async Task<IActionResult> Index()
         {
+
+            var motoristaID = _userManager.GetUserId(User);
+            var motorista = await _context.Usuarios.FindAsync(motoristaID);
+            if (motorista == null || motorista.MotoristaId == null)
+            {
+                return NotFound();
+            }
+
+            var presencas = await _context.Presencas
+                .Where(a => a.UsuarioId == motorista.MotoristaId)
+                .ToListAsync();
+
             var applicationDbContext = _context.Presencas.Include(p => p.Motorista).Include(p => p.Usuario);
             return View(await applicationDbContext.ToListAsync());
         }
