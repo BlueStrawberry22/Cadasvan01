@@ -8,45 +8,59 @@
     <div class="col-md-12">
         <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="NomeCompleto"></label>
                 <input asp-for="NomeCompleto" class="form-control" />
-                <span asp asp-validation-for="NomeCompleto" class="text-danger"></span>
+                <span asp-validation-for="NomeCompleto" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="CPF"></label>
                 <input asp-for="CPF" class="form-control" maxlength="14" />
-                <span asp asp-validation-for="CPF" class="text-danger"></span>
+                <span asp-validation-for="CPF" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CEP"></label>
+                <input asp-for="CEP" class="form-control" id="cep" />
+                <span asp-validation-for="CEP" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Endereco"></label>
-                <input asp-for="Endereco" class="form-control" />
-                <span asp asp-validation-for="Endereco" class="text-danger"></span>
+                <input asp-for="Endereco" class="form-control" id="endereco" />
+                <span asp-validation-for="Endereco" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Complemento"></label>
+                <input asp-for="Complemento" class="form-control" id="endereco" />
+                <span asp-validation-for="Complemento" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="CidadeId"></label>
-                <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades"></select>
-                <span asp asp-validation-for="CidadeId" class="text-danger"></span>
+                <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades" id="cidade"></select>
+                <span asp-validation-for="CidadeId" class="text-danger"></span>
             </div>
+
             <br>
             <div class="form-group">
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" />
-                <span asp asp-validation-for="Email" class="text-danger"></span>
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Senha"></label>
                 <input asp-for="Senha" class="form-control" />
-                <span asp asp-validation-for="Senha" class="text-danger"></span>
+                <span asp-validation-for="Senha" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="ConfirmaSenha"></label>
                 <input asp-for="ConfirmaSenha" class="form-control" />
-                <span asp asp-validation-for="ConfirmaSenha" class="text-danger"></span>
+                <span asp-validation-for="ConfirmaSenha" class="text-danger"></span>
             </div>
 
             </br>
@@ -62,3 +76,24 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('cep').addEventListener('blur', function () {
+            var cep = this.value;
+            if (cep.length === 8) {
+                fetch(`/Account/GetEndereco?cep=${cep}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error(data.error);
+                        } else {
+                            document.getElementById('endereco').value = data.logradouro;
+                            // Atualize outros campos conforme necessário
+                        }
+                    })
+                    .catch(error => console.error('Erro:', error));
+            }
+        });
+    </script>
+}

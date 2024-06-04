@@ -2,6 +2,7 @@
 using Cadasvan01.Enums;
 using Cadasvan01.Extensions;
 using Cadasvan01.Models;
+using Cadasvan01.Services;
 using Cadasvan01.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,20 +15,23 @@ namespace Cadasvan01.Controllers
 {
     public class AccountController : Controller
     {
-        public readonly UserManager<Usuario> _userManager;
-        public readonly SignInManager<Usuario> _signInManager;
-        public readonly ApplicationDbContext _context;
-        public readonly IWebHostEnvironment _webHostEnviroment;
+        private readonly UserManager<Usuario> _userManager;
+        private readonly SignInManager<Usuario> _signInManager;
+        private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnviroment;
+        private readonly ViaCEPService _viaCEPService;
 
-        public AccountController(ApplicationDbContext context, 
+        public AccountController(ApplicationDbContext context,
             UserManager<Usuario> userManager,
             SignInManager<Usuario> signInManager,
-            IWebHostEnvironment webHostEnviroment)
+            IWebHostEnvironment webHostEnviroment,
+            ViaCEPService viaCEPService)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _webHostEnviroment = webHostEnviroment;
+            _viaCEPService = viaCEPService;
         }
 
         [HttpGet]
@@ -84,19 +88,28 @@ namespace Cadasvan01.Controllers
         }
 
 
-
+        [HttpGet]
+        [Route("/Account/GetEndereco")]
+        public async Task<JsonResult> GetEndereco(string cep)
+        {
+            try
+            {
+                var endereco = await _viaCEPService.ConsultarCEP(cep);
+                return new JsonResult(endereco);
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { error = ex.Message });
+            }
+        }
 
 
         [HttpGet]
         public async Task<IActionResult> Register()
         {
-            //recupera os tipos do enum e monta um selectlist
             ViewData["SelectTipo"] = SelectListExtensions.MontarSelectListParaEnum(new Usuario().Tipo);
 
-            //consulta nas cidades em ordem alfabética
             var cidades = await _context.Cidades.OrderBy(o => o.Nome).ToListAsync();
-
-            //monta um selectList com as cidades
             ViewData["Cidades"] = new SelectList(cidades, "CidadeId", "Nome");
 
             return View();
@@ -107,19 +120,18 @@ namespace Cadasvan01.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 if (model.ImagemPerfil != null)
                 {
                     string folder = "images/perfil";
-                    folder += Guid.NewGuid().ToString()+ "_" + model.ImagemPerfil.FileName;
+                    folder += Guid.NewGuid().ToString() + "_" + model.ImagemPerfil.FileName;
 
-                    model.CaminhoImagemPerfil = "/"+folder;
+                    model.CaminhoImagemPerfil = "/" + folder;
 
                     string serverFolder = Path.Combine(_webHostEnviroment.WebRootPath, folder);
 
                     await model.ImagemPerfil.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
                 }
-                
+
                 var user = new Usuario
                 {
                     UserName = model.Email,
@@ -147,7 +159,6 @@ namespace Cadasvan01.Controllers
                 }
             }
 
-            // Re-populate the view data in case of errors
             ViewData["SelectTipo"] = SelectListExtensions.MontarSelectListParaEnum(new Usuario().Tipo);
             var cidades = await _context.Cidades.OrderBy(o => o.Nome).ToListAsync();
             ViewData["Cidades"] = new SelectList(cidades, "CidadeId", "Nome");
@@ -155,7 +166,6 @@ namespace Cadasvan01.Controllers
             return View(model);
         }
 
-        
 
         [HttpPost]
         [ValidateAntiForgeryToken]

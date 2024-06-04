@@ -1,5 +1,6 @@
 using Cadasvan01.Data;
 using Cadasvan01.Models;
+using Cadasvan01.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Adicionar serviços ao contêiner.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddHttpClient<ViaCEPService>();
 
 // Outras configurações de serviço
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

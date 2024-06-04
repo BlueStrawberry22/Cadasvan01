@@ -13,7 +13,9 @@ namespace Cadasvan01.Models
         public string CPF { get; set; }
 
         public int CidadeId { get; set; }
+        public string CEP { get; set; }
 
+        public string? Complemento {  get; set; }
         public string Endereco { get; set; }
 
         [MaxLength(11)]

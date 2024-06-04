@@ -5,14 +5,13 @@ namespace Cadasvan01.ViewModel
 {
     public class RegisterViewModel
     {
-
-        //Campos personalizado do Usuario
-            // Outros campos já existentes...
+        // Outros campos já existentes...
 
         [Display(Name = "Imagem de Perfil")]
         public IFormFile? ImagemPerfil { get; set; }
 
         public string? CaminhoImagemPerfil { get; set; }
+
         [Display(Name = "Nome Completo")]
         [Required(ErrorMessage = "Item obrigatório.")]
         public string NomeCompleto { get; set; }
@@ -21,8 +20,16 @@ namespace Cadasvan01.ViewModel
         [MaxLength(11)]
         public string CPF { get; set; }
 
+        [Display(Name = "CEP")]
+        [Required(ErrorMessage = "Item obrigatório.")]
+        public string CEP { get; set; }
+
         [Display(Name = "Cidade")]
         public int CidadeId { get; set; }
+
+        [Display(Name ="Complemento")]
+        public string? Complemento { get; set; }
+
         public string Endereco { get; set; }
 
         [MaxLength(11)]
@@ -30,10 +37,10 @@ namespace Cadasvan01.ViewModel
 
         [MaxLength(7)]
         public string Placa { get; set; }
+
         public UsuarioEnum Tipo { get; set; }
 
-        //Campos padrões do Identity
-
+        // Campos padrões do Identity
         [Required(ErrorMessage = "Item obrigatório.")]
         [EmailAddress(ErrorMessage = "Informe um endereço de email válido.")]
         public string Email { get; set; }
@@ -47,6 +54,5 @@ namespace Cadasvan01.ViewModel
         [DataType(DataType.Password)]
         [Compare(nameof(Senha), ErrorMessage = "As senhas devem ser iguais.")]
         public string ConfirmaSenha { get; set; }
-
     }
 }
