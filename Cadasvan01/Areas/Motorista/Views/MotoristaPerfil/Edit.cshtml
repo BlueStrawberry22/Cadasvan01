@@ -1,0 +1,67 @@
+﻿@model Cadasvan01.ViewModel.EditUserViewModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<h2>Editar Perfil</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="NomeCompleto"></label>
+        <input asp-for="NomeCompleto" class="form-control" />
+        <span asp-validation-for="NomeCompleto" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CPF"></label>
+        <input asp-for="CPF" class="form-control" />
+        <span asp-validation-for="CPF" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CidadeId"></label>
+        <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades"></select>
+        <span asp-validation-for="CidadeId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Endereco"></label>
+        <input asp-for="Endereco" class="form-control" />
+        <span asp-validation-for="Endereco" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CNH"></label>
+        <input asp-for="CNH" class="form-control" />
+        <span asp-validation-for="CNH" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Placa"></label>
+        <input asp-for="Placa" class="form-control" />
+        <span asp-validation-for="Placa" class="text-danger"></span>
+    </div>
+
+    </br>
+    <label asp-for="ImagemPerfil">
+        <div class="custom-file">
+            <input asp-for="ImagemPerfil" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile"></label>
+        </div>
+    </label>
+    <span asp-validation-for="ImagemPerfil" class="text-danger"></span>
+    </br>
+    </br>
+    <button type="submit" class="btn btn-primary">Save changes</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

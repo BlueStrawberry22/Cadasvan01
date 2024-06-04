@@ -62,5 +62,26 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             ModelState.AddModelError("", "Código inválido.");
             return View();
         }
+
+        [HttpPost]
+        public IActionResult DesvincularMotorista()
+        {
+            var alunoId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (alunoId == null)
+            {
+                return Unauthorized();
+            }
+
+            var aluno = _context.Usuarios.FirstOrDefault(a => a.Id == alunoId && a.Tipo == UsuarioEnum.Aluno);
+            if (aluno == null)
+            {
+                return NotFound();
+            }
+
+            aluno.MotoristaId = null;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Aluno");
+        }
     }
 }

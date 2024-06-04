@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Cadasvan01.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 using Cadasvan01.Data;
 using Microsoft.AspNetCore.Authorization;
 
@@ -13,13 +11,20 @@ namespace Cadasvan01.Areas.Aluno.Controllers
     [Authorize(Roles = "Aluno")]
     public class AlunoController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<Usuario> _userManager;
+        public readonly UserManager<Usuario> _userManager;
+        public readonly SignInManager<Usuario> _signInManager;
+        public readonly ApplicationDbContext _context;
+        public readonly IWebHostEnvironment _webHostEnviroment;
 
-        public AlunoController(ApplicationDbContext context, UserManager<Usuario> userManager)
+        public AlunoController(ApplicationDbContext context,
+            UserManager<Usuario> userManager,
+            SignInManager<Usuario> signInManager,
+            IWebHostEnvironment webHostEnviroment)
         {
             _context = context;
             _userManager = userManager;
+            _signInManager = signInManager;
+            _webHostEnviroment = webHostEnviroment;
         }
 
         public async Task<IActionResult> Index()

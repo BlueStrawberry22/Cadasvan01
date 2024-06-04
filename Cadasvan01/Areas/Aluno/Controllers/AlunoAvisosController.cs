@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Threading.Tasks;
+
 using Cadasvan01.Models;
 
 namespace Cadasvan01.Areas.Aluno.Controllers

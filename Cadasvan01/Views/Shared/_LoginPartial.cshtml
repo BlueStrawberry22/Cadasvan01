@@ -8,28 +8,46 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        var user = UserManager.GetUserAsync(User).Result;
+        var userRole = UserManager.GetRolesAsync(user).Result.FirstOrDefault();
+
         <li class="nav-item dropdown">
-            @if (!string.IsNullOrEmpty(UserManager.GetUserAsync(User).Result.CaminhoImagemPerfil))
-            {
-                <img src="@UserManager.GetUserAsync(User).Result.CaminhoImagemPerfil" class="rounded-circle" width="30" height="30" alt="Profile Image" />
+            @{
+                string profileImageUrl;
+                if (string.IsNullOrEmpty(user.CaminhoImagemPerfil))
+                {
+                    profileImageUrl = Url.Content("~/images/default-profile.jpg");
+                }
+                else
+                {
+                    profileImageUrl = Url.Content(user.CaminhoImagemPerfil);
+                }
             }
-            else
-            {
-                <img src="~/images/default-profile.jpg" class="rounded-circle" width="30" height="30" alt="Default Profile Image" />
-            }
+            <img src="@profileImageUrl" class="rounded-circle" width="30" height="30" alt="Profile Image" />
             <div class="dropdown">
                 <button class="dropbtn">
                     @User.Identity.Name
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                    <form  asp-area="" asp-controller="Account" asp-action="Logout" method="post" asp-route-returnUrl="@Url.Action("Index", "Home")">
+                    @if (userRole == "Motorista")
+                    {
+                        <form asp-area="Motorista" asp-controller="MotoristaPerfil" asp-action="Edit" method="get">
+                            <button type="submit" class="dropdown-item">Gerenciar conta</button>
+                        </form>
+                    }
+                    else if (userRole == "Aluno")
+                    {
+                        <form asp-area="Aluno" asp-controller="AlunoPerfil" asp-action="Edit" method="get">
+                            <button type="submit" class="dropdown-item">Gerenciar conta</button>
+                        </form>
+                    }
+                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" asp-route-returnUrl="@Url.Action("Index", "Home")">
                         <button type="submit" class="dropdown-item">Logout</button>
                     </form>
                     <a href="#">Link 3</a>
                 </div>
             </div>
-            
         </li>
     }
     else
@@ -42,8 +60,6 @@
         </li>
     }
 </ul>
-
-
 
 <style>
     /* Dropdown Button */
