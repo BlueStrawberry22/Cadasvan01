@@ -6,6 +6,7 @@ using Cadasvan01.Data;
 using Microsoft.EntityFrameworkCore;
 using Cadasvan01.Enums;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
@@ -66,7 +67,30 @@ namespace Cadasvan01.Areas.Motorista.Controllers
 
             return View(viewModel);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DesvincularAluno(string alunoId)
+        {
+            var motoristaId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (motoristaId == null)
+            {
+                return Unauthorized();
+            }
+
+            var aluno = await _context.Usuarios.FirstOrDefaultAsync(a => a.Id == alunoId && a.Tipo == UsuarioEnum.Aluno && a.MotoristaId == motoristaId);
+            if (aluno == null)
+            {
+                return NotFound();
+            }
+
+            aluno.MotoristaId = null;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("AlunosVinculados");
+        }
     }
+
+
 
 
     public class MotoristaIndexViewModel
