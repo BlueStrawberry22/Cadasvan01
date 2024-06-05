@@ -59,8 +59,6 @@ namespace Cadasvan01.Areas.Aluno.Controllers
         public IActionResult Create()
         {
             
-            ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto"); ;
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Aluno), "Id", "NomeCompleto");
             return View();
         }
 
