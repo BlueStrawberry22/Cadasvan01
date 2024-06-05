@@ -40,21 +40,28 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="CidadeId"></label>
-                <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades" id="cidade"></select>
-                <span asp-validation-for="CidadeId" class="text-danger"></span>
+                <label asp-for="Complemento"></label>
+                <input asp-for="Complemento" class="form-control" id="complemento" />
+                <span asp-validation-for="Complemento" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Celular1">Celular</label>
-                <input asp-for="Celular1" class="form-control" id="bairro" />
+                <input asp-for="Celular1" class="form-control" id="celular1" />
                 <span asp-validation-for="Celular1" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Celular2">Telefone</label>
-                <input asp-for="Celular2" class="form-control" id="bairro" />
+                <input asp-for="Celular2" class="form-control" id="celular2" />
                 <span asp-validation-for="Celular2" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="CidadeId"></label>
+                <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades" id="cidade"></select>
+                <span asp-validation-for="CidadeId" class="text-danger"></span>
             </div>
 
             <br>
@@ -91,22 +98,88 @@
 
 @section Scripts {
     <script>
-        document.getElementById('cep').addEventListener('blur', function () {
-            var cep = this.value;
+        document.getElementById('cep').addEventListener('blur', async function () {
+            var cep = this.value.replace(/\D/g, '');
+            console.log(`CEP informado: ${cep}`);
+
             if (cep.length === 8) {
-                fetch(`/Account/GetEndereco?cep=${cep}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            console.error(data.error);
-                        } else {
-                            document.getElementById('endereco').value = data.logradouro;
-                            document.getElementById('bairro').value = data.bairro;
-                            // Atualize outros campos conforme necessário
-                        }
-                    })
-                    .catch(error => console.error('Erro:', error));
+                try {
+                    var response = await fetch(`/Account/GetEndereco?cep=${cep}`);
+                    console.log('Resposta da API:', response);
+
+                    if (response.ok) {
+                        var endereco = await response.json();
+                        console.log('Endereço retornado:', endereco);
+
+                        document.getElementById('endereco').value = endereco.logradouro;
+                        document.getElementById('bairro').value = endereco.bairro;
+                        // Preencha os outros campos do endereço conforme necessário
+                    } else {
+                        console.error('Erro ao buscar CEP:', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Erro ao buscar CEP:', error);
+                }
+            } else {
+                console.warn('CEP inválido:', cep);
             }
+        });
+
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        function formatarCPF(campo) {
+            // Remove tudo que não for número
+            var valor = campo.value.replace(/\D/g, '');
+
+            // Formata o CPF: xxx.xxx.xxx-xx
+            valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+            valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+            valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+            // Atualiza o valor do campo
+            campo.value = valor;
+        }
+
+        function formatarTelefone(campo) {
+            // Remove tudo que não for número
+            var valor = campo.value.replace(/\D/g, '');
+
+            // Formata o telefone: (xx)xxxxx-xxxx
+            valor = valor.replace(/(\d{2})(\d)/, '($1)$2');
+            valor = valor.replace(/(\d{5})(\d)/, '$1-$2');
+
+            // Atualiza o valor do campo
+            campo.value = valor;
+        }
+
+        function formatarCEP(campo) {
+            var valor = campo.value.replace(/\D/g, '');
+            valor = valor.replace(/^(\d{5})(\d{3})$/, '$1-$2');
+            campo.value = valor;
+        }
+
+        document.getElementById('create-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var submitButton = document.getElementById('submit-button');
+            var submitIconContainer = document.getElementById('submit-icon');
+            var loadingIcon = document.getElementById('loading-icon-submit');
+            var successIcon = document.getElementById('success-icon-submit');
+
+            submitButton.style.display = 'none';
+            submitIconContainer.style.display = 'inline';
+
+            setTimeout(function () {
+                loadingIcon.style.display = 'none';
+                successIcon.style.display = 'inline';
+
+                setTimeout(function () {
+                    document.getElementById('create-form').submit();
+                }, 1000);
+            }, 1000);
         });
     </script>
 }
