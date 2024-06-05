@@ -31,7 +31,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             var presencasAluno = await _context.Presencas
                 .Include(p => p.Motorista)
                 .Include(p => p.Usuario)
-                .Where(p => p.UsuarioId == alunoId) 
+                .Where(p => p.UsuarioId == alunoId)
                 .ToListAsync();
 
             return View(presencasAluno);
@@ -60,11 +60,27 @@ namespace Cadasvan01.Areas.Aluno.Controllers
         {
             var alunoId = _userManager.GetUserId(User);
 
-            ViewData["UsuarioId"] = alunoId;
+            // Buscar o motorista vinculado ao aluno
+            var aluno = _context.Usuarios
+                .Include(u => u.Motorista)
+                .FirstOrDefault(u => u.Id == alunoId);
 
-            ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto");
+            if (aluno?.MotoristaId == null)
+            {
+                // Caso não haja motorista vinculado, redirecionar ou exibir mensagem de erro
+                return RedirectToAction("Index", "Home");
+            }
 
-            return View();
+            var presenca = new Presenca
+            {
+                UsuarioId = alunoId,
+                MotoristaId = aluno.MotoristaId // Atribuir automaticamente o motorista vinculado
+            };
+
+            // Passar o motorista vinculado para a View
+            ViewData["MotoristaNome"] = aluno.Motorista.NomeCompleto;
+
+            return View(presenca);
         }
 
         [HttpPost]
@@ -75,14 +91,28 @@ namespace Cadasvan01.Areas.Aluno.Controllers
 
             presenca.UsuarioId = alunoId;
 
+            // Buscar o motorista vinculado ao aluno
+            var aluno = _context.Usuarios
+                .Include(u => u.Motorista)
+                .FirstOrDefault(u => u.Id == alunoId);
+
+            if (aluno?.MotoristaId == null)
+            {
+                // Caso não haja motorista vinculado, redirecionar ou exibir mensagem de erro
+                return RedirectToAction("Index", "Home");
+            }
+
+            presenca.MotoristaId = aluno.MotoristaId;
+
             if (ModelState.IsValid)
             {
                 _context.Add(presenca);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto", presenca.MotoristaId);
 
+            // Passar o motorista vinculado para a View
+            ViewData["MotoristaNome"] = aluno.Motorista.NomeCompleto;
 
             return View(presenca);
         }
@@ -104,17 +134,15 @@ namespace Cadasvan01.Areas.Aluno.Controllers
 
             if (presenca.UsuarioId != alunoId)
             {
-                return Unauthorized(); 
+                return Unauthorized();
             }
 
             ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto", presenca.MotoristaId);
 
-            
             ViewData["UsuarioId"] = alunoId;
 
             return View(presenca);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -146,7 +174,6 @@ namespace Cadasvan01.Areas.Aluno.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto", presenca.MotoristaId);
-
 
             return View(presenca);
         }
