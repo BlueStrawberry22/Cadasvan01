@@ -95,7 +95,7 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Index", "Motorista", new { area = "Motorista" });
             }
 
             foreach (var error in result.Errors)

@@ -95,7 +95,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Index", "Aluno", new { area = "Aluno" });
             }
 
             foreach (var error in result.Errors)
