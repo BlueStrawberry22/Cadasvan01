@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cadasvan01.Data;
 using Cadasvan01.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
@@ -14,20 +15,27 @@ namespace Cadasvan01.Areas.Motorista.Controllers
     public class MotoristaPresencasController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Usuario> _userManager;
 
-        public MotoristaPresencasController(ApplicationDbContext context)
+        public MotoristaPresencasController(ApplicationDbContext context, UserManager<Usuario> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        // GET: Motorista/MotoristaPresencas
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Presencas.Include(p => p.Motorista).Include(p => p.Usuario);
-            return View(await applicationDbContext.ToListAsync());
+            var motoristaId = _userManager.GetUserId(User);
+
+            var presencasMotorista = await _context.Presencas
+                .Include(p => p.Motorista)
+                .Include(p => p.Usuario)
+                .Where(p => p.MotoristaId == motoristaId) 
+                .ToListAsync();
+
+            return View(presencasMotorista);
         }
 
-        // GET: Motorista/MotoristaPresencas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
