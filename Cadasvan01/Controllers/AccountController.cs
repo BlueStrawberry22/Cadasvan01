@@ -93,7 +93,7 @@ namespace Cadasvan01.Controllers
         public async Task<JsonResult> GetEndereco(string cep)
         {
             try
-            {
+            { 
                 var endereco = await _viaCEPService.ConsultarCEP(cep);
                 return new JsonResult(endereco);
             }
@@ -141,6 +141,8 @@ namespace Cadasvan01.Controllers
                     Tipo = UsuarioEnum.Aluno,
                     Placa = model.Placa ?? string.Empty,
                     CidadeId = model.CidadeId,
+                    Celular1 = model.Celular1,
+                    Celular2 = model.Celular2,
                     Endereco = model.Endereco,
                     CaminhoImagemPerfil = model.CaminhoImagemPerfil,
                 };

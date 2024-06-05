@@ -78,6 +78,7 @@ namespace Cadasvan01.Services
                     LockoutEnabled = false,
                     MotoristaId = null,
                     CidadeId = 1,
+                    Celular1 = "(00)00000-0000",
                     SecurityStamp = Guid.NewGuid().ToString()
                 };
 

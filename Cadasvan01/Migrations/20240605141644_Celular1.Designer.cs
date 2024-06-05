@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240528123238_Vinculo")]
-    partial class Vinculo
+    [Migration("20240605141644_Celular1")]
+    partial class Celular1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,13 +33,23 @@ namespace Cadasvan01.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AvisoId"));
 
-                    b.Property<DateTime>("DataDoAviso")
+                    b.Property<string>("Conteudo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DataPublicacao")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Mensagem")
+                    b.Property<string>("MotoristaId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AvisoId");
+
+                    b.HasIndex("MotoristaId");
 
                     b.ToTable("Avisos");
                 });
@@ -153,6 +163,12 @@ namespace Cadasvan01.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Bairro")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CEP")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CNH")
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
@@ -161,8 +177,20 @@ namespace Cadasvan01.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
+                    b.Property<string>("CaminhoImagemPerfil")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Celular1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Celular2")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CidadeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Complemento")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -345,6 +373,15 @@ namespace Cadasvan01.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Cadasvan01.Models.Aviso", b =>
+                {
+                    b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
+                        .WithMany()
+                        .HasForeignKey("MotoristaId");
+
+                    b.Navigation("Motorista");
                 });
 
             modelBuilder.Entity("Cadasvan01.Models.CodigoVinculacao", b =>

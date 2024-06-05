@@ -160,6 +160,9 @@ namespace Cadasvan01.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Bairro")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CEP")
                         .HasColumnType("nvarchar(max)");
 
@@ -172,6 +175,12 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(11)");
 
                     b.Property<string>("CaminhoImagemPerfil")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Celular1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Celular2")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CidadeId")

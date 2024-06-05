@@ -28,21 +28,33 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Endereco"></label>
+                <label asp-for="Endereco">Endereço</label>
                 <input asp-for="Endereco" class="form-control" id="endereco" />
                 <span asp-validation-for="Endereco" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Complemento"></label>
-                <input asp-for="Complemento" class="form-control" id="endereco" />
-                <span asp-validation-for="Complemento" class="text-danger"></span>
+                <label asp-for="Bairro"></label>
+                <input asp-for="Bairro" class="form-control" id="bairro" />
+                <span asp-validation-for="Bairro" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="CidadeId"></label>
                 <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades" id="cidade"></select>
                 <span asp-validation-for="CidadeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Celular1">Celular</label>
+                <input asp-for="Celular1" class="form-control" id="bairro" />
+                <span asp-validation-for="Celular1" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Celular2">Telefone</label>
+                <input asp-for="Celular2" class="form-control" id="bairro" />
+                <span asp-validation-for="Celular2" class="text-danger"></span>
             </div>
 
             <br>
@@ -89,6 +101,7 @@
                             console.error(data.error);
                         } else {
                             document.getElementById('endereco').value = data.logradouro;
+                            document.getElementById('bairro').value = data.bairro;
                             // Atualize outros campos conforme necessário
                         }
                     })

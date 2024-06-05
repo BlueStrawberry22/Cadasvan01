@@ -15,6 +15,7 @@ builder.Services.AddHttpClient<ViaCEPService>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
 builder.Services.AddIdentity<Usuario, Funcao>(options =>
 {
     options.Password.RequireDigit = true;
@@ -27,6 +28,7 @@ builder.Services.AddIdentity<Usuario, Funcao>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
+builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Admin", politica => politica.RequireRole("Admin"));
@@ -34,7 +36,18 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Motorista", politica => politica.RequireRole("Motorista"));
 });
 
+
 var app = builder.Build();
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var services = serviceScope.ServiceProvider;
+
+    var servicoSeed = services.GetRequiredService<ISeedUserRoleInitial>();
+
+    servicoSeed.SeedRoles();
+    servicoSeed.SeedUsers();
+}
 
 // Configurar o pipeline HTTP.
 if (!app.Environment.IsDevelopment())

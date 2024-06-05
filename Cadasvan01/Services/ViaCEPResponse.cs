@@ -14,6 +14,9 @@ namespace Cadasvan01.Services
         [JsonPropertyName("localidade")]
         public string Localidade { get; set; }
 
+        [JsonPropertyName("complemento")]
+        public string Complemento { get; set; }
+
         [JsonPropertyName("bairro")]
         public string Bairro { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using Cadasvan01.Data;
 using Cadasvan01.Extensions;
 using Cadasvan01.Models;
+using Cadasvan01.Services;
 using Cadasvan01.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,15 +15,36 @@ namespace Cadasvan01.Controllers
     [Authorize("Admin")]
     public class AdminAccountController : Controller
     {
-        public readonly UserManager<Usuario> _userManager;
-        public readonly ApplicationDbContext _context;
+        private readonly UserManager<Usuario> _userManager;
+        private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnviroment;
+        private readonly ViaCEPService _viaCEPService;
 
-        public AdminAccountController(ApplicationDbContext context, UserManager<Usuario> userManager)
+        public AdminAccountController(ApplicationDbContext context,
+            UserManager<Usuario> userManager,
+            IWebHostEnvironment webHostEnviroment,
+            ViaCEPService viaCEPService)
         {
             _context = context;
             _userManager = userManager;
+            _webHostEnviroment = webHostEnviroment;
+            _viaCEPService = viaCEPService;
         }
 
+        [HttpGet]
+        [Route("/Account/GetEndereco")]
+        public async Task<JsonResult> GetEndereco(string cep)
+        {
+            try
+            {
+                var endereco = await _viaCEPService.ConsultarCEP(cep);
+                return new JsonResult(endereco);
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { error = ex.Message });
+            }
+        }
         [HttpGet]
         public async Task<IActionResult> Register()
         {
@@ -52,6 +74,8 @@ namespace Cadasvan01.Controllers
                     Tipo = Enums.UsuarioEnum.Motorista,
                     Placa = model.Placa,
                     CNH = model.CNH,
+                    Celular1= model.Celular1,
+                    Celular2= model.Celular2,
                     CidadeId = model.CidadeId,
                     Endereco = model.Endereco
                     
