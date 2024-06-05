@@ -21,7 +21,7 @@ namespace Cadasvan01.ViewModel
 
         [Display(Name = "CEP")]
         [Required(ErrorMessage = "Item obrigatório.")]
-        public string CEP { get; set; }
+        public string? CEP { get; set; }
 
         [Display(Name = "Cidade")]
         public int CidadeId { get; set; }
@@ -36,7 +36,7 @@ namespace Cadasvan01.ViewModel
         public string? Bairro { get; set; }
 
         [Required(ErrorMessage = "Item obrigatório.")]
-        public string Endereco { get; set; }
+        public string? Endereco { get; set; }
 
         [Phone]
         [Required(ErrorMessage = "Item obrigatório.")]

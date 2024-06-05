@@ -6,75 +6,192 @@
 <h3>Registrar Usuário</h3>
 <div class="row">
     <div class="col-md-12">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="NomeCompleto"></label>
                 <input asp-for="NomeCompleto" class="form-control" />
-                <span asp asp-validation-for="NomeCompleto" class="text-danger"></span>
+                <span asp-validation-for="NomeCompleto" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="CPF"></label>
                 <input asp-for="CPF" class="form-control" maxlength="14" />
-                <span asp asp-validation-for="CPF" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Endereco"></label>
-                <input asp-for="Endereco" class="form-control" />
-                <span asp asp-validation-for="Endereco" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Celular1"></label>
-                <input asp-for="Celular1" class="form-control" id="bairro" />
-                <span asp-validation-for="Celular1" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Celular2"></label>
-                <input asp-for="Celular2" class="form-control" id="bairro" />
-                <span asp-validation-for="Celular2" class="text-danger"></span>
+                <span asp-validation-for="CPF" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="CNH"></label>
-                <input asp-for="CNH" class="form-control" />
-                <span asp asp-validation-for="CNH" class="text-danger"></span>
+                <input asp-for="CNH" class="form-control" maxlength="14" />
+                <span asp-validation-for="CNH" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Placa"></label>
+                <label asp-for="Placa">Placa do veículo</label>
                 <input asp-for="Placa" class="form-control" />
-                <span asp asp-validation-for="Placa" class="text-danger"></span>
+                <span asp-validation-for="Placa" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="CEP"></label>
+                <input asp-for="CEP" class="form-control" id="cep" />
+                <span asp-validation-for="CEP" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Endereco">Endereço</label>
+                <input asp-for="Endereco" class="form-control" id="endereco" />
+                <span asp-validation-for="Endereco" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Bairro"></label>
+                <input asp-for="Bairro" class="form-control" id="bairro" />
+                <span asp-validation-for="Bairro" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Complemento"></label>
+                <input asp-for="Complemento" class="form-control" id="complemento" />
+                <span asp-validation-for="Complemento" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Celular1">Celular</label>
+                <input asp-for="Celular1" class="form-control" id="celular1" />
+                <span asp-validation-for="Celular1" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Celular2">Telefone</label>
+                <input asp-for="Celular2" class="form-control" id="celular2" />
+                <span asp-validation-for="Celular2" class="text-danger"></span>
+            </div>
+
 
             <div class="form-group">
                 <label asp-for="CidadeId"></label>
-                <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades"></select>
-                <span asp asp-validation-for="CidadeId" asp-items="ViewBag.Cidades" class="text-danger"></span>
+                <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades" id="cidade"></select>
+                <span asp-validation-for="CidadeId" class="text-danger"></span>
             </div>
 
             <br>
-
             <div class="form-group">
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" />
-                <span asp asp-validation-for="Email" class="text-danger"></span>
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Senha"></label>
                 <input asp-for="Senha" class="form-control" />
-                <span asp asp-validation-for="Senha" class="text-danger"></span>
+                <span asp-validation-for="Senha" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="ConfirmaSenha"></label>
                 <input asp-for="ConfirmaSenha" class="form-control" />
-                <span asp asp-validation-for="ConfirmaSenha" class="text-danger"></span>
+                <span asp-validation-for="ConfirmaSenha" class="text-danger"></span>
             </div>
+
+            </br>
+            <label asp-for="ImagemPerfil">
+                <div class="custom-file">
+                    <input asp-for="ImagemPerfil" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile"></label>
+                </div>
+            </label>
+            <span asp-validation-for="ImagemPerfil" class="text-danger"></span>
             <br>
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('cep').addEventListener('blur', async function () {
+            var cep = this.value.replace(/\D/g, '');
+            console.log(`CEP informado: ${cep}`);
+
+            if (cep.length === 8) {
+                try {
+                    var response = await fetch(`/Account/GetEndereco?cep=${cep}`);
+                    console.log('Resposta da API:', response);
+
+                    if (response.ok) {
+                        var endereco = await response.json();
+                        console.log('Endereço retornado:', endereco);
+
+                        document.getElementById('endereco').value = endereco.logradouro;
+                        document.getElementById('bairro').value = endereco.bairro;
+                        // Preencha os outros campos do endereço conforme necessário
+                    } else {
+                        console.error('Erro ao buscar CEP:', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Erro ao buscar CEP:', error);
+                }
+            } else {
+                console.warn('CEP inválido:', cep);
+            }
+        });
+
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        function formatarCPF(campo) {
+            // Remove tudo que não for número
+            var valor = campo.value.replace(/\D/g, '');
+
+            // Formata o CPF: xxx.xxx.xxx-xx
+            valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+            valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+            valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+            // Atualiza o valor do campo
+            campo.value = valor;
+        }
+
+        function formatarTelefone(campo) {
+            // Remove tudo que não for número
+            var valor = campo.value.replace(/\D/g, '');
+
+            // Formata o telefone: (xx)xxxxx-xxxx
+            valor = valor.replace(/(\d{2})(\d)/, '($1)$2');
+            valor = valor.replace(/(\d{5})(\d)/, '$1-$2');
+
+            // Atualiza o valor do campo
+            campo.value = valor;
+        }
+
+        function formatarCEP(campo) {
+            var valor = campo.value.replace(/\D/g, '');
+            valor = valor.replace(/^(\d{5})(\d{3})$/, '$1-$2');
+            campo.value = valor;
+        }
+
+        document.getElementById('create-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var submitButton = document.getElementById('submit-button');
+            var submitIconContainer = document.getElementById('submit-icon');
+            var loadingIcon = document.getElementById('loading-icon-submit');
+            var successIcon = document.getElementById('success-icon-submit');
+
+            submitButton.style.display = 'none';
+            submitIconContainer.style.display = 'inline';
+
+            setTimeout(function () {
+                loadingIcon.style.display = 'none';
+                successIcon.style.display = 'inline';
+
+                setTimeout(function () {
+                    document.getElementById('create-form').submit();
+                }, 1000);
+            }, 1000);
+        });
+    </script>
+}
