@@ -4,15 +4,20 @@
 
 </p>
 
-<div>
-    <a asp-area="Motorista" asp-controller="MotoristaPresencas" asp-action="Index" class="btn btn-primary">Presenca</a>
-</div>
-
 <a asp-area="Motorista" asp-controller="MotoristaCodigo" asp-action="GerarCodigo" class="btn btn-primary">Gerar um código de vinculação</a>
 </p>
 <a href="@Url.Action("AlunosVinculados", "Motorista", new { area = "Motorista" })" class="btn btn-primary">Ver Alunos Vinculados</a></p>
 </p>
 <a asp-area="Motorista" asp-controller="MotoristaAvisos" asp-action="Index" class="btn btn-primary">Avisos</a>
+</p>
+<div>
+    <a asp-area="Motorista" asp-controller="MotoristaPresencas" asp-action="Index" class="btn btn-primary">Presenca de hoje</a>
+</div>
+</p>
+<div>
+    <a asp-area="Motorista" asp-controller="MotoristaPresencas" asp-action="Historico" class="btn btn-primary">Historico de presenca</a>
+</div>
+</p>
 
 
 

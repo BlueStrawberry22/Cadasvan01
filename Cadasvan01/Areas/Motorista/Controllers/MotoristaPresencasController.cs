@@ -36,5 +36,20 @@ namespace Cadasvan01.Areas.Motorista.Controllers
 
             return View(presencasMotorista);
         }
+
+        public async Task<IActionResult> Historico()
+        {
+            var motoristaId = _userManager.GetUserId(User);
+
+            var historicoPresencas = await _context.Presencas
+                .Include(p => p.Motorista)
+                .Include(p => p.Usuario)  // Inclua o usuário
+                .Where(p => p.MotoristaId == motoristaId)
+                .OrderBy(p => p.DataViagem)
+                .ToListAsync();
+
+            return View(historicoPresencas);
+        }
+
     }
 }

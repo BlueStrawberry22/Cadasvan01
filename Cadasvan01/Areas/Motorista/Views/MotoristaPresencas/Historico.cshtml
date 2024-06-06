@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Cadasvan01.Models.Presenca>
+
+@{
+    ViewData["Title"] = "Histórico";
+}
+
+<h2>Histórico de Presenças:</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Aluno</th>
+            <th>Ida</th>
+            <th>Volta</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var presenca in Model)
+        {
+            <tr>
+                <td>@(presenca.DataViagem.ToString("dd/MM/yyyy"))</td>
+                <td>@Html.DisplayFor(modelItem => presenca.Usuario.NomeCompleto)</td>
+                <td class="text-center">
+                    @if (presenca.ConfirmaIda)
+                    {
+                        <span style="color: green;">&#x2714;</span>
+                    }
+                    else
+                    {
+                        <span style="color: red;">&#x2716;</span>
+                    }
+                </td>
+                <td class="text-center">
+                    @if (presenca.ConfirmaVolta)
+                    {
+                        <span style="color: green;">&#x2714;</span>
+                    }
+                    else
+                    {
+                        <span style="color: red;">&#x2716;</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .table {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .table th {
+            background-color: #673AB7; /* Cabeçalho roxo */
+            color: white;
+            text-align: left;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .table tr:hover {
+            background-color: #ddd;
+        }
+
+        .table .text-center {
+            text-align: center;
+        }
+
+    h2 {
+        color: #673AB7;
+        text-align: center;
+    }
+</style>
+
