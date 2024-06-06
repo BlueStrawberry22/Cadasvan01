@@ -1,4 +1,4 @@
-using Cadasvan01.Data;
+ï»¿using Cadasvan01.Data;
 using Cadasvan01.Models;
 using Cadasvan01.Services;
 using Microsoft.AspNetCore.Identity;
@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adicionar serviços ao contêiner.
+// Adicionar serviï¿½os ao contï¿½iner.
+builder.Services.AddHttpClient<ViaCEPService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddHttpClient<ViaCEPService>();
 
-// Outras configurações de serviço
+
+// Outras configuraï¿½ï¿½es de serviï¿½o
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -58,7 +59,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

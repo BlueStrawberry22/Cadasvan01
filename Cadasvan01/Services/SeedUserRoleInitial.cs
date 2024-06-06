@@ -21,7 +21,7 @@ namespace Cadasvan01.Services
 
         public void SeedRoles()
         {
-            if (!_roleManager.RoleExistsAsync("Aluno").Result) 
+            if (!_roleManager.RoleExistsAsync("Aluno").Result)
             {
                 var role = new Funcao
                 {
@@ -46,7 +46,7 @@ namespace Cadasvan01.Services
                     Name = _admin,
                     NormalizedName = _admin.ToUpper()
                 };
-                
+
                 var roleResult = _roleManager.CreateAsync(role).Result;
             }
         }
@@ -90,7 +90,7 @@ namespace Cadasvan01.Services
                     _userManager.AddToRoleAsync(userAdmin, role).Wait();
                 }
             }
-            
+
         }
 
         public void SeedUsers()

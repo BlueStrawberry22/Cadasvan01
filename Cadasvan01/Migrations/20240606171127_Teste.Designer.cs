@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240605141644_Celular1")]
-    partial class Celular1
+    [Migration("20240606171127_Teste")]
+    partial class Teste
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

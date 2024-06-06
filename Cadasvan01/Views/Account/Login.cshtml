@@ -1,38 +1,44 @@
 ﻿@model Cadasvan01.ViewModel.LoginViewModel
-@{
-    ViewBag.Title = "Login de Usuário";
-}
 
-<center>
-<h3>Login</h3>
-</center>
-<br>
-<div class="row">
-    <div class="col-md-12">
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/login-register.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+
+    <div class="wrapper">
         <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div style="text-align:center" class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp asp-validation-for="Email" class="text-danger"></span>
+            <h1>Login</h1>
+            <div class="input-box">
+                <input asp-for="Email" type="text" placeholder="E-mail" required>
+                <i class="bx bxs-user"></i>
             </div>
-            <br>
-            <div style="text-align:center" class="form-group">
-                <label asp-for="Senha"></label>
-                <input asp-for="Senha" class="form-control" />
-                <span asp asp-validation-for="Senha" class="text-danger"></span>
+            <div class="input-box">
+                <input asp-for="Senha" type="password" placeholder="Senha" required>
+                <i class="bx bxs-lock-alt"></i>
             </div>
-            <br>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label asp-for="RememberMe">
-                        <input asp-for="RememberMe" />
-                        @Html.DisplayNameFor(m => m.RememberMe)
-                    </label>
-                </div>
+
+            <div class="remember-forgot">
+                <label asp-for="RememberMe"><input asp-for="RememberMe" type="checkbox">@Html.DisplayNameFor(m => m.RememberMe)</label>
+                <a href="#">Esqueceu a senha?</a>
             </div>
-            <p></p>
-            <button type="submit" class="btn btn-primary">Login</button>
+
+            <button type="submit" class="btn">Login</button>
+
+
         </form>
     </div>
-</div>
+</body>
+</html>
+
+
+<!----------------------------------------------------------------------------------->

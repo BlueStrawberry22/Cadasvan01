@@ -3,75 +3,77 @@
 @{
     ViewBag.Title = "Registro de Usuário";
 }
-<h3>Registrar Usuário</h3>
-<div class="row">
-    <div class="col-md-12">
-        <form method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="All" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="NomeCompleto"></label>
-                <input asp-for="NomeCompleto" class="form-control" />
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="~/css/login-register.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <form method="post">
+            <h1>Cadastre-se</h1>
+
+            <div class="input-box">
+                <input asp-for="NomeCompleto" placeholder="Nome completo" class="form-control" />
                 <span asp-validation-for="NomeCompleto" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="CPF"></label>
-                <input asp-for="CPF" class="form-control" maxlength="14" />
+            <div class="input-box">
+                <input asp-for="CPF" placeholder="CPF" class="form-control" maxlength="14" />
                 <span asp-validation-for="CPF" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="CEP"></label>
-                <input asp-for="CEP" class="form-control" id="cep" />
+            <div class="input-box">
+                <input asp-for="CEP" placeholder="CEP" class="form-control" id="cep" />
                 <span asp-validation-for="CEP" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Endereco">Endereço</label>
-                <input asp-for="Endereco" class="form-control" id="endereco" />
+            <div class="input-box">
+                <input asp-for="Endereco" placeholder="Endereço" id="endereco" />
                 <span asp-validation-for="Endereco" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Bairro"></label>
-                <input asp-for="Bairro" class="form-control" id="bairro" />
+            <div class="input-box">
+                <input asp-for="Bairro" placeholder="Bairro" class="form-control" id="bairro" />
                 <span asp-validation-for="Bairro" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="CidadeId"></label>
-                <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades" id="cidade"></select>
+            <div class="input-box">
+                <label asp-for="CidadeId" class="label"></label>
+                <select asp-for="CidadeId" class="select" asp-items="ViewBag.Cidades" id="cidade"></select>
                 <span asp-validation-for="CidadeId" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Celular1">Celular</label>
-                <input asp-for="Celular1" class="form-control" id="bairro" />
+            <div class="input-box">
+                <input asp-for="Celular1" placeholder="Número de telefone principal" class="form-control" id="celular1" />
                 <span asp-validation-for="Celular1" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Celular2">Telefone</label>
-                <input asp-for="Celular2" class="form-control" id="bairro" />
+            <div class="input-box">
+                <input asp-for="Celular2" placeholder="Número de telefone secundário" class="form-control" id="celular2" />
                 <span asp-validation-for="Celular2" class="text-danger"></span>
             </div>
 
-            <br>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
+            <div class="input-box">
+                <input asp-for="Email" placeholder="E-mail" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Senha"></label>
-                <input asp-for="Senha" class="form-control" />
+            <div class="input-box">
+                <input asp-for="Senha" placeholder="Senha" class="form-control" />
                 <span asp-validation-for="Senha" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="ConfirmaSenha"></label>
-                <input asp-for="ConfirmaSenha" class="form-control" />
+            <div class="input-box">
+                <input asp-for="ConfirmaSenha" placeholder="Confirmar senha" class="form-control" />
                 <span asp-validation-for="ConfirmaSenha" class="text-danger"></span>
             </div>
 
@@ -87,26 +89,88 @@
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
     </div>
-</div>
+</body>
+</html>
 
 @section Scripts {
     <script>
-        document.getElementById('cep').addEventListener('blur', function () {
-            var cep = this.value;
+        document.getElementById('cep').addEventListener('blur', async function () {
+            var cep = this.value.replace(/\D/g, '');
+            console.log(`CEP informado: ${cep}`);
+
             if (cep.length === 8) {
-                fetch(`/Account/GetEndereco?cep=${cep}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            console.error(data.error);
-                        } else {
-                            document.getElementById('endereco').value = data.logradouro;
-                            document.getElementById('bairro').value = data.bairro;
-                            // Atualize outros campos conforme necessário
-                        }
-                    })
-                    .catch(error => console.error('Erro:', error));
+                try {
+                    var response = await fetch(`/Account/GetEndereco?cep=${cep}`);
+                    console.log('Resposta da API:', response);
+
+                    if (response.ok) {
+                        var endereco = await response.json();
+                        console.log('Endereço retornado:', endereco);
+
+                        document.getElementById('endereco').value = endereco.logradouro;
+                        document.getElementById('bairro').value = endereco.bairro;
+                        // Preencha os outros campos do endereço conforme necessário
+                    } else {
+                        console.error('Erro ao buscar CEP:', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Erro ao buscar CEP:', error);
+                }
+            } else {
+                console.warn('CEP inválido:', cep);
             }
+        });
+
+        function formatarCPF(campo) {
+            // Remove tudo que não for número
+            var valor = campo.value.replace(/\D/g, '');
+
+            // Formata o CPF: xxx.xxx.xxx-xx
+            valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+            valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+            valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+            // Atualiza o valor do campo
+            campo.value = valor;
+        }
+
+        function formatarTelefone(campo) {
+            // Remove tudo que não for número
+            var valor = campo.value.replace(/\D/g, '');
+
+            // Formata o telefone: (xx)xxxxx-xxxx
+            valor = valor.replace(/(\d{2})(\d)/, '($1)$2');
+            valor = valor.replace(/(\d{5})(\d)/, '$1-$2');
+
+            // Atualiza o valor do campo
+            campo.value = valor;
+        }
+
+        function formatarCEP(campo) {
+            var valor = campo.value.replace(/\D/g, '');
+            valor = valor.replace(/^(\d{5})(\d{3})$/, '$1-$2');
+            campo.value = valor;
+        }
+
+        document.getElementById('create-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var submitButton = document.getElementById('submit-button');
+            var submitIconContainer = document.getElementById('submit-icon');
+            var loadingIcon = document.getElementById('loading-icon-submit');
+            var successIcon = document.getElementById('success-icon-submit');
+
+            submitButton.style.display = 'none';
+            submitIconContainer.style.display = 'inline';
+
+            setTimeout(function () {
+                loadingIcon.style.display = 'none';
+                successIcon.style.display = 'inline';
+
+                setTimeout(function () {
+                    document.getElementById('create-form').submit();
+                }, 1000);
+            }, 1000);
         });
     </script>
 }
