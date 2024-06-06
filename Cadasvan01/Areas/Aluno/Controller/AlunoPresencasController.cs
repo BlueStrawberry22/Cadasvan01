@@ -21,7 +21,6 @@ namespace Cadasvan01.Areas.Aluno.Controllers
         {
             _context = context;
             _userManager = userManager;
-
         }
 
         public async Task<IActionResult> Index()
@@ -74,7 +73,8 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             var presenca = new Presenca
             {
                 UsuarioId = alunoId,
-                MotoristaId = aluno.MotoristaId // Atribuir automaticamente o motorista vinculado
+                MotoristaId = aluno.MotoristaId, // Atribuir automaticamente o motorista vinculado
+                DataViagem = DateTime.Now // Definir a data atual
             };
 
             // Passar o motorista vinculado para a View
@@ -137,8 +137,15 @@ namespace Cadasvan01.Areas.Aluno.Controllers
                 return Unauthorized();
             }
 
-            ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto", presenca.MotoristaId);
+            var aluno = await _context.Usuarios.Include(u => u.Motorista).FirstOrDefaultAsync(u => u.Id == alunoId);
 
+            if (aluno?.MotoristaId == null)
+            {
+                // Caso não haja motorista vinculado, redirecionar ou exibir mensagem de erro
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewData["MotoristaNome"] = aluno.Motorista.NomeCompleto;
             ViewData["UsuarioId"] = alunoId;
 
             return View(presenca);
@@ -152,6 +159,20 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             {
                 return NotFound();
             }
+
+            var alunoId = _userManager.GetUserId(User);
+
+            // Buscar o motorista vinculado ao aluno
+            var aluno = await _context.Usuarios.Include(u => u.Motorista).FirstOrDefaultAsync(u => u.Id == alunoId);
+
+            if (aluno?.MotoristaId == null)
+            {
+                // Caso não haja motorista vinculado, redirecionar ou exibir mensagem de erro
+                return RedirectToAction(nameof(Index));
+            }
+
+            presenca.UsuarioId = alunoId;
+            presenca.MotoristaId = aluno.MotoristaId;
 
             if (ModelState.IsValid)
             {
@@ -173,8 +194,8 @@ namespace Cadasvan01.Areas.Aluno.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MotoristaId"] = new SelectList(_context.Usuarios.Where(w => w.Tipo == Enums.UsuarioEnum.Motorista), "Id", "NomeCompleto", presenca.MotoristaId);
 
+            ViewData["MotoristaNome"] = aluno.Motorista.NomeCompleto;
             return View(presenca);
         }
 
