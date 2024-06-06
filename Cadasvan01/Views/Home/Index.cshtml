@@ -1,6 +1,32 @@
 ﻿@{
-    ViewData["Title"] = "Cadasvan";
+    ViewData["Title"] = "Bem-vindo";
 }
+<!DOCTYPE html>
+<html lang="pt-br">
 
-<div class="text-center">
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadasvan - Bem-vindo!</title>
+    <link rel="stylesheet" href="~/css/home.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+
+    <div class="wrapperHome">
+        <form action="">
+            <img src="images/CadasvanLogo.png">
+            <div class="buttonsHome">
+                <label class="labelHome">Primeiro acesso?</label>
+                <button type="submit" class="btn btn-primaryHome" asp-controller="Account" asp-action="Register">Cadastre-se</button>
+                <span class="separatorHome">OU</span>
+                <label class="labelHome">Cadastre-se</label>
+                <button type="submit" class="btn btn-secondaryHome" asp-controller="Account" asp-action="Login">Entrar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+

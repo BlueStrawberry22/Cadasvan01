@@ -5,7 +5,6 @@ using System.Diagnostics;
 
 namespace Cadasvan01.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -17,16 +16,6 @@ namespace Cadasvan01.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-
-            //get usuario logado
-            //if (usuario.EnumTipo != Motorista)
-            // return RedirectToAction("Login", "Account");
-
             return View();
         }
 
