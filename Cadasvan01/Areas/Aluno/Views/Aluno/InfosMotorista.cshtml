@@ -4,6 +4,10 @@
     <h2>Informações do Motorista</h2>
     <p><strong>Nome Completo:</strong> @Model.NomeCompleto</p>
     <p><strong>Número de celular:</strong> @Model.Celular1</p>
+    @if (Model.Celular2 != null)
+    {
+        <p><strong>Número de celular:</strong> @Model.Celular2</p>
+    }
     <p><strong>CNH:</strong> @Model.CNH</p>
     <p><strong>Placa do veículo:</strong> @Model.Placa</p>
 
