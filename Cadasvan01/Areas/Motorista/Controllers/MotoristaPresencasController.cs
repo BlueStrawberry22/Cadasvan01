@@ -26,34 +26,15 @@ namespace Cadasvan01.Areas.Motorista.Controllers
         public async Task<IActionResult> Index()
         {
             var motoristaId = _userManager.GetUserId(User);
+            var today = DateTime.Today;
 
             var presencasMotorista = await _context.Presencas
                 .Include(p => p.Motorista)
                 .Include(p => p.Usuario)
-                .Where(p => p.MotoristaId == motoristaId) 
+                .Where(p => p.MotoristaId == motoristaId && p.DataViagem.Date == today) 
                 .ToListAsync();
 
             return View(presencasMotorista);
         }
-
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var presenca = await _context.Presencas
-                .Include(p => p.Motorista)
-                .Include(p => p.Usuario)
-                .FirstOrDefaultAsync(m => m.PresencaId == id);
-            if (presenca == null)
-            {
-                return NotFound();
-            }
-
-            return View(presenca);
-        }
-
     }
 }
