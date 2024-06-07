@@ -1,12 +1,7 @@
 ﻿@model Cadasvan01.ViewModel.RegisterViewModel
 
-@{
-    ViewBag.Title = "Registro de Usuário";
-}
-
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,82 +10,73 @@
     <link rel="stylesheet" href="~/css/login-register.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-
 <body>
-
-    <div class="wrapper">
-        <form method="post">
-            <h1>Cadastre-se</h1>
-
-            <div class="input-box">
-                <input asp-for="NomeCompleto" placeholder="Nome completo" class="form-control" />
-                <span asp-validation-for="NomeCompleto" class="text-danger"></span>
-            </div>
-
-            <div class="input-box">
-                <input asp-for="CPF" placeholder="CPF" class="form-control" maxlength="14" />
-                <span asp-validation-for="CPF" class="text-danger"></span>
-            </div>
-
-            <div class="input-box">
-                <input asp-for="CEP" placeholder="CEP" class="form-control" id="cep" />
-                <span asp-validation-for="CEP" class="text-danger"></span>
-            </div>
-
-            <div class="input-box">
-                <input asp-for="Endereco" placeholder="Endereço" id="endereco" />
-                <span asp-validation-for="Endereco" class="text-danger"></span>
-            </div>
-
-            <div class="input-box">
-                <input asp-for="Bairro" placeholder="Bairro" class="form-control" id="bairro" />
-                <span asp-validation-for="Bairro" class="text-danger"></span>
-            </div>
-
-            <div class="input-box">
-                <label asp-for="CidadeId" class="label"></label>
-                <select asp-for="CidadeId" class="select" asp-items="ViewBag.Cidades" id="cidade"></select>
-                <span asp-validation-for="CidadeId" class="text-danger"></span>
-            </div>
-
-            <div class="input-box">
-                <input asp-for="Celular1" placeholder="Número de telefone principal" class="form-control" id="celular1" />
-                <span asp-validation-for="Celular1" class="text-danger"></span>
-            </div>
-
-            <div class="input-box">
-                <input asp-for="Celular2" placeholder="Número de telefone secundário" class="form-control" id="celular2" />
-                <span asp-validation-for="Celular2" class="text-danger"></span>
-            </div>
-
-            <div class="input-box">
-                <input asp-for="Email" placeholder="E-mail" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="input-box">
-                <input asp-for="Senha" placeholder="Senha" class="form-control" />
-                <span asp-validation-for="Senha" class="text-danger"></span>
-            </div>
-
-            <div class="input-box">
-                <input asp-for="ConfirmaSenha" placeholder="Confirmar senha" class="form-control" />
-                <span asp-validation-for="ConfirmaSenha" class="text-danger"></span>
-            </div>
-
-            </br>
-            <label asp-for="ImagemPerfil">
-                <div class="custom-file">
-                    <input asp-for="ImagemPerfil" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile"></label>
+    <div class="wrapper register">
+        <div class="form-container">
+            <form method="post">
+                <h1>Cadastre-se</h1>
+                <div class="input-box .col-sm-2">
+                    <input asp-for="NomeCompleto" placeholder="Nome completo" class="form-control" />
+                    <span asp-validation-for="NomeCompleto" class="text-danger"></span>
                 </div>
-            </label>
-            <span asp-validation-for="ImagemPerfil" class="text-danger"></span>
-            <br>
-            <button type="submit" class="btn btn-primary">Registrar</button>
-        </form>
+                <div class="input-box .col-sm-12">
+                    <input asp-for="CPF" placeholder="CPF" class="form-control" maxlength="14" />
+                    <span asp-validation-for="CPF" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input asp-for="CEP" placeholder="CEP" class="form-control" id="cep" />
+                    <span asp-validation-for="CEP" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input asp-for="Endereco" placeholder="Endereço" id="endereco" />
+                    <span asp-validation-for="Endereco" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input asp-for="Bairro" placeholder="Bairro" class="form-control" id="bairro" />
+                    <span asp-validation-for="Bairro" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <label asp-for="CidadeId" class="label"></label>
+                    <select asp-for="CidadeId" class="select" asp-items="ViewBag.Cidades" id="cidade"></select>
+                    <span asp-validation-for="CidadeId" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input asp-for="Celular1" placeholder="Número de telefone principal" class="form-control" id="celular1" />
+                    <span asp-validation-for="Celular1" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input asp-for="Celular2" placeholder="Número de telefone secundário" class="form-control" id="celular2" />
+                    <span asp-validation-for="Celular2" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input asp-for="Email" placeholder="E-mail" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input asp-for="Senha" placeholder="Senha" class="form-control" />
+                    <span asp-validation-for="Senha" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <input asp-for="ConfirmaSenha" placeholder="Confirmar senha" class="form-control" />
+                    <span asp-validation-for="ConfirmaSenha" class="text-danger"></span>
+                </div>
+                <br />
+                <label asp-for="ImagemPerfil">
+                    <div class="custom-file">
+                        <input asp-for="ImagemPerfil" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile"></label>
+                    </div>
+                </label>
+                <span asp-validation-for="ImagemPerfil" class="text-danger"></span>
+                <br />
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
+
+
 
 @section Scripts {
     <script>
@@ -122,27 +108,17 @@
         });
 
         function formatarCPF(campo) {
-            // Remove tudo que não for número
             var valor = campo.value.replace(/\D/g, '');
-
-            // Formata o CPF: xxx.xxx.xxx-xx
             valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
             valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
             valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-
-            // Atualiza o valor do campo
             campo.value = valor;
         }
 
         function formatarTelefone(campo) {
-            // Remove tudo que não for número
             var valor = campo.value.replace(/\D/g, '');
-
-            // Formata o telefone: (xx)xxxxx-xxxx
             valor = valor.replace(/(\d{2})(\d)/, '($1)$2');
             valor = valor.replace(/(\d{5})(\d)/, '$1-$2');
-
-            // Atualiza o valor do campo
             campo.value = valor;
         }
 

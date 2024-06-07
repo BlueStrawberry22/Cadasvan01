@@ -95,18 +95,22 @@ namespace Cadasvan01.Controllers
                 return BadRequest("CEP não pode ser nulo ou vazio.");
             }
 
-            var endereco = await _viaCEPService.ConsultarCEP(cep);
-
-            if (endereco == null)
+            try
             {
-                return NotFound("Endereço não encontrado para o CEP fornecido.");
+                var endereco = await _viaCEPService.ConsultarCEP(cep);
+
+                if (endereco == null)
+                {
+                    return NotFound("Endereço não encontrado para o CEP fornecido.");
+                }
+
+                return Ok(endereco);
             }
-
-            return Ok(endereco);
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno do servidor: {ex.Message}");
+            }
         }
-
-
-
 
         [HttpGet]
         public async Task<IActionResult> Register()
@@ -172,7 +176,6 @@ namespace Cadasvan01.Controllers
 
             return View(model);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
