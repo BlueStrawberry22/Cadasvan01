@@ -1,0 +1,113 @@
+﻿@model Cadasvan01.Models.Presenca
+
+<div class="card mb-3">
+    <div class="card-header bg-orange text-white">
+        <h3 class="card-title mb-0">Confirmar presença:</h3>
+    </div>
+    <div class="card-body">
+        <form asp-area="Aluno" asp-controller="AlunoPresencas" asp-action="Create" method="post">
+            <div class="form-group">
+                <label class="d-block">Ida</label>
+                <div class="btn-group-toggle" data-toggle="buttons">
+                    <label class="btn ida">
+                        <input type="checkbox" name="ConfirmaIda" value="true" autocomplete="off"> ✔
+                    </label>
+                    <label class="btn ida">
+                        <input type="checkbox" name="ConfirmaIda" value="false" autocomplete="off"> ✖
+                    </label>
+                </div>
+            </div>
+            <div class="form-group mt-3">
+                <label class="d-block">Volta</label>
+                <div class="btn-group-toggle" data-toggle="buttons">
+                    <label class="btn volta">
+                        <input type="checkbox" name="ConfirmaVolta" value="true" autocomplete="off"> ✔
+                    </label>
+                    <label class="btn volta">
+                        <input type="checkbox" name="ConfirmaVolta" value="false" autocomplete="off"> ✖
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success mt-3">Confirmar</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .bg-orange {
+        background-color: #F17530;
+    }
+
+    .btn-group-toggle .btn {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+        .btn-group-toggle .btn input[type="checkbox"] {
+            display: none;
+        }
+
+    .btn-group-toggle .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-group-toggle .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn.ida.checked {
+        background-color: #28a745 !important;
+        color: white;
+    }
+
+    .btn.volta.checked {
+        background-color: #6c757d !important;
+        color: white;
+    }
+
+    .btn.ida:not(.checked) {
+        background-color: #dc3545 !important;
+        color: white;
+    }
+
+    .btn.volta:not(.checked) {
+        background-color: #dc3545 !important;
+        color: white;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var idaButtons = document.querySelectorAll(".btn.ida");
+        var voltaButtons = document.querySelectorAll(".btn.volta");
+
+        idaButtons.forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                idaButtons.forEach(function (btn) {
+                    btn.classList.remove("checked");
+                });
+                this.classList.add("checked");
+                this.querySelector("input").checked = true;
+            });
+        });
+
+        voltaButtons.forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                voltaButtons.forEach(function (btn) {
+                    btn.classList.remove("checked");
+                });
+                this.classList.add("checked");
+                this.querySelector("input").checked = true;
+            });
+        });
+    });
+</script>

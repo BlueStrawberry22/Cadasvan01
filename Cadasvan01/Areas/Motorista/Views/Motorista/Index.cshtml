@@ -1,19 +1,29 @@
 ﻿@model Cadasvan01.Areas.Motorista.Controllers.MotoristaIndexViewModel
 
-<h2>Bem-vindo, @Model.Motorista.NomeCompleto</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2>Bem-vindo, @Model.Motorista.NomeCompleto</h2>
+        </div>
+    </div>
 
-<a asp-area="Motorista" asp-controller="MotoristaCodigo" asp-action="GerarCodigo" class="btn btn-primary">Gerar um código de vinculação</a>
-<a href="@Url.Action("AlunosVinculados", "Motorista", new { area = "Motorista" })" class="btn btn-primary">Ver Alunos Vinculados</a>
-<a asp-area="Motorista" asp-controller="MotoristaAvisos" asp-action="Index" class="btn btn-primary">Avisos</a>
+    <div class="row mb-3">
+        <div class="col-12 text-center">
+            <a asp-area="Motorista" asp-controller="MotoristaCodigo" asp-action="GerarCodigo" class="btn btn-primary">Gerar um código de vinculação</a>
+            <a href="@Url.Action("AlunosVinculados", "Motorista", new { area = "Motorista" })" class="btn btn-primary">Ver Alunos Vinculados</a>
+            <a asp-area="Motorista" asp-controller="MotoristaAvisos" asp-action="Index" class="btn btn-primary">Avisos</a>
+        </div>
+    </div>
 
-<br />
-<br />
+    <div class="row mb-3">
+        <div class="col-12">
+            @await Html.PartialAsync("_PresencaMotoristaPartial", Model.PresencasHoje)
+        </div>
+    </div>
 
-<div>
-    <a asp-area="Motorista" asp-controller="MotoristaPresencas" asp-action="Historico" class="btn btn-primary">Historico de presenca</a>
-</div>
-
-<h2>Presenças confirmadas para hoje:</h2>
-<div>
-    @await Html.PartialAsync("_PresencaMotoristaPartial", Model.PresencasHoje)
+    <div class="row mb-3">
+        <div class="col-12 text-center">
+            <a asp-area="Motorista" asp-controller="MotoristaPresencas" asp-action="Historico" class="btn btn-primary">Histórico de presença</a>
+        </div>
+    </div>
 </div>

@@ -43,11 +43,18 @@ namespace Cadasvan01.Areas.Motorista.Controllers
                 .Where(p => p.MotoristaId == motoristaId && p.DataViagem.Date == today)
                 .ToListAsync();
 
+            // Ordenar as presenças com base nas condições especificadas
+            var presencasOrdenadas = presencasHoje
+                .OrderByDescending(p => p.ConfirmaIda && p.ConfirmaVolta)
+                .ThenByDescending(p => p.ConfirmaIda)
+                .ThenByDescending(p => p.ConfirmaVolta)
+                .ToList();
+
             var model = new MotoristaIndexViewModel
             {
                 Motorista = motorista,
                 AlunosVinculados = motorista.Alunos.ToList(),
-                PresencasHoje = presencasHoje
+                PresencasHoje = presencasOrdenadas
             };
 
             return View(model);

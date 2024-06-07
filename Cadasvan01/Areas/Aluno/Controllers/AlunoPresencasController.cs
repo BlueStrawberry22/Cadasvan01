@@ -58,22 +58,22 @@ namespace Cadasvan01.Areas.Aluno.Controllers
         public IActionResult Create()
         {
             var alunoId = _userManager.GetUserId(User);
-            
+
             var aluno = _context.Usuarios
                 .Include(u => u.Motorista)
                 .FirstOrDefault(u => u.Id == alunoId);
 
             if (aluno?.MotoristaId == null)
             {
-                
+
                 return RedirectToAction("Index", "Home");
             }
 
             var presenca = new Presenca
             {
                 UsuarioId = alunoId,
-                MotoristaId = aluno.MotoristaId, 
-                DataViagem = DateTime.Now 
+                MotoristaId = aluno.MotoristaId,
+                DataViagem = DateTime.Now
             };
 
             ViewData["MotoristaNome"] = aluno.Motorista.NomeCompleto;

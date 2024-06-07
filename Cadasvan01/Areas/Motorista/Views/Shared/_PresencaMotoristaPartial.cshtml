@@ -1,43 +1,57 @@
 ﻿@model List<Cadasvan01.Models.Presenca>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Data</th>
-            <th>Aluno</th>
-            <th>Ida</th>
-            <th>Volta</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var presenca in Model)
+<div class="presencas-motorista-container">
+    <div class="presencas-motorista-header">
+        <h3>Presenças confirmadas:</h3>
+    </div>
+    <div class="presencas-motorista-body">
+        @if (!Model.Any())
         {
-            <tr>
-                <td>@presenca.DataViagem.ToString("dd/MM/yyyy")</td>
-                <td>@presenca.Usuario?.NomeCompleto ?? "N/A"</td>
-                <td class="text-center">
-                    @if (presenca.ConfirmaIda)
-                    {
-                        <span style="color: green;">&#x2714;</span>
-                    }
-                    else
-                    {
-                        <span style="color: red;">&#x2716;</span>
-                    }
-                </td>
-                <td class="text-center">
-                    @if (presenca.ConfirmaVolta)
-                    {
-                        <span style="color: green;">&#x2714;</span>
-                    }
-                    else
-                    {
-                        <span style="color: red;">&#x2716;</span>
-                    }
-                </td>
-            </tr>
+            <p>Nenhuma presença registrada hoje.</p>
         }
-    </tbody>
-</table>
-
-
+        else
+        {
+            <table class="presencas-motorista-tabela">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Nome</th>
+                       
+                        <th>Ida</th>
+                        <th>Volta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var presenca in Model)
+                    {
+                        <tr>
+                            <td>@presenca.DataViagem.ToString("dd/MM/yyyy")</td>
+                            <td>@presenca.Usuario.NomeCompleto</td>
+                            
+                            <td>
+                                @if (presenca.ConfirmaIda)
+                                {
+                                    <span class="confirmado">&#x2714;</span>
+                                }
+                                else
+                                {
+                                    <span class="nao-confirmado">&#x2716;</span>
+                                }
+                            </td>
+                            <td>
+                                @if (presenca.ConfirmaVolta)
+                                {
+                                    <span class="confirmado">&#x2714;</span>
+                                }
+                                else
+                                {
+                                    <span class="nao-confirmado">&#x2716;</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
