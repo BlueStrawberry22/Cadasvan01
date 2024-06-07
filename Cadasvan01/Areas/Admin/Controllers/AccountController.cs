@@ -73,7 +73,8 @@ namespace Cadasvan01.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    NomeCompleto = model.NomeCompleto,
+                    Nome= model.Nome,
+                    Sobrenome = model.Sobrenome,
                     CPF = model.CPF,
                     Tipo = Enums.UsuarioEnum.Motorista,
                     Placa = model.Placa,

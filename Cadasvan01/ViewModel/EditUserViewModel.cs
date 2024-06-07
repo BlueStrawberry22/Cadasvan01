@@ -7,9 +7,14 @@ namespace Cadasvan01.ViewModel
         [Required]
         public string Id { get; set; }
 
-        [Display(Name = "Nome Completo")]
+        [Display(Name = "Nome")]
         [Required(ErrorMessage = "Item obrigatório.")]
-        public string NomeCompleto { get; set; }
+        public string Nome{ get; set; }
+
+
+        [Display(Name = "Sobrenome")]
+        [Required(ErrorMessage = "Item obrigatório.")]
+        public string Sobrenome { get; set; }
 
         [Required(ErrorMessage = "Item obrigatório.")]
         [MaxLength(11)]

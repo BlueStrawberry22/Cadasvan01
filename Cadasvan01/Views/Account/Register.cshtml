@@ -16,8 +16,12 @@
             <form method="post">
                 <h1>Cadastre-se</h1>
                 <div class="input-box .col-sm-2">
-                    <input asp-for="NomeCompleto" placeholder="Nome completo" class="form-control" />
-                    <span asp-validation-for="NomeCompleto" class="text-danger"></span>
+                    <input asp-for="Nome" placeholder="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                <div class="input-box .col-sm-2">
+                    <input asp-for="Sobrenome" placeholder="Sobrenome" class="form-control" />
+                    <span asp-validation-for="Sobrenome" class="text-danger"></span>
                 </div>
                 <div class="input-box .col-sm-12">
                     <input asp-for="CPF" placeholder="CPF" class="form-control" maxlength="14" />

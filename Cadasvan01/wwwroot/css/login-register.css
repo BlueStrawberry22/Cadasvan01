@@ -98,7 +98,7 @@ body {
     display: flex;
     justify-content: space-between;
     font-size: 14.5px;
-    margin: -15px 0 15px;
+    margin: 10px 0 15px 0px;
 }
 
 .remember-forgot label input {
@@ -132,4 +132,12 @@ body {
 /* Specific styles for register form */
 .wrapper.register {
     max-width: 800px; /* Increase the width for the register form */
+}
+
+.wrapper.login {
+    max-width: 800px; /* Increase the width for the register form */
+}
+
+.wrapper login input-box{
+    margin: 0px 0px 20px 0px;
 }

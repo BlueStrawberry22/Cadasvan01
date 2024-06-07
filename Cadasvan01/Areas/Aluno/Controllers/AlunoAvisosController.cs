@@ -1,11 +1,11 @@
-﻿using Cadasvan01.Data;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-
+using System.Threading.Tasks;
 using Cadasvan01.Models;
+using Cadasvan01.Data;
 
 namespace Cadasvan01.Areas.Aluno.Controllers
 {
@@ -22,6 +22,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             _userManager = userManager;
         }
 
+        // Método existente
         public async Task<IActionResult> Index()
         {
             var alunoId = _userManager.GetUserId(User);
@@ -36,6 +37,29 @@ namespace Cadasvan01.Areas.Aluno.Controllers
                 .ToListAsync();
 
             return PartialView("_AlunoAvisosPartial", avisos);
+        }
+
+        // Novo método para verificar o status
+        public async Task<IActionResult> VerificarStatus()
+        {
+            var avisos = await _context.Avisos.ToListAsync();
+            return View(avisos);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MarcarComoLido([FromBody] int id)
+        {
+            var aviso = await _context.Avisos.FindAsync(id);
+            if (aviso == null)
+            {
+                return NotFound();
+            }
+
+            aviso.Lido = true;
+            _context.Update(aviso);
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
     }
 }

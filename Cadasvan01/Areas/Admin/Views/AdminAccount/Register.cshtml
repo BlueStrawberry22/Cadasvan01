@@ -9,9 +9,12 @@
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NomeCompleto"></label>
-                <input asp-for="NomeCompleto" class="form-control" />
-                <span asp asp-validation-for="NomeCompleto" class="text-danger"></span>
+                <input asp-for="Nome" placeholder="Nome completo" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Sobrenome" placeholder="Nome completo" class="form-control" />
+                <span asp-validation-for="Sobrenome" class="text-danger"></span>
             </div>
 
             <div class="form-group">

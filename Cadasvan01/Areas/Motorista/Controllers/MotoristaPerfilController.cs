@@ -41,7 +41,7 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             var model = new EditUserViewModel
             {
                 Id = user.Id,
-                NomeCompleto = user.NomeCompleto,
+                Nome= user.Nome,
                 CPF = user.CPF,
                 CidadeId = user.CidadeId,
                 Endereco = user.Endereco,
@@ -71,7 +71,7 @@ namespace Cadasvan01.Areas.Motorista.Controllers
                 return NotFound();
             }
 
-            user.NomeCompleto = model.NomeCompleto;
+            user.Nome= model.Nome;
             user.CPF = model.CPF;
             user.CidadeId = model.CidadeId;
             user.Endereco = model.Endereco;

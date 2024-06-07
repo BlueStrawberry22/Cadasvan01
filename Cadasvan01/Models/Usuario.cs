@@ -7,7 +7,8 @@ namespace Cadasvan01.Models
     public class Usuario : IdentityUser
     {
         public string? CaminhoImagemPerfil { get; set; }
-        public string NomeCompleto { get; set; }
+        public string Nome{ get; set; }
+        public string Sobrenome { get; set; }
         [MaxLength(11)]
         public string CPF { get; set; }
         public int CidadeId { get; set; }
@@ -19,6 +20,7 @@ namespace Cadasvan01.Models
         [RegularExpression(@"^\(\d{2}\)\d{5}-\d{4}$", ErrorMessage = "Formato indicado: (00)00000-0000.")]
         public string Celular1 { get; set; }
         [Phone]
+        [RegularExpression(@"^\(\d{2}\)\d{5}-\d{4}$", ErrorMessage = "Formato indicado: (00)00000-0000.")]
         public string? Celular2 { get; set; }
         [MaxLength(11)]
         public string? CNH { get; set; }

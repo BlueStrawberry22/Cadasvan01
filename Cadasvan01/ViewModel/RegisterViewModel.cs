@@ -12,9 +12,13 @@ namespace Cadasvan01.ViewModel
 
         public string? CaminhoImagemPerfil { get; set; }
 
-        [Display(Name = "Nome Completo")]
+        [Display(Name = "Nome")]
         [Required(ErrorMessage = "Item obrigatório.")]
-        public string NomeCompleto { get; set; }
+        public string Nome { get; set; }
+
+        [Display(Name = "Sobrenome")]
+        [Required(ErrorMessage = "Item obrigatório.")]
+        public string Sobrenome { get; set; }
 
         [Required(ErrorMessage = "O CPF é obrigatório.")]
         public string CPF { get; set; }

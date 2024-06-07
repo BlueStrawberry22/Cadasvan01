@@ -17,7 +17,7 @@
             @foreach (var aluno in Model.AlunosVinculados)
             {
                 <tr>
-                    <td>@aluno.NomeCompleto</td>
+                    <td>@aluno.Nome @aluno.Sobrenome</td>
                     <td>
                         @if (aluno.Cidade != null)
                         {

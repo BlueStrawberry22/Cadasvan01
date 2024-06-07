@@ -68,7 +68,7 @@ namespace Cadasvan01.Services
 
                 var userAdmin = new Usuario
                 {
-                    NomeCompleto = email,
+                    Nome= email,
                     Tipo = tipo,
                     UserName = email,
                     Email = email,

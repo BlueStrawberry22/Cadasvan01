@@ -18,7 +18,7 @@
         @foreach (var user in Model)
         {
                 <tr>
-                    <td>@user.NomeCompleto</td>
+                    <td>@user.Nome @user.Sobrenome</td>
                     <td>@user.Email</td>
                     <td>
                         <a asp-area="Admin" asp-controller="AdminListaMotoristas" asp-action="EditarMotorista" asp-route-id="@user.Id">Editar</a> |

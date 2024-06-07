@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Cadasvan01.Models.Aviso>
+
+<div class="avisos-container">
+    <div class="avisos-header">
+        <h3>Status dos Avisos</h3>
+    </div>
+    <div class="avisos-body">
+        @if (!Model.Any())
+        {
+            <p>Nenhum aviso disponível.</p>
+        }
+        else
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Conteúdo</th>
+                        <th>Data de Publicação</th>
+                        <th>Lido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var aviso in Model)
+                    {
+                        <tr>
+                            <td>@aviso.Titulo</td>
+                            <td>@aviso.Conteudo</td>
+                            <td>@aviso.DataPublicacao.ToString("dd/MM/yyyy")</td>
+                            <td>@aviso.Lido</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f4f4f4;
+    }
+</style>
