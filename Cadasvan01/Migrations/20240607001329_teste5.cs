@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Cadasvan01.Migrations
 {
     /// <inheritdoc />
-    public partial class Teste : Migration
+    public partial class teste5 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -239,17 +239,17 @@ namespace Cadasvan01.Migrations
                 name: "Presencas",
                 columns: table => new
                 {
-                    ConfirmacaoDePresencaID = table.Column<int>(type: "int", nullable: false)
+                    PresencaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UsuarioId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ConfirmadoPresencaIda = table.Column<bool>(type: "bit", nullable: false),
-                    ConfirmadoPresencaVolta = table.Column<bool>(type: "bit", nullable: false),
-                    DataViagemConfirmada = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DataViagem = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ConfirmaIda = table.Column<bool>(type: "bit", nullable: false),
+                    ConfirmaVolta = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Presencas", x => x.ConfirmacaoDePresencaID);
+                    table.PrimaryKey("PK_Presencas", x => x.PresencaId);
                     table.ForeignKey(
                         name: "FK_Presencas_AspNetUsers_MotoristaId",
                         column: x => x.MotoristaId,

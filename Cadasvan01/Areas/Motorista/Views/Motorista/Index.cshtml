@@ -2,13 +2,18 @@
 
 <h2>Bem-vindo, @Model.Motorista.NomeCompleto</h2>
 
-</p>
-
 <a asp-area="Motorista" asp-controller="MotoristaCodigo" asp-action="GerarCodigo" class="btn btn-primary">Gerar um código de vinculação</a>
-</p>
-<a href="@Url.Action("AlunosVinculados", "Motorista", new { area = "Motorista" })" class="btn btn-primary">Ver Alunos Vinculados</a></p>
-</p>
+<a href="@Url.Action("AlunosVinculados", "Motorista", new { area = "Motorista" })" class="btn btn-primary">Ver Alunos Vinculados</a>
 <a asp-area="Motorista" asp-controller="MotoristaAvisos" asp-action="Index" class="btn btn-primary">Avisos</a>
 
+<br />
+<br />
 
+<div>
+    <a asp-area="Motorista" asp-controller="MotoristaPresencas" asp-action="Historico" class="btn btn-primary">Historico de presenca</a>
+</div>
 
+<h2>Presenças confirmadas para hoje:</h2>
+<div>
+    @await Html.PartialAsync("_PresencaMotoristaPartial", Model.PresencasHoje)
+</div>
