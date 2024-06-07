@@ -3,7 +3,12 @@
 <div>
     <h2>Informações do Motorista</h2>
     <p><strong>Nome Completo:</strong> @Model.NomeCompleto</p>
-    <p><strong>Email:</strong> @Model.Email</p>
+
+    <p><strong>Email:</strong> @Model.Celular1</p>
+    @if (Model.Celular2 != null && Model.Celular2 != Model.Celular1)
+    {
+        <p><strong>Email:</strong> @Model.Celular2</p>
+    }
     <p><strong>CNH:</strong> @Model.CNH</p>
     <p><strong>Placa:</strong> @Model.Placa</p>
 
