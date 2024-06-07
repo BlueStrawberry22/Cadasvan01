@@ -17,17 +17,16 @@ namespace Cadasvan01.ViewModel
         public string NomeCompleto { get; set; }
 
         [Required(ErrorMessage = "O CPF é obrigatório.")]
-        [RegularExpression(@"^\d{3}\.\d{3}\.\d{3}-\d{2}$", ErrorMessage = "Formato de CPF inválido. Use o formato 000.000.000-00.")]
         public string CPF { get; set; }
 
         [Display(Name = "CEP")]
         [Required(ErrorMessage = "Item obrigatório.")]
-        public string CEP { get; set; }
+        public string? CEP { get; set; }
 
         [Display(Name = "Cidade")]
         public int CidadeId { get; set; }
 
-        [Display(Name ="Complemento")]
+        [Display(Name = "Complemento")]
 
         public string? Complemento { get; set; }
 
@@ -37,14 +36,13 @@ namespace Cadasvan01.ViewModel
         public string? Bairro { get; set; }
 
         [Required(ErrorMessage = "Item obrigatório.")]
-        public string Endereco { get; set; }
+        public string? Endereco { get; set; }
 
         [Phone]
         [Required(ErrorMessage = "Item obrigatório.")]
         public string Celular1 { get; set; }
 
         [Phone]
-        [Required(ErrorMessage = "Item obrigatório.")]
         public string? Celular2 { get; set; }
         [MaxLength(11)]
         public string? CNH { get; set; }

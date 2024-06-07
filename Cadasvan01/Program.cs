@@ -6,12 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Adicionar servi�os ao cont�iner.
 builder.Services.AddHttpClient<ViaCEPService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+
+// Outras configura��es de servi�o
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddIdentity<Usuario, Funcao>(options =>
 {
@@ -33,6 +37,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Motorista", politica => politica.RequireRole("Motorista"));
 });
 
+
 var app = builder.Build();
 
 using (var serviceScope = app.Services.CreateScope())
@@ -45,6 +50,7 @@ using (var serviceScope = app.Services.CreateScope())
     servicoSeed.SeedUsers();
 }
 
+// Configurar o pipeline HTTP.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

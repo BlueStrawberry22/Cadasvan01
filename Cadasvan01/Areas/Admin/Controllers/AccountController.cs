@@ -32,19 +32,23 @@ namespace Cadasvan01.Controllers
         }
 
         [HttpGet]
-        [Route("/Account/GetEndereco")]
-        public async Task<JsonResult> GetEndereco(string cep)
+        public async Task<IActionResult> GetEndereco(string cep)
         {
-            try
+            if (string.IsNullOrEmpty(cep))
             {
-                var endereco = await _viaCEPService.ConsultarCEP(cep);
-                return new JsonResult(endereco);
+                return BadRequest("CEP não pode ser nulo ou vazio.");
             }
-            catch (Exception ex)
+
+            var endereco = await _viaCEPService.ConsultarCEP(cep);
+
+            if (endereco == null)
             {
-                return new JsonResult(new { error = ex.Message });
+                return NotFound("Endereço não encontrado para o CEP fornecido.");
             }
+
+            return Ok(endereco);
         }
+
         [HttpGet]
         public async Task<IActionResult> Register()
         {
@@ -74,15 +78,15 @@ namespace Cadasvan01.Controllers
                     Tipo = Enums.UsuarioEnum.Motorista,
                     Placa = model.Placa,
                     CNH = model.CNH,
-                    Celular1= model.Celular1,
-                    Celular2= model.Celular2,
+                    Celular1 = model.Celular1,
+                    Celular2 = model.Celular2,
                     CidadeId = model.CidadeId,
                     Endereco = model.Endereco
-                    
+
                 };
                 var result = await _userManager.CreateAsync(user, model.Senha);
 
-                if (result.Succeeded) 
+                if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, "Motorista");
                     return RedirectToAction("Index", "Admin");

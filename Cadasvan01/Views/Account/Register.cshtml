@@ -35,9 +35,12 @@
                     <input asp-for="Bairro" placeholder="Bairro" class="form-control" id="bairro" />
                     <span asp-validation-for="Bairro" class="text-danger"></span>
                 </div>
-                <div class="input-box">
+
+
+                <div class="select">
+
                     <label asp-for="CidadeId" class="label"></label>
-                    <select asp-for="CidadeId" class="select" asp-items="ViewBag.Cidades" id="cidade"></select>
+                    <select asp-for="CidadeId" class="select"  asp-items="ViewBag.Cidades" id="cidade"></select>
                     <span asp-validation-for="CidadeId" class="text-danger"></span>
                 </div>
                 <div class="input-box">
@@ -107,18 +110,33 @@
             }
         });
 
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
         function formatarCPF(campo) {
+            // Remove tudo que não for número
             var valor = campo.value.replace(/\D/g, '');
+
+            // Formata o CPF: xxx.xxx.xxx-xx
             valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
             valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
             valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+            // Atualiza o valor do campo
             campo.value = valor;
         }
 
         function formatarTelefone(campo) {
+            // Remove tudo que não for número
             var valor = campo.value.replace(/\D/g, '');
+
+            // Formata o telefone: (xx)xxxxx-xxxx
             valor = valor.replace(/(\d{2})(\d)/, '($1)$2');
             valor = valor.replace(/(\d{5})(\d)/, '$1-$2');
+
+            // Atualiza o valor do campo
             campo.value = valor;
         }
 

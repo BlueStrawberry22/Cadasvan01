@@ -42,7 +42,30 @@ body {
         align-items: center;
         width: 100%;
         height: 50px;
-        margin: 30px 0;
+        margin: 30px 0px 0;
+    }
+
+.select{
+    margin: 30px 0px 0px 0px;
+}
+
+#cidade.select {
+    position: relative;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    margin: 3px 0px 0px 0px;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    padding: 0px 0px 0px 20px;
+    border-radius: 40px;
+    font-size: 16px;
+    color: #333;
+}
+
+    #cidade.select .label {
+        margin: 10px 0px 0px 20px;
     }
 
 .input-box input {
@@ -70,54 +93,6 @@ body {
     font-size: 20px;
 }
 
-.input-box .col-sm-3 {
-    flex: 0 0 auto;
-    width: 25%;
-}
-
-.input-box .col-sm-4 {
-    flex: 0 0 auto;
-    width: 33.33333333%;
-}
-
-.input-box.col-sm-5 {
-    flex: 0 0 auto;
-    width: 41.66666667%;
-}
-
-.input-box .col-sm-6 {
-    flex: 0 0 auto;
-    width: 50%;
-}
-
-.input-box .col-sm-7 {
-    flex: 0 0 auto;
-    width: 58.33333333%;
-}
-
-.input-box .col-sm-8 {
-    flex: 0 0 auto;
-    width: 66.66666667%;
-}
-
-.input-box .col-sm-9 {
-    flex: 0 0 auto;
-    width: 75%;
-}
-
-.input-box .col-sm-10 {
-    flex: 0 0 auto;
-    width: 83.33333333%;
-}
-
-.input-box .col-sm-11 {
-    flex: 0 0 auto;
-    width: 91.66666667%;
-}
-
-.wrapper .label {
-    padding: 20px 45px 10px 10px;
-}
 
 .wrapper .remember-forgot {
     display: flex;
@@ -152,22 +127,6 @@ body {
     font-size: 16px;
     color: #333;
     font-weight: 600;
-}
-
-.select {
-    width: 100%;
-    height: 50px;
-    border: none;
-    outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
-    border-radius: 40px;
-    font-size: 16px;
-    padding: 0px 0px 0px 20px;
-    color: #fff;
-    box-shadow: 0 0 2px rgb(204, 204, 204);
-    transition: all .5s ease;
-    color: #333;
-    cursor: pointer;
 }
 
 /* Specific styles for register form */

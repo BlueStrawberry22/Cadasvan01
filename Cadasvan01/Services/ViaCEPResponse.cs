@@ -19,6 +19,7 @@ namespace Cadasvan01.Services
 
         [JsonPropertyName("bairro")]
         public string Bairro { get; set; }
+
     }
 
     public class ViaCEPService
