@@ -18,8 +18,15 @@
                         <a href="#" class="aviso-link" data-id="@aviso.AvisoId" data-titulo="@aviso.Titulo" data-conteudo="@aviso.Conteudo">
                             <strong>@aviso.Titulo</strong>
                         </a>
+                        @if (!aviso.Lido)
+                        {
+                            <span class="status-badge status-nao-lido">Novo!</span>
+                        }
+                        else
+                        {
+                            <span class="status-badge status-lido">Lido</span>
+                        }
                         <small>@aviso.DataPublicacao.ToString("dd/MM/yyyy")</small>
-                        <hr />
                     </li>
                 }
             </ul>

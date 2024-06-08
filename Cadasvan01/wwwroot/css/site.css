@@ -38,30 +38,4 @@ body {
     margin: 20px 0;
 }
 
-.avisos-header {
-    background-color: #F17530; /* cor de fundo do cabeçalho */
-    padding: 10px;
-    color: white;
-    font-weight: bold;
-}
-
-.avisos-body {
-    padding: 10px;
-    background-color: #f9f9f9; /* cor de fundo do corpo */
-}
-
-    .avisos-body ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .avisos-body li {
-        margin-bottom: 10px;
-    }
-
-        .avisos-body li strong {
-            display: block;
-            margin-bottom: 5px;
-        }
 
