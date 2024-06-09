@@ -14,17 +14,17 @@
             <ul>
                 @foreach (var aviso in Model)
                 {
-                    <li>
+                    <li id="aviso-@aviso.AvisoId">
                         <a href="#" class="aviso-link" data-id="@aviso.AvisoId" data-titulo="@aviso.Titulo" data-conteudo="@aviso.Conteudo">
                             <strong>@aviso.Titulo</strong>
                         </a>
                         @if (!aviso.Lido)
                         {
-                            <span class="status-badge status-nao-lido">Novo!</span>
+                            <span class="status-badge status-nao-lido" id="status-@aviso.AvisoId">Novo!</span>
                         }
                         else
                         {
-                            <span class="status-badge status-lido">Lido</span>
+                            <span class="status-badge status-lido" id="status-@aviso.AvisoId">Lido</span>
                         }
                         <small>@aviso.DataPublicacao.ToString("dd/MM/yyyy")</small>
                     </li>
@@ -103,7 +103,15 @@
                 },
                 body: JSON.stringify(id)
             }).then(response => {
-                if (!response.ok) {
+                if (response.ok) {
+                    // Atualizar o DOM para refletir a mudança de status
+                    var statusBadge = document.getElementById('status-' + id);
+                    if (statusBadge) {
+                        statusBadge.textContent = 'Lido';
+                        statusBadge.classList.remove('status-nao-lido');
+                        statusBadge.classList.add('status-lido');
+                    }
+                } else {
                     console.error('Erro ao marcar como lido:', response.statusText);
                 }
             }).catch(error => {
