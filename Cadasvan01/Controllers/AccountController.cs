@@ -125,14 +125,17 @@ namespace Cadasvan01.Controllers
             {
                 if (model.ImagemPerfil != null)
                 {
-                    string folder = "images/perfil";
+                    string folder = "images/perfil/";
                     folder += Guid.NewGuid().ToString() + "_" + model.ImagemPerfil.FileName;
 
                     model.CaminhoImagemPerfil = "/" + folder;
 
                     string serverFolder = Path.Combine(_webHostEnviroment.WebRootPath, folder);
 
-                    await model.ImagemPerfil.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+                    using (var fileStream = new FileStream(serverFolder, FileMode.Create))
+                    {
+                        await model.ImagemPerfil.CopyToAsync(fileStream);
+                    }
                 }
 
                 var user = new Usuario

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Cadasvan01.Migrations
 {
     /// <inheritdoc />
-    public partial class Teste : Migration
+    public partial class dnv : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -65,7 +65,8 @@ namespace Cadasvan01.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CaminhoImagemPerfil = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NomeCompleto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sobrenome = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CPF = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
                     CidadeId = table.Column<int>(type: "int", nullable: false),
                     CEP = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -203,7 +204,8 @@ namespace Cadasvan01.Migrations
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Conteudo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataPublicacao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Lido = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
