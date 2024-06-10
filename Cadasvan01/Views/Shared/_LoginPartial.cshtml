@@ -2,14 +2,17 @@
 @inject SignInManager<Usuario> SignInManager
 @inject UserManager<Usuario> UserManager
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<ul class="navbar-nav">
+<ul class="navbar-nav ml-auto">
     @if (SignInManager.IsSignedIn(User))
     {
         var user = UserManager.GetUserAsync(User).Result;
         var userRole = UserManager.GetRolesAsync(user).Result.FirstOrDefault();
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <box-icon name='bell' type='solid' color="white"></box-icon>
+            </a>
+        </li>
 
         <li class="nav-item dropdown">
             @{
@@ -23,89 +26,72 @@
                     profileImageUrl = Url.Content(user.CaminhoImagemPerfil);
                 }
             }
-            <img src="@profileImageUrl" class="rounded-circle" width="30" height="30" alt="Profile Image" />
-            <div class="dropdown">
-                <button class="dropbtn">
-                    @User.Identity.Name
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    @if (userRole == "Motorista")
-                    {
-                        <form asp-area="Motorista" asp-controller="MotoristaPerfil" asp-action="Edit" method="get">
-                            <button type="submit" class="dropdown-item">Gerenciar conta</button>
-                        </form>
-                    }
-                    else if (userRole == "Aluno")
-                    {
-                        <form asp-area="Aluno" asp-controller="AlunoPerfil" asp-action="Edit" method="get">
-                            <button type="submit" class="dropdown-item">Gerenciar conta</button>
-                        </form>
-                    }
-                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" asp-route-returnUrl="@Url.Action("Index", "Home")">
-                        <button type="submit" class="dropdown-item">Logout</button>
-                    </form>
-                </div>
+            <a class="nav-link" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="@profileImageUrl" class="rounded-circle" width="40" height="40" alt="Profile Image" />
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
+                @if (userRole == "Motorista")
+                {
+                    <a class="dropdown-item" asp-area="Motorista" asp-controller="MotoristaPerfil" asp-action="Edit">Gerenciar conta</a>
+                }
+                else if (userRole == "Aluno")
+                {
+                    <a class="dropdown-item" asp-area="Aluno" asp-controller="AlunoPerfil" asp-action="Edit">Gerenciar conta</a>
+                }
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
             </div>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link text-light" asp-controller="Account" asp-action="Register">Registrar</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-light" asp-controller="Account" asp-action="Login">Login</a>
         </li>
     }
 </ul>
 
 <style>
-    /* Dropdown Button */
-    .dropbtn {
-        background-color: transparent;
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
+    .nav-link {
+        color: white !important;
     }
 
-    /* The container <div> - needed to position the dropdown content */
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    /* Dropdown Content (Hidden by Default) */
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f1f1f1;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-
-        /* Links inside the dropdown */
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
+        .nav-link:hover {
+            color: #ddd !important;
         }
 
-            /* Change color of dropdown links on hover */
-            .dropdown-content a:hover {
-                background-color: #ddd;
-            }
+    .dropdown-menu {
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
 
-    /* Show the dropdown menu on hover */
-    .dropdown:hover .dropdown-content {
+    .dropdown-item {
+        color: #333;
+        padding: 0.7rem;
+        text-align: center;
+    }
+
+        .dropdown-item:hover {
+            color:white;
+            background-color: #f6944e;
+        }
+
+    .dropdown-toggle::after {
+        display: none;
+    }
+
+    .nav-item .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 60px;
+        min-width: 200px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-item:hover .dropdown-menu {
         display: block;
     }
 
-    /* Change the background color of the dropdown button when the dropdown content is shown */
-    .dropdown:hover .dropbtn {
-        background-color: transparent;
+    .dropdown-menu-right {
+        right: 0;
+        left: auto;
     }
 </style>

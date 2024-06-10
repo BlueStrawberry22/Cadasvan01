@@ -1,9 +1,45 @@
 ﻿body {
     font-family: 'Poppins', sans-serif;
+    background: url('/images/backgroud-aluno.png') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
+.navbar {
+    background-color: transparent !important;
+    box-shadow: none;
+}
+
+    .navbar .nav-link {
+        color: white;
+    }
+
+        .navbar .nav-link:hover {
+            color: #ddd;
+        }
+
+    .navbar .dropdown-menu {
+        background-color: #fff;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9); /* Lighten background for readability */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+
+
 .avisos-container {
-    background-color: #white;
+    background-color: white;
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;

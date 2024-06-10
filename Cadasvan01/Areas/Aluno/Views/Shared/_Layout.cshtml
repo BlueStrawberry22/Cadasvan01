@@ -9,19 +9,16 @@
     <link rel="stylesheet" href="~/Cadasvan01.styles.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-aluno border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-transparent">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <a class="navbar-brand" asp-area="Aluno" asp-controller="Aluno" asp-action="Index"><img src="~/images/CadasvanAluno.png" alt="Logo"></a>
-                    </ul>
+                <a class="navbar-brand" asp-area="Aluno" asp-controller="Aluno" asp-action="Index">
+                    <img src="~/images/CadasvanAluno.png" alt="Logo" style="height: 70px;">
+                </a>
+                <div class="collapse navbar-collapse justify-content-end">
                     <partial name="_LoginPartial" />
                 </div>
             </div>
