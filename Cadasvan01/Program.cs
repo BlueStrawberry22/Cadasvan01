@@ -6,16 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adicionar servi�os ao cont�iner.
+// Adicionar serviços ao contêiner.
 builder.Services.AddHttpClient<ViaCEPService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-
-// Outras configura��es de servi�o
+// Outras configurações de serviço
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 
 builder.Services.AddIdentity<Usuario, Funcao>(options =>
 {
@@ -37,6 +35,12 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Motorista", politica => politica.RequireRole("Motorista"));
 });
 
+// Configuração de redirecionamento HTTP para HTTPS
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+    options.HttpsPort = 5001; // Certifique-se de usar a porta HTTPS correta
+});
 
 var app = builder.Build();
 

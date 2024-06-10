@@ -10,7 +10,7 @@
 
         <li class="nav-item">
             <a class="nav-link" href="#">
-                <box-icon name='bell' type='solid' color="white"></box-icon>
+                <i class='bx bxs-bell'></i>
             </a>
         </li>
 
@@ -26,7 +26,7 @@
                     profileImageUrl = Url.Content(user.CaminhoImagemPerfil);
                 }
             }
-            <a class="nav-link" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="@profileImageUrl" class="rounded-circle" width="40" height="40" alt="Profile Image" />
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
@@ -39,7 +39,9 @@
                     <a class="dropdown-item" asp-area="Aluno" asp-controller="AlunoPerfil" asp-action="Edit">Gerenciar conta</a>
                 }
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="dropdown-item">
+                    <button type="submit" style="background:none;border:none;padding:0;margin:0;color:#333;">Logout</button>
+                </form>
             </div>
         </li>
     }
@@ -60,6 +62,8 @@
         border: none;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
+        right: 0;
+        left: auto;
     }
 
     .dropdown-item {
@@ -69,8 +73,7 @@
     }
 
         .dropdown-item:hover {
-            color:white;
-            background-color: #f6944e;
+            background-color: #f8f9fa;
         }
 
     .dropdown-toggle::after {
@@ -80,13 +83,13 @@
     .nav-item .dropdown-menu {
         display: none;
         position: absolute;
-        right: 0;
         top: 60px;
         min-width: 200px;
         transition: all 0.3s ease;
+        right: 0;
     }
 
-    .nav-item:hover .dropdown-menu {
+    .nav-item.show .dropdown-menu {
         display: block;
     }
 
@@ -95,3 +98,23 @@
         left: auto;
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var dropdown = document.querySelector('.nav-item.dropdown');
+
+        dropdown.addEventListener('click', function (event) {
+            event.stopPropagation();
+            this.classList.toggle('show');
+            this.querySelector('.dropdown-menu').classList.toggle('show');
+        });
+
+        document.addEventListener('click', function (event) {
+            var openDropdown = document.querySelector('.nav-item.dropdown.show');
+            if (openDropdown && !openDropdown.contains(event.target)) {
+                openDropdown.classList.remove('show');
+                openDropdown.querySelector('.dropdown-menu').classList.remove('show');
+            }
+        });
+    });
+</script>
