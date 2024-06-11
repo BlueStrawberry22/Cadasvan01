@@ -10,11 +10,24 @@
     </a>
     <br />
     @Html.Partial("_AlunoAvisosPartial", Model.Avisos)
+
+    <div>
+        @await Html.PartialAsync("_PresencaAlunoPartial", new Cadasvan01.Models.Presenca { DataViagem = DateTime.Now.Date })
+    </div>
+
+    <a asp-area="Aluno" asp-controller="AlunoPresencas" asp-action="Index" class="btn btn-primary">Ver Historico de presenca</a>
+
 }
 else
 {
     <p>Você ainda não está vinculado a um motorista.</p>
     <a asp-area="Aluno" asp-controller="AlunoCodigo" asp-action="VincularMotorista">Se vincule a um motorista</a>
+
+
+
+
+
+
 }
 <br />
 
@@ -47,4 +60,3 @@ else
             background-color: #FF5722;
         }
 </style>
-

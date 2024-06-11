@@ -1,5 +1,32 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Cadasvan01.Models.Presenca
+
+<div class="card">
+    <div class="card-header">
+        Presença do dia (@Model.DataViagem.ToString("dd/MM/yyyy"))
+    </div>
+    <div class="card-body">
+        <form asp-action="CreatePartial" asp-controller="AlunoPresencas" method="post">
+            <input type="hidden" asp-for="DataViagem" value="@Model.DataViagem.ToString("yyyy-MM-dd")" />
+
+            <div class="form-group">
+                <label>Ida:</label>
+                <div>
+                    <input type="radio" asp-for="ConfirmadoIda" value="true" />
+                    <label for="ConfirmadoIda">Sim</label>
+                    <input type="radio" asp-for="ConfirmadoIda" value="false" />
+                    <label for="ConfirmadoIda">Não</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Volta:</label>
+                <div>
+                    <input type="radio" asp-for="ConfirmadoVolta" value="true" />
+                    <label for="ConfirmadoVolta">Sim</label>
+                    <input type="radio" asp-for="ConfirmadoVolta" value="false" />
+                    <label for="ConfirmadoVolta">Não</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+</div>
