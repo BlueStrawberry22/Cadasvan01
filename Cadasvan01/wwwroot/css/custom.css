@@ -55,6 +55,10 @@
     word-break: break-word;
 }
 
+.infosMotorista-container{
+    max-width: 30%;
+}
+
 .avaliacao-container {
     max-height: 400px;
     max-width: 200px;
@@ -62,13 +66,14 @@
 
 .avisos-container {
     max-height: 400px;
+    max-width: 75%;
 }
 
-.avisos-header {
+.ConteudoHeader {
     color: white
 }
 
-    .avisos-header h3 {
+    .ConteudoHeader h3 {
         font-weight: 600;
         color: #333;
     }
@@ -76,6 +81,7 @@
 .avisos-body ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
 .avisos-body li {
@@ -102,6 +108,7 @@
 
 .avisos-body small {
     color: #666;
+    margin-left: 10px;
 }
 
 .status-badge {
@@ -121,6 +128,12 @@
 .status-nao-lido {
     background-color: #007bff;
 }
+
+.status-container {
+    display: flex;
+    align-items: center;
+}
+
 
 .avaliacao-estrelas i {
     font-size: 24px;

@@ -5,9 +5,15 @@
 @if (Model.Motorista != null)
 {
     <p>Você está vinculado a um motorista.</p>
-    <a href="@Url.Action("InfosMotorista", "Aluno", new { id = Model.Motorista.Id, area = "Aluno" })" class="styled-link">
-        Motorista contratado<span class="arrow">></span>
-    </a>
+    <div class="containerConteudo infosMotorista-container">
+        <div class="ConteudoHeader"> <h3>Motorista contratado</h3></div>
+        <p>Veja as informações do seu motorista!</p>
+       
+
+        <a href="@Url.Action("InfosMotorista", "Aluno", new { id = Model.Motorista.Id, area = "Aluno" })" class="btnC btn-custom">
+            Acessar</a>
+    </div>
+    
     <br />
     @Html.Partial("_AlunoAvisosPartial", Model.Avisos)
 }

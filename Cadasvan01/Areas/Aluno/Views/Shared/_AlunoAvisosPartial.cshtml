@@ -15,18 +15,23 @@
                 @foreach (var aviso in Model)
                 {
                     <li id="aviso-@aviso.AvisoId">
-                        <a href="#" class="aviso-link" data-id="@aviso.AvisoId" data-titulo="@aviso.Titulo" data-conteudo="@aviso.Conteudo">
-                            <strong>@aviso.Titulo</strong>
-                        </a>
-                        @if (!aviso.Lido)
-                        {
-                            <span class="status-badge status-nao-lido" id="status-@aviso.AvisoId">Novo!</span>
-                        }
-                        else
-                        {
-                            <span class="status-badge status-lido" id="status-@aviso.AvisoId">Lido</span>
-                        }
-                        <small>@aviso.DataPublicacao.ToString("dd/MM/yyyy")</small>
+                        <div style="flex-grow: 1;">
+                            <a href="#" class="aviso-link" data-id="@aviso.AvisoId" data-titulo="@aviso.Titulo" data-conteudo="@aviso.Conteudo">
+                                <strong>@aviso.Titulo</strong>
+
+                                <small>@aviso.DataPublicacao.ToString("dd/MM/yyyy")</small>
+                            </a>
+                        </div>
+                        <div class="status-container">
+                            @if (!aviso.Lido)
+                            {
+                                <span class="status-badge status-nao-lido" id="status-@aviso.AvisoId">Novo!</span>
+                            }
+                            else
+                            {
+                                <span class="status-badge status-lido" id="status-@aviso.AvisoId">Lido</span>
+                            }
+                        </div>
                     </li>
                 }
             </ul>
@@ -38,7 +43,7 @@
 <div id="avisoModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h2 id="modalTitulo"></h2>
+        <h2 id="modalTitulo"></h2> 
         <p id="modalConteudo"></p>
         <button id="okButton">Ok</button>
     </div>
