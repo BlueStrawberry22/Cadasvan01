@@ -34,6 +34,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Aluno", politica => politica.RequireRole("Aluno"));
     options.AddPolicy("Motorista", politica => politica.RequireRole("Motorista"));
 });
+builder.Services.AddScoped<IAvisoService, AvisoService>();
 
 // Configuração de redirecionamento HTTP para HTTPS
 builder.Services.AddHttpsRedirection(options =>

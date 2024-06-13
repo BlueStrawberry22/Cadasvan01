@@ -61,5 +61,20 @@ namespace Cadasvan01.Areas.Aluno.Controllers
 
             return Ok();
         }
+        public async Task<List<Aviso>> ObterAvisosNaoLidos()
+        {
+            var alunoId = _userManager.GetUserId(User);
+            var aluno = await _context.Usuarios.FindAsync(alunoId);
+
+            if (aluno == null || aluno.MotoristaId == null)
+            {
+                return new List<Aviso>();
+            }
+
+            return await _context.Avisos
+                .Where(a => a.MotoristaId == aluno.MotoristaId && !a.Lido)
+                .ToListAsync();
+        }
+
     }
 }

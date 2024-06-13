@@ -1,17 +1,31 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using Cadasvan01.Models
+@using Cadasvan01.Services
 @inject SignInManager<Usuario> SignInManager
 @inject UserManager<Usuario> UserManager
+@inject IAvisoService AvisoService
 
 <ul class="navbar-nav ml-auto">
     @if (SignInManager.IsSignedIn(User))
     {
         var user = UserManager.GetUserAsync(User).Result;
         var userRole = UserManager.GetRolesAsync(user).Result.FirstOrDefault();
+        var avisosNaoLidos = await AvisoService.ObterAvisosNaoLidosAsync(user.Id);
 
-        <li class="nav-item">
-            <a class="nav-link" href="#">
+        <li class="nav-item dropdown">
+            <a class="nav-link" href="#" id="avisoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class='bx bxs-bell'></i>
+                @if (avisosNaoLidos.Count > 0)
+                {
+                    <span class="badge badge-danger">@avisosNaoLidos.Count</span>
+                }
             </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="avisoDropdown">
+                @foreach (var aviso in avisosNaoLidos)
+                {
+                    <a class="dropdown-item" href="#">@aviso.Titulo</a>
+                }
+            </div>
         </li>
 
         <li class="nav-item dropdown">
@@ -96,6 +110,16 @@
     .dropdown-menu-right {
         right: 0;
         left: auto;
+    }
+
+    .badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
     }
 </style>
 
