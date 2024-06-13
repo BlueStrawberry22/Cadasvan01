@@ -21,6 +21,6 @@ namespace Cadasvan01.Models
 
 
         public virtual Usuario Usuario { get; set; }
-        public virtual Usuario Motorista { get; set; }
+        public virtual Usuario Motorista { get; set; } 
     }
 }
