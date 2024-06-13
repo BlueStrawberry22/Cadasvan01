@@ -1,0 +1,57 @@
+﻿@model List<Cadasvan01.Models.Presenca>
+
+<div class="presencas-motorista-container">
+    <div class="presencas-motorista-header">
+        <h3>Presenças confirmadas:</h3>
+    </div>
+    <div class="presencas-motorista-body">
+        @if (!Model.Any())
+        {
+            <p>Nenhuma presença registrada hoje.</p>
+        }
+        else
+        {
+            <table class="presencas-motorista-tabela">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Nome</th>
+
+                        <th>Ida</th>
+                        <th>Volta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var presenca in Model)
+                    {
+                        <tr>
+                            <td>@presenca.DataViagem.ToString("dd/MM/yyyy")</td>
+                            <td>@presenca.Usuario.Nome</td>
+
+                            <td>
+                                @if (presenca.ConfirmadoIda)
+                                {
+                                    <span class="confirmado">&#x2714;</span>
+                                }
+                                else
+                                {
+                                    <span class="nao-confirmado">&#x2716;</span>
+                                }
+                            </td>
+                            <td>
+                                @if (presenca.ConfirmadoVolta)
+                                {
+                                    <span class="confirmado">&#x2714;</span>
+                                }
+                                else
+                                {
+                                    <span class="nao-confirmado">&#x2716;</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

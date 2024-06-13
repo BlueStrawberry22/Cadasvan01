@@ -10,6 +10,13 @@
     </a>
     <br />
     @Html.Partial("_AlunoAvisosPartial", Model.Avisos)
+    
+    <div>
+        @await Html.PartialAsync("_PresencaAlunoPartial", new Cadasvan01.Models.Presenca { DataViagem = DateTime.Now.Date })
+    </div>
+
+    <a asp-area="Aluno" asp-controller="AlunoPresencas" asp-action="Index" class="btn btn-primary">Ver Historico de presenca</a>
+
 }
 else
 {

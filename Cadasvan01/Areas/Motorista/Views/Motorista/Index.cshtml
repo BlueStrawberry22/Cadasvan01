@@ -8,6 +8,15 @@
 </p>
 <a href="@Url.Action("AlunosVinculados", "Motorista", new { area = "Motorista" })" class="btn btn-primary">Ver Alunos Vinculados</a></p>
 </p>
+</p>
+<div class="row mb-3">
+    <div class="col-12">
+        @await Html.PartialAsync("_PresencaMotoristaPartial", Model.PresencasHoje)
+    </div>
+</div>
+</p>
+<a asp-area="Motorista" asp-controller="MotoristaPresencas" asp-action="Historico" class="btn btn-primary">Ver Historico de presenca</a>
+</p>
 <a asp-area="Motorista" asp-controller="MotoristaAvisos" asp-action="Index" class="btn btn-primary">Avisos</a>
 
 

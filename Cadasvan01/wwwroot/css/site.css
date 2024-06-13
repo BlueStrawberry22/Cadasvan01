@@ -39,3 +39,93 @@ body {
 }
 
 
+.presencas-motorista-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.presencas-motorista-header {
+    background-color: #673AB7;
+    color: white;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+}
+
+    .presencas-motorista-header h3 {
+        margin: 0;
+    }
+
+.presencas-motorista-body {
+    padding: 10px;
+}
+
+.presencas-motorista-tabela {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .presencas-motorista-tabela th, .presencas-motorista-tabela td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    .presencas-motorista-tabela th {
+        background-color: #f2f2f2;
+        color: #333;
+    }
+
+    .presencas-motorista-tabela tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .presencas-motorista-tabela tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+.confirmado {
+    color: green;
+}
+
+.nao-confirmado {
+    color: red;
+}
+
+
+
+
+
+.bg-orange {
+    background-color: #F17530;
+}
+
+.btn-group-toggle .btn {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 5px;
+}
+
+    .btn-group-toggle .btn input[type="radio"] {
+        display: none;
+    }
+
+.btn-group-toggle .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-group-toggle .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
