@@ -19,4 +19,4 @@ namespace Cadasvan01.Models
 
         public bool Lido { get; set; } = false; // Adiciona a propriedade Lido
     }
-}
+}  
