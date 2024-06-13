@@ -22,6 +22,38 @@ namespace Cadasvan01.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Cadasvan01.Models.Avaliacao", b =>
+                {
+                    b.Property<int>("AvaliacaoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AvaliacaoId"));
+
+                    b.Property<string>("AlunoId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AvaliacaoEstrelas")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataAvaliacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MotoristaId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Opiniao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AvaliacaoId");
+
+                    b.HasIndex("AlunoId");
+
+                    b.HasIndex("MotoristaId");
+
+                    b.ToTable("Avaliacoes");
+                });
+
             modelBuilder.Entity("Cadasvan01.Models.Aviso", b =>
                 {
                     b.Property<int>("AvisoId")
@@ -94,38 +126,6 @@ namespace Cadasvan01.Migrations
                     b.HasIndex("MotoristaId");
 
                     b.ToTable("CodigosVinculacao");
-                });
-
-            modelBuilder.Entity("Cadasvan01.Models.ConfirmacaoDePresenca", b =>
-                {
-                    b.Property<int>("ConfirmacaoDePresencaID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ConfirmacaoDePresencaID"));
-
-                    b.Property<bool>("ConfirmadoPresencaIda")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("ConfirmadoPresencaVolta")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("DataViagemConfirmada")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("MotoristaId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UsuarioId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ConfirmacaoDePresencaID");
-
-                    b.HasIndex("MotoristaId");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Presencas");
                 });
 
             modelBuilder.Entity("Cadasvan01.Models.Funcao", b =>
@@ -378,6 +378,23 @@ namespace Cadasvan01.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Cadasvan01.Models.Avaliacao", b =>
+                {
+                    b.HasOne("Cadasvan01.Models.Usuario", "Aluno")
+                        .WithMany("AvaliacoesFeitas")
+                        .HasForeignKey("AlunoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
+                        .WithMany("AvaliacoesRecebidas")
+                        .HasForeignKey("MotoristaId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Aluno");
+
+                    b.Navigation("Motorista");
+                });
+
             modelBuilder.Entity("Cadasvan01.Models.Aviso", b =>
                 {
                     b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
@@ -396,21 +413,6 @@ namespace Cadasvan01.Migrations
                         .IsRequired();
 
                     b.Navigation("Motorista");
-                });
-
-            modelBuilder.Entity("Cadasvan01.Models.ConfirmacaoDePresenca", b =>
-                {
-                    b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
-                        .WithMany()
-                        .HasForeignKey("MotoristaId");
-
-                    b.HasOne("Cadasvan01.Models.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId");
-
-                    b.Navigation("Motorista");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
@@ -489,6 +491,10 @@ namespace Cadasvan01.Migrations
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
                 {
                     b.Navigation("Alunos");
+
+                    b.Navigation("AvaliacoesFeitas");
+
+                    b.Navigation("AvaliacoesRecebidas");
                 });
 #pragma warning restore 612, 618
         }

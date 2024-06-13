@@ -51,6 +51,7 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             return View(aviso);
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Editar(int id)
         {
@@ -95,22 +96,28 @@ namespace Cadasvan01.Areas.Motorista.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Deletar(int id)
+        public async Task<IActionResult> Deletar(int? id)
         {
-            var aviso = await _context.Avisos.FindAsync(id);
+            var aviso = await _context.Avisos
+                .FirstOrDefaultAsync(m => m.AvisoId == id);
             if (aviso == null)
             {
                 return NotFound();
-            }
+            }          
             return View(aviso);
         }
+
 
         [HttpPost, ActionName("Deletar")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeletarConfirma(int id)
         {
             var aviso = await _context.Avisos.FindAsync(id);
-            _context.Avisos.Remove(aviso);
+            if (aviso != null)
+            {
+                _context.Avisos.Remove(aviso);
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

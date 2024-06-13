@@ -237,32 +237,7 @@ namespace Cadasvan01.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Presencas",
-                columns: table => new
-                {
-                    ConfirmacaoDePresencaID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UsuarioId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ConfirmadoPresencaIda = table.Column<bool>(type: "bit", nullable: false),
-                    ConfirmadoPresencaVolta = table.Column<bool>(type: "bit", nullable: false),
-                    DataViagemConfirmada = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Presencas", x => x.ConfirmacaoDePresencaID);
-                    table.ForeignKey(
-                        name: "FK_Presencas_AspNetUsers_MotoristaId",
-                        column: x => x.MotoristaId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Presencas_AspNetUsers_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                });
+
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -323,15 +298,6 @@ namespace Cadasvan01.Migrations
                 table: "CodigosVinculacao",
                 column: "MotoristaId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Presencas_MotoristaId",
-                table: "Presencas",
-                column: "MotoristaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Presencas_UsuarioId",
-                table: "Presencas",
-                column: "UsuarioId");
         }
 
         /// <inheritdoc />
@@ -357,9 +323,6 @@ namespace Cadasvan01.Migrations
 
             migrationBuilder.DropTable(
                 name: "CodigosVinculacao");
-
-            migrationBuilder.DropTable(
-                name: "Presencas");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

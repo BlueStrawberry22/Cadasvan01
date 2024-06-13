@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240610173640_dnv")]
-    partial class dnv
+    [Migration("20240612174031_TEste")]
+    partial class TEste
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,41 @@ namespace Cadasvan01.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Cadasvan01.Models.Avaliacao", b =>
+                {
+                    b.Property<int>("AvaliacaoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AvaliacaoId"));
+
+                    b.Property<string>("AlunoId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AvaliacaoEstrelas")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataAvaliacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MotoristaId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Opiniao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AvaliacaoId");
+
+                    b.HasIndex("AlunoId");
+
+                    b.HasIndex("MotoristaId");
+
+                    b.ToTable("Avaliacoes");
+                });
 
             modelBuilder.Entity("Cadasvan01.Models.Aviso", b =>
                 {
@@ -44,6 +79,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MotoristaId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Titulo")
@@ -99,7 +135,8 @@ namespace Cadasvan01.Migrations
                     b.ToTable("CodigosVinculacao");
                 });
 
-        
+       
+
             modelBuilder.Entity("Cadasvan01.Models.Funcao", b =>
                 {
                     b.Property<string>("Id")
@@ -139,6 +176,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CEP")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CNH")
@@ -146,6 +184,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(11)");
 
                     b.Property<string>("CPF")
+                        .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
@@ -153,6 +192,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Celular1")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Celular2")
@@ -176,6 +216,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Endereco")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -188,6 +229,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -208,6 +250,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Placa")
+                        .IsRequired()
                         .HasMaxLength(7)
                         .HasColumnType("nvarchar(7)");
 
@@ -215,6 +258,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sobrenome")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Tipo")
@@ -350,11 +394,32 @@ namespace Cadasvan01.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Cadasvan01.Models.Avaliacao", b =>
+                {
+                    b.HasOne("Cadasvan01.Models.Usuario", "Aluno")
+                        .WithMany("AvaliacoesFeitas")
+                        .HasForeignKey("AlunoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
+                        .WithMany("AvaliacoesRecebidas")
+                        .HasForeignKey("MotoristaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Aluno");
+
+                    b.Navigation("Motorista");
+                });
+
             modelBuilder.Entity("Cadasvan01.Models.Aviso", b =>
                 {
                     b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
                         .WithMany()
-                        .HasForeignKey("MotoristaId");
+                        .HasForeignKey("MotoristaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Motorista");
                 });
@@ -370,7 +435,7 @@ namespace Cadasvan01.Migrations
                     b.Navigation("Motorista");
                 });
 
-
+            
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
                 {
                     b.HasOne("Cadasvan01.Models.Cidade", "Cidade")
@@ -447,6 +512,10 @@ namespace Cadasvan01.Migrations
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
                 {
                     b.Navigation("Alunos");
+
+                    b.Navigation("AvaliacoesFeitas");
+
+                    b.Navigation("AvaliacoesRecebidas");
                 });
 #pragma warning restore 612, 618
         }

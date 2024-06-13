@@ -13,8 +13,8 @@ namespace Cadasvan01.Data
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Cidade> Cidades { get; set; }
-        public DbSet<ConfirmacaoDePresenca> Presencas { get; set; }
         public DbSet<Aviso> Avisos { get; set; }
+        public DbSet<Avaliacao> Avaliacoes { get; set; }
         public DbSet<CodigoVinculacao> CodigosVinculacao { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,6 +26,18 @@ namespace Cadasvan01.Data
                 .WithOne(u => u.Motorista)
                 .HasForeignKey(u => u.MotoristaId)
                 .IsRequired(false);
+
+            modelBuilder.Entity<Avaliacao>()
+                .HasOne(a => a.Aluno)
+                .WithMany(u => u.AvaliacoesFeitas)
+                .HasForeignKey(a => a.AlunoId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Avaliacao>()
+                .HasOne(a => a.Motorista)
+                .WithMany(u => u.AvaliacoesRecebidas)
+                .HasForeignKey(a => a.MotoristaId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

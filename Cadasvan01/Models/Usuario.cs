@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Cadasvan01.Enums;
 
@@ -7,7 +8,7 @@ namespace Cadasvan01.Models
     public class Usuario : IdentityUser
     {
         public string? CaminhoImagemPerfil { get; set; }
-        public string Nome{ get; set; }
+        public string Nome { get; set; }
         public string Sobrenome { get; set; }
         [MaxLength(11)]
         public string CPF { get; set; }
@@ -27,12 +28,21 @@ namespace Cadasvan01.Models
         [MaxLength(7)]
         public string Placa { get; set; }
         public UsuarioEnum Tipo { get; set; }
-        // Foreign key for Motorista (if this user is an Aluno)
         public string? MotoristaId { get; set; }
         public virtual Usuario? Motorista { get; set; }
-        // Collection of Alunos (if this user is a Motorista)
         public virtual ICollection<Usuario>? Alunos { get; set; }
         public virtual Cidade? Cidade { get; set; }
-    }
 
+        public double CalcularMediaAvaliacoes()
+        {
+            if (AvaliacoesRecebidas == null || !AvaliacoesRecebidas.Any())
+            {
+                return 0;
+            }
+            return AvaliacoesRecebidas.Average(a => a.AvaliacaoEstrelas);
+        }
+
+        public virtual ICollection<Avaliacao> AvaliacoesFeitas { get; set; } = new List<Avaliacao>();
+        public virtual ICollection<Avaliacao> AvaliacoesRecebidas { get; set; } = new List<Avaliacao>();
+    }
 }
