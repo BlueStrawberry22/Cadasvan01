@@ -25,6 +25,17 @@
         border: none;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+.saudacao-header {
+    background-color: transparent; /* Altere para a cor desejada */
+    padding: 20px;
+    color: white;
+}
+
+    .saudacao-header h2 {
+        margin: 0;
+        padding-left: 300px; /* Ajuste este valor para mover mais para a esquerda */
+        text-align: left;
+    }
 
 .container {
     background-color: rgba(255, 255, 255, 0.9); /* Lighten background for readability */
