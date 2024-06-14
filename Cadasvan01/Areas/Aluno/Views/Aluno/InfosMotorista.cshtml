@@ -36,7 +36,7 @@
     <p><strong>CNH:</strong> @Model.Motorista.CNH</p>
     <p><strong>Placa:</strong> @Model.Motorista.Placa</p>
 
-    @if (Model.Avaliacao != null)
+    @if (Model.Avaliacao != null && Model.Avaliacao.AvaliacaoEstrelas > 0)
     {
         <div class="containerConteudo avaliacaodada-container">
             <h4>Sua avaliação:</h4>
@@ -128,12 +128,15 @@
             $('#editarAvaliacaoBtn').on('click', function () {
                 $('#avaliacaoModal').modal('show');
                 // Preencher o modal com os dados da avaliação existente
-                if (Model.Avaliacao != null)
-                {
-                    $('#estrelas').val('@Model.Avaliacao.AvaliacaoEstrelas');
-                    $('#opiniao').val('@Model.Avaliacao.Opiniao');
+                var avaliacaoEstrelas = @Model.Avaliacao != null ? '@Model.Avaliacao.AvaliacaoEstrelas' : 'null';
+                var opiniao = @Model.Avaliacao != null ? '@Model.Avaliacao.Opiniao' : 'null';
+
+                if (avaliacaoEstrelas !== 'null' && opiniao !== 'null') {
+                    $('#estrelas').val(avaliacaoEstrelas);
+                    $('#opiniao').val(opiniao);
                 }
             });
+
             $('#desvincularBtn').on('click', function () {
                 $('#confirmModal').modal('show');
             });

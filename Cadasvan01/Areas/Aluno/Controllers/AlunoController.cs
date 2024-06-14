@@ -173,12 +173,13 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             var model = new InfosMotoristaViewModel
             {
                 Motorista = motorista,
-                Avaliacao = avaliacaoViewModel,
+                Avaliacao = avaliacaoViewModel ?? new AvaliacaoViewModel(),
                 MediaAvaliacoes = mediaAvaliacoes
             };
 
             return View(model);
         }
+
 
 
     }
