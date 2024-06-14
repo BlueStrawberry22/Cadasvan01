@@ -33,7 +33,7 @@ namespace Cadasvan01.Models
         public virtual ICollection<Usuario>? Alunos { get; set; }
         public virtual Cidade? Cidade { get; set; }
 
-        public double CalcularMediaAvaliacoes()
+        public double? CalcularMediaAvaliacoes()
         {
             if (AvaliacoesRecebidas == null || !AvaliacoesRecebidas.Any())
             {
@@ -42,7 +42,7 @@ namespace Cadasvan01.Models
             return AvaliacoesRecebidas.Average(a => a.AvaliacaoEstrelas);
         }
 
-        public virtual ICollection<Avaliacao> AvaliacoesFeitas { get; set; } = new List<Avaliacao>();
-        public virtual ICollection<Avaliacao> AvaliacoesRecebidas { get; set; } = new List<Avaliacao>();
+        public virtual ICollection<Avaliacao>? AvaliacoesFeitas { get; set; } = new List<Avaliacao>();
+        public virtual ICollection<Avaliacao>? AvaliacoesRecebidas { get; set; } = new List<Avaliacao>();
     }
 }

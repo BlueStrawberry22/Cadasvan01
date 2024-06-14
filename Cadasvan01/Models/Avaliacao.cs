@@ -7,7 +7,7 @@ namespace Cadasvan01.Models
     {
         public int AvaliacaoId { get; set; }
 
-        [Range(1, 5)]
+        [Range(0, 5)]
         public int AvaliacaoEstrelas { get; set; }
 
         public string Opiniao { get; set; }

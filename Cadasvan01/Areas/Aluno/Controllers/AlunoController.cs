@@ -180,6 +180,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             return View(model);
         }
 
+
     }
     public class AlunoIndexViewModel
     {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Cadasvan01.Migrations
 {
     /// <inheritdoc />
-    public partial class dnv : Migration
+    public partial class Presencas : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -196,6 +196,35 @@ namespace Cadasvan01.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Avaliacoes",
+                columns: table => new
+                {
+                    AvaliacaoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AvaliacaoEstrelas = table.Column<int>(type: "int", nullable: false),
+                    Opiniao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AlunoId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DataAvaliacao = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Avaliacoes", x => x.AvaliacaoId);
+                    table.ForeignKey(
+                        name: "FK_Avaliacoes_AspNetUsers_AlunoId",
+                        column: x => x.AlunoId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Avaliacoes_AspNetUsers_MotoristaId",
+                        column: x => x.MotoristaId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Avisos",
                 columns: table => new
                 {
@@ -237,7 +266,32 @@ namespace Cadasvan01.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-
+            migrationBuilder.CreateTable(
+                name: "Presencas",
+                columns: table => new
+                {
+                    PresencaId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UsuarioId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DataViagem = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ConfirmadoIda = table.Column<bool>(type: "bit", nullable: false),
+                    ConfirmadoVolta = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Presencas", x => x.PresencaId);
+                    table.ForeignKey(
+                        name: "FK_Presencas_AspNetUsers_MotoristaId",
+                        column: x => x.MotoristaId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Presencas_AspNetUsers_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -289,6 +343,16 @@ namespace Cadasvan01.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Avaliacoes_AlunoId",
+                table: "Avaliacoes",
+                column: "AlunoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Avaliacoes_MotoristaId",
+                table: "Avaliacoes",
+                column: "MotoristaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Avisos_MotoristaId",
                 table: "Avisos",
                 column: "MotoristaId");
@@ -298,6 +362,15 @@ namespace Cadasvan01.Migrations
                 table: "CodigosVinculacao",
                 column: "MotoristaId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_Presencas_MotoristaId",
+                table: "Presencas",
+                column: "MotoristaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Presencas_UsuarioId",
+                table: "Presencas",
+                column: "UsuarioId");
         }
 
         /// <inheritdoc />
@@ -319,10 +392,16 @@ namespace Cadasvan01.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Avaliacoes");
+
+            migrationBuilder.DropTable(
                 name: "Avisos");
 
             migrationBuilder.DropTable(
                 name: "CodigosVinculacao");
+
+            migrationBuilder.DropTable(
+                name: "Presencas");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

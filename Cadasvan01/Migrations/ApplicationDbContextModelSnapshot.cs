@@ -155,6 +155,38 @@ namespace Cadasvan01.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
+            modelBuilder.Entity("Cadasvan01.Models.Presenca", b =>
+                {
+                    b.Property<int>("PresencaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PresencaId"));
+
+                    b.Property<bool>("ConfirmadoIda")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ConfirmadoVolta")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("DataViagem")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MotoristaId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UsuarioId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("PresencaId");
+
+                    b.HasIndex("MotoristaId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Presencas");
+                });
+
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
                 {
                     b.Property<string>("Id")
@@ -413,6 +445,21 @@ namespace Cadasvan01.Migrations
                         .IsRequired();
 
                     b.Navigation("Motorista");
+                });
+
+            modelBuilder.Entity("Cadasvan01.Models.Presenca", b =>
+                {
+                    b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
+                        .WithMany()
+                        .HasForeignKey("MotoristaId");
+
+                    b.HasOne("Cadasvan01.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId");
+
+                    b.Navigation("Motorista");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>

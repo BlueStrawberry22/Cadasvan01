@@ -3,22 +3,30 @@
 <div>
     <h2>Informações do Motorista</h2>
     <div class="containerConteudo avaliacao-container">
-    <p><strong>Avaliação:</strong><p class="avaliacao-estrelas">
-            @for (int i = 0; i < Math.Floor(Model.MediaAvaliacoes); i++)
+        <p><strong>Avaliação:</strong></p>
+        <p class="avaliacao-estrelas">
+            @if (Model.MediaAvaliacoes > 0)
             {
-            <i class='bx bxs-star'></i>
+                @for (int i = 0; i < Math.Floor(Model.MediaAvaliacoes); i++)
+                {
+                    <i class='bx bxs-star'></i>
+                }
+                @if (Model.MediaAvaliacoes % 1 != 0)
+                {
+                    <i class='bx bx-star-half'></i>
+                }
+                @for (int i = 0; i < (5 - Math.Ceiling(Model.MediaAvaliacoes)); i++)
+                {
+                    <i class='bx bx-star'></i>
+                }
+            <p><strong>Média:</strong> @Model.MediaAvaliacoes.ToString("0.0") estrelas</p>
             }
-            @if (Model.MediaAvaliacoes % 1 != 0)
+            else
             {
-            <box-icon name='star-half'></box-icon>
+            <p>Nenhuma avaliação foi feita ainda.</p>
             }
-            @for (int i = 0; i < (5 - Math.Ceiling(Model.MediaAvaliacoes)); i++)
-            {
-            <box-icon name='star'></box-icon>
-            }
-    </p>
-    <p><strong>Média:</strong> @Model.MediaAvaliacoes.ToString("0.0") estrelas</p>
-        </p></div>
+        </p>
+    </div>
     <p><strong>Nome Completo:</strong> @Model.Motorista.Nome @Model.Motorista.Sobrenome</p>
     <p><strong>Email:</strong> @Model.Motorista.Celular1</p>
     @if (Model.Motorista.Celular2 != null && Model.Motorista.Celular2 != Model.Motorista.Celular1)
@@ -27,8 +35,6 @@
     }
     <p><strong>CNH:</strong> @Model.Motorista.CNH</p>
     <p><strong>Placa:</strong> @Model.Motorista.Placa</p>
-
-
 
     @if (Model.Avaliacao != null)
     {
@@ -122,10 +128,12 @@
             $('#editarAvaliacaoBtn').on('click', function () {
                 $('#avaliacaoModal').modal('show');
                 // Preencher o modal com os dados da avaliação existente
-                $('#estrelas').val(@Model.Avaliacao.AvaliacaoEstrelas);
-                $('#opiniao').val('@Model.Avaliacao.Opiniao');
+                if (Model.Avaliacao != null)
+                {
+                    $('#estrelas').val('@Model.Avaliacao.AvaliacaoEstrelas');
+                    $('#opiniao').val('@Model.Avaliacao.Opiniao');
+                }
             });
-
             $('#desvincularBtn').on('click', function () {
                 $('#confirmModal').modal('show');
             });
