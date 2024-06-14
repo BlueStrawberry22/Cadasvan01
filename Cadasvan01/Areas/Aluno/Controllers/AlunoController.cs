@@ -62,6 +62,38 @@ namespace Cadasvan01.Areas.Aluno.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> EditarEndereco(EditarEnderecoViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var aluno = await _userManager.GetUserAsync(User);
+                if (aluno != null)
+                {
+                    aluno.CEP = model.CEP;
+                    aluno.Endereco = model.Endereco;
+                    aluno.Complemento = model.Complemento;
+                    aluno.Bairro = model.Bairro;
+
+                    var result = await _userManager.UpdateAsync(aluno);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+            }
+
+            return View(model);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AvaliarMotorista(AvaliacaoViewModel avaliacaoViewModel)
         {
@@ -149,12 +181,19 @@ namespace Cadasvan01.Areas.Aluno.Controllers
         }
 
     }
-
     public class AlunoIndexViewModel
     {
         public Usuario Aluno { get; set; }
         public Usuario Motorista { get; set; }
         public List<Aviso> Avisos { get; set; }
+    }
+
+    public class EditarEnderecoViewModel
+    {
+        public string CEP { get; set; }
+        public string Endereco { get; set; }
+        public string? Complemento { get; set; }
+        public string? Bairro { get; set; }
     }
 
     public class InfosMotoristaViewModel

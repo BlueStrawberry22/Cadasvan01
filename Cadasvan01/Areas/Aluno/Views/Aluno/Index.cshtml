@@ -1,5 +1,10 @@
-﻿@model Cadasvan01.Areas.Aluno.Controllers.AlunoIndexViewModel
+﻿@{
+    ViewBag.IsIndex = true;
+}
+@model Cadasvan01.Areas.Aluno.Controllers.AlunoIndexViewModel
 
+
+<a href="#" id="editarEnderecoLink" class="editar-endereco-link"><i class='bx bx-map'></i> @Model.Aluno.Endereco > </a>
 
 @if (Model.Motorista != null)
 {
@@ -23,4 +28,48 @@ else
 }
 <br />
 
+<!-- Modal de Edição de Endereço -->
+<div id="editarEnderecoModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Endereço</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editarEnderecoForm" method="post" asp-action="EditarEndereco" asp-controller="Aluno" asp-area="Aluno">
+                    <div class="form-group">
+                        <label for="cep">CEP</label>
+                        <input type="text" id="cep" name="CEP" class="form-control" value="@Model.Aluno.CEP" />
+                    </div>
+                    <div class="form-group">
+                        <label for="endereco">Endereço</label>
+                        <input type="text" id="endereco" name="Endereco" class="form-control" value="@Model.Aluno.Endereco" />
+                    </div>
+                    <div class="form-group">
+                        <label for="complemento">Complemento</label>
+                        <input type="text" id="complemento" name="Complemento" class="form-control" value="@Model.Aluno.Complemento" />
+                    </div>
+                    <div class="form-group">
+                        <label for="bairro">Bairro</label>
+                        <input type="text" id="bairro" name="Bairro" class="form-control" value="@Model.Aluno.Bairro" />
+                    </div>
+                    <button type="submit" class="btnC btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#editarEnderecoLink').on('click', function (e) {
+                e.preventDefault();
+                $('#editarEnderecoModal').modal('show');
+            });
+        });
+    </script>
+}
