@@ -1,43 +1,32 @@
-﻿Skip to content
-Navigation Menu
-BlueStrawberry22
-/
-Cadasvan01
+﻿@model Cadasvan01.Models.Presenca
 
-Type / to search
+<div class="card">
+    <div class="card-header">
+        Presença do dia (@Model.DataViagem.ToString("dd/MM/yyyy"))
+    </div>
+    <div class="card-body">
+        <form asp-action="CreatePartial" asp-controller="AlunoPresencas" method="post">
+            <input type="hidden" asp-for="DataViagem" value="@Model.DataViagem.ToString("yyyy-MM-dd")" />
 
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-BreadcrumbsCadasvan01/Cadasvan01/Areas
-/Motorista/
-Directory actions
-Go to file
-t
-Add file
-More options
-Latest commit
-VinnyPA
-VinnyPA
-arroz com bife acebolado
-cf5a909
- ·
-yesterday
-History
-This branch is 27 commits ahead of master.
-Folders and files
-Name	Last commit message	Last commit date
-parent directory
-..
-Controllers
-arroz com bife acebolado
-yesterday
-Views
-arroz com bife acebolado
-yesterday
-Cadasvan01/Cadasvan01/Areas/Motorista at NoBranch · BlueStrawberry22/Cadasvan01 
+            <div class="form-group">
+                <label>Ida:</label>
+                <div>
+                    <input type="radio" asp-for="ConfirmadoIda" value="true" />
+                    <label for="ConfirmadoIda">Sim</label>
+                    <input type="radio" asp-for="ConfirmadoIda" value="false" />
+                    <label for="ConfirmadoIda">Não</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Volta:</label>
+                <div>
+                    <input type="radio" asp-for="ConfirmadoVolta" value="true" />
+                    <label for="ConfirmadoVolta">Sim</label>
+                    <input type="radio" asp-for="ConfirmadoVolta" value="false" />
+                    <label for="ConfirmadoVolta">Não</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+</div>
