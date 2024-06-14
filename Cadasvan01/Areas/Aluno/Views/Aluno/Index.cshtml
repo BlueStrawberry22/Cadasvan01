@@ -15,6 +15,12 @@
     
     <br />
     @Html.Partial("_AlunoAvisosPartial", Model.Avisos)
+
+    <div>
+        @await Html.PartialAsync("_PresencaAlunoPartial", new Cadasvan01.Models.Presenca { DataViagem = DateTime.Now.Date })
+    </div>
+
+    <a asp-area="Aluno" asp-controller="AlunoPresencas" asp-action="Index" class="btn btn-primary">Ver Historico de presenca</a>
 }
 else
 {
@@ -22,5 +28,33 @@ else
     <a asp-area="Aluno" asp-controller="AlunoCodigo" asp-action="VincularMotorista">Se vincule a um motorista</a>
 }
 <br />
+<style>
+    .styled-link {
+        background-color: #F17530; /* cor de fundo do cabeçalho */
+        padding: 10px;
+        color: white;
+        font-weight: bold;
+        display: inline-block;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        overflow: hidden;
+        text-decoration: none;
+        font-weight: bold;
+        position: relative;
+        max-width: 400px;
+        width: 400px;
+        margin: 20px 0;
+    }
 
+        .styled-link .arrow {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .styled-link:hover {
+            background-color: #FF5722;
+        }
+</style>
 
