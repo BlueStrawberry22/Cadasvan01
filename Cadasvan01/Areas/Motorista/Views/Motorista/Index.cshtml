@@ -1,14 +1,32 @@
 ﻿@model Cadasvan01.Areas.Motorista.Controllers.MotoristaIndexViewModel
 
-<h2>Bem-vindo, @Model.Motorista.Nome</h2>
+@{
+    ViewBag.IsIndex = true;
+}
 
-</p>
+<div class="container-flex">
+    <div class="containerConteudo infosAlunos-container">
+        <div class="ConteudoHeader">
+            <h3>Alunos e endereços</h3>
+        </div>
+        <p>Veja todos os alunos vinculados!</p>
+        <a href="@Url.Action("AlunosVinculados", "Motorista", new { area = "Motorista" })" class="btnC btn-custom">Acessar</a>
+    </div>
 
-<a asp-area="Motorista" asp-controller="MotoristaCodigo" asp-action="GerarCodigo" class="btn btn-primary">Gerar um código de vinculação</a>
-</p>
-<a href="@Url.Action("AlunosVinculados", "Motorista", new { area = "Motorista" })" class="btn btn-primary">Ver Alunos Vinculados</a></p>
-</p>
-<a asp-area="Motorista" asp-controller="MotoristaAvisos" asp-action="Index" class="btn btn-primary">Avisos</a>
+    <div class="containerConteudo infosAlunos-container">
+        <div class="ConteudoHeader">
+            <h3>Seus avisos</h3>
+        </div>
+        <p>Crie e gerencie seus avisos publicados!</p>
+        <a asp-area="Motorista" asp-controller="MotoristaAvisos" asp-action="Index" class="btnC btn-custom">Acessar</a>
+    </div>
 
-
+    <div class="containerConteudo infosAlunos-container">
+        <div class="ConteudoHeader">
+            <h3>Código de vinculação</h3>
+        </div>
+        <p>Crie um código de vinculação e compartilhe-o com um aluno!</p>
+        <a asp-area="Motorista" asp-controller="MotoristaCodigo" asp-action="GerarCodigo" class="btnC btn-custom">Gerar um código de vinculação</a>
+    </div>
+</div>
 

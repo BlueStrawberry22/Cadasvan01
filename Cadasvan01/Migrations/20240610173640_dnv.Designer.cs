@@ -4,6 +4,7 @@ using Cadasvan01.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240610173640_dnv")]
+    partial class dnv
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,38 +24,6 @@ namespace Cadasvan01.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Cadasvan01.Models.Avaliacao", b =>
-                {
-                    b.Property<int>("AvaliacaoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AvaliacaoId"));
-
-                    b.Property<string>("AlunoId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AvaliacaoEstrelas")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DataAvaliacao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("MotoristaId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Opiniao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AvaliacaoId");
-
-                    b.HasIndex("AlunoId");
-
-                    b.HasIndex("MotoristaId");
-
-                    b.ToTable("Avaliacoes");
-                });
 
             modelBuilder.Entity("Cadasvan01.Models.Aviso", b =>
                 {
@@ -128,6 +99,7 @@ namespace Cadasvan01.Migrations
                     b.ToTable("CodigosVinculacao");
                 });
 
+        
             modelBuilder.Entity("Cadasvan01.Models.Funcao", b =>
                 {
                     b.Property<string>("Id")
@@ -378,23 +350,6 @@ namespace Cadasvan01.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Cadasvan01.Models.Avaliacao", b =>
-                {
-                    b.HasOne("Cadasvan01.Models.Usuario", "Aluno")
-                        .WithMany("AvaliacoesFeitas")
-                        .HasForeignKey("AlunoId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
-                        .WithMany("AvaliacoesRecebidas")
-                        .HasForeignKey("MotoristaId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Aluno");
-
-                    b.Navigation("Motorista");
-                });
-
             modelBuilder.Entity("Cadasvan01.Models.Aviso", b =>
                 {
                     b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
@@ -414,6 +369,7 @@ namespace Cadasvan01.Migrations
 
                     b.Navigation("Motorista");
                 });
+
 
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
                 {
@@ -491,10 +447,6 @@ namespace Cadasvan01.Migrations
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
                 {
                     b.Navigation("Alunos");
-
-                    b.Navigation("AvaliacoesFeitas");
-
-                    b.Navigation("AvaliacoesRecebidas");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,67 +1,33 @@
 ﻿body {
     font-family: 'Poppins', sans-serif;
-    background: url('/images/backgroud-aluno.png') no-repeat center center fixed;
+    background: url('/images/background-motorista.jpg') no-repeat center center fixed;
     background-size: cover;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
 }
 
-.navbar {
-    background-color: transparent !important;
-    box-shadow: none;
-}
-
-    .navbar .nav-link {
-        color: white;
-    }
-
-        .navbar .nav-link:hover {
-            color: #ddd;
-        }
-
-    .navbar .dropdown-menu {
-        background-color: #fff;
-        border: none;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-.saudacao-header {
-    background-color: transparent; /* Cor de fundo laranja */
-    padding: 20px;
-    color: white;
-    text-align: left;
-    margin-bottom: 20px;
-}
-
-    .saudacao-header h2 {
-        margin: 0;
-        padding-left: 300px;
-        font-size: 24px;
-        text-align: left
-    }
-
-
-
-
-.container {
-    background-color: rgba(255, 255, 255, 0.9); /* Lighten background for readability */
-    padding: 20px;
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+.container-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espaçamento entre os containers */
 }
 
 .containerConteudo {
     background-color: white;
     border-radius: 8px;
     padding: 20px;
-    margin-top: 10px;
-    margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 100%; /* Certifique-se de que o container se ajuste ao tamanho da tela */
+    flex: 1 1 calc(50% - 20px); /* Faz com que os containers ocupem 50% do espaço disponível */
+    min-width: 300px; /* Define a largura mínima para os containers */
 }
+
+@media (max-width: 768px) {
+    .containerConteudo {
+        flex: 1 1 100%; /* Em telas menores, os containers ocuparão 100% da largura */
+    }
+}
+
 
 .input-box {
     position: relative;
@@ -73,13 +39,14 @@
     margin-bottom: 20px;
 }
 
-.codigo {
-    max-width: 50%;
-}
-
+/*atribuir ao baguio da van dps*/
 .editar-endereco-link {
     color: #333;
     margin-bottom: 10px;
+}
+
+.infosAlunos-container{
+    max-width: 30%;
 }
 
 .avaliacaodada-container {
@@ -195,27 +162,9 @@
     z-index: 1055 !important;
 }
 
-.btnC {
-    display: inline-block;
-    font-weight: 400;
-    line-height: 1.5;
-    text-align: center;
-    text-decoration: none;
-    vertical-align: middle;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: 0.375rem 0.75rem;
-    border-radius: 25rem;
-    font-size: 1rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
 /* Estilo do botão personalizado */
 .btn-custom {
-    background-color: #FF5722; /* Cor de fundo laranja */
+    background-color: #0838FF;
     color: white; /* Cor do texto */
     border: none; /* Remover borda */
     border-radius: 25px; /* Bordas arredondadas */
@@ -228,6 +177,6 @@
 }
 
     .btn-custom:hover {
-        background-color: #E64A19; /* Cor de fundo ao passar o mouse */
+        background-color: #1c0778; /* Cor de fundo ao passar o mouse */
         color: white;
     }

@@ -4,6 +4,7 @@ using Cadasvan01.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240612163005_avaliacao")]
+    partial class avaliacao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,6 +130,8 @@ namespace Cadasvan01.Migrations
 
                     b.ToTable("CodigosVinculacao");
                 });
+
+          
 
             modelBuilder.Entity("Cadasvan01.Models.Funcao", b =>
                 {
@@ -381,14 +386,12 @@ namespace Cadasvan01.Migrations
             modelBuilder.Entity("Cadasvan01.Models.Avaliacao", b =>
                 {
                     b.HasOne("Cadasvan01.Models.Usuario", "Aluno")
-                        .WithMany("AvaliacoesFeitas")
-                        .HasForeignKey("AlunoId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany()
+                        .HasForeignKey("AlunoId");
 
                     b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
-                        .WithMany("AvaliacoesRecebidas")
-                        .HasForeignKey("MotoristaId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany()
+                        .HasForeignKey("MotoristaId");
 
                     b.Navigation("Aluno");
 
@@ -414,6 +417,8 @@ namespace Cadasvan01.Migrations
 
                     b.Navigation("Motorista");
                 });
+
+         
 
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
                 {
@@ -491,10 +496,6 @@ namespace Cadasvan01.Migrations
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
                 {
                     b.Navigation("Alunos");
-
-                    b.Navigation("AvaliacoesFeitas");
-
-                    b.Navigation("AvaliacoesRecebidas");
                 });
 #pragma warning restore 612, 618
         }
