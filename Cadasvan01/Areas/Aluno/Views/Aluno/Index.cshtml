@@ -6,9 +6,10 @@
 
 <a href="#" id="editarEnderecoLink" class="editar-endereco-link"><i class='bx bx-map'></i> @Model.Aluno.Endereco > </a>
 
+<br/>
+
 @if (Model.Motorista != null)
 {
-    <p>Você está vinculado a um motorista.</p>
     <div class="containerConteudo infosMotorista-container">
         <div class="ConteudoHeader"> <h3>Motorista contratado</h3></div>
         <p>Veja as informações do seu motorista!</p>
@@ -64,7 +65,6 @@ else
         </div>
     </div>
 </div>
-
 
 
 @section Scripts {
