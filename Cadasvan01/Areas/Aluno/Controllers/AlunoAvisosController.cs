@@ -40,10 +40,28 @@ namespace Cadasvan01.Areas.Aluno.Controllers
         }
 
         // Novo método para verificar o status
-        public async Task<IActionResult> VerificarStatus()
+       // public async Task<IActionResult> VerificarStatus()
+      //  {
+      //      var avisos = await _context.Avisos.ToListAsync();
+      //      return View(avisos);
+      //  }
+
+        // Novo método para obter avisos não lidos
+        public async Task<IActionResult> ContadorAvisosNaoLidos()
         {
-            var avisos = await _context.Avisos.ToListAsync();
-            return View(avisos);
+            var alunoId = _userManager.GetUserId(User);
+            var aluno = await _context.Usuarios.FindAsync(alunoId);
+            if (aluno == null || aluno.MotoristaId == null)
+            {
+                return NotFound();
+            }
+
+            var avisosNaoLidos = await _context.Avisos
+                .Where(a => a.MotoristaId == aluno.MotoristaId && !a.Lido)
+                .Select(a => new { a.Titulo, a.AvisoId })
+                .ToListAsync();
+
+            return Json(new { count = avisosNaoLidos.Count, avisos = avisosNaoLidos });
         }
 
         [HttpPost]
