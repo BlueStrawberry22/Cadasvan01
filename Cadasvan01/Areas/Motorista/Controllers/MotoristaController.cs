@@ -23,10 +23,11 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             _context = context;
             _userManager = userManager;
         }
-        
+
         public async Task<IActionResult> Index()
         {
             var motoristaId = _userManager.GetUserId(User);
+            var today = DateTime.Today;
             var motorista = await _context.Usuarios
                 .Include(u => u.Alunos)
                 .ThenInclude(a => a.Cidade)
@@ -37,10 +38,22 @@ namespace Cadasvan01.Areas.Motorista.Controllers
                 return NotFound();
             }
 
+            var presencasHoje = await _context.Presencas
+               .Include(p => p.Usuario)
+               .Where(p => p.MotoristaId == motoristaId && p.DataViagem.Date == today)
+               .ToListAsync();
+
+            var presencasOrdenadas = presencasHoje
+                .OrderByDescending(p => p.ConfirmadoIda && p.ConfirmadoVolta)
+                .ThenByDescending(p => p.ConfirmadoIda)
+                .ThenByDescending(p => p.ConfirmadoVolta)
+                .ToList();
+
             var model = new MotoristaIndexViewModel
             {
                 Motorista = motorista,
-                AlunosVinculados = motorista.Alunos.ToList()
+                AlunosVinculados = motorista.Alunos.ToList(),
+                PresencasHoje = presencasOrdenadas
             };
 
             return View(model);
@@ -96,6 +109,7 @@ namespace Cadasvan01.Areas.Motorista.Controllers
     public class MotoristaIndexViewModel
     {
         public Usuario Motorista { get; set; }
+        public List<Presenca> PresencasHoje { get; set; }
         public List<Usuario> AlunosVinculados { get; set; }
     }
 

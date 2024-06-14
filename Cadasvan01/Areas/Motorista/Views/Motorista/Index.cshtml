@@ -30,3 +30,13 @@
     </div>
 </div>
 
+<!--presenca -->
+<div class="row mb-3">
+    <div class="col-12">
+        @await Html.PartialAsync("_PresencaMotoristaPartial", Model.PresencasHoje)
+    </div>
+</div>
+
+
+<a asp-area="Motorista" asp-controller="MotoristaPresencas" asp-action="Historico" class="btnC btn-custom">Ver histórico</a>
+

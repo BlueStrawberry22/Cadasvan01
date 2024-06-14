@@ -18,9 +18,19 @@
         <a href="@Url.Action("InfosMotorista", "Aluno", new { id = Model.Motorista.Id, area = "Aluno" })" class="btnC btn-custom">
             Acessar</a>
     </div>
-    
+
+    <div>
+        @await Html.PartialAsync("_PresencaAlunoPartial", new Cadasvan01.Models.Presenca { DataViagem = DateTime.Now.Date })
+    </div>
+
+    <a asp-area="Aluno" asp-controller="AlunoPresencas" asp-action="Index" class="btn btn-primary">Ver Histórico de Presença</a>
+
+
+
     <br />
     @Html.Partial("_AlunoAvisosPartial", Model.Avisos)
+
+
 }
 else
 { 
