@@ -162,12 +162,17 @@
     color: lightgray;
 }
 
+/* Certifique-se de que o backdrop esteja atrás do modal */
 .modal-backdrop {
     z-index: 1040 !important;
 }
 
-.modal-content {
-    z-index: 1100 !important;
+.modal {
+    z-index: 1050 !important;
+}
+
+.modal-dialog {
+    z-index: 1055 !important;
 }
 
 .btnC {
