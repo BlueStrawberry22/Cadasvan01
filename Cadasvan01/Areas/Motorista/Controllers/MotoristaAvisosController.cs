@@ -51,7 +51,6 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             return View(aviso);
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Editar(int id)
         {

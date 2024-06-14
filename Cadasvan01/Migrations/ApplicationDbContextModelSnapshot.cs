@@ -31,6 +31,7 @@ namespace Cadasvan01.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AvaliacaoId"));
 
                     b.Property<string>("AlunoId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AvaliacaoEstrelas")
@@ -40,9 +41,11 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("MotoristaId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Opiniao")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AvaliacaoId");
@@ -73,6 +76,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MotoristaId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Titulo")
@@ -167,6 +171,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CEP")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CNH")
@@ -174,6 +179,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(11)");
 
                     b.Property<string>("CPF")
+                        .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
@@ -181,6 +187,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Celular1")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Celular2")
@@ -204,6 +211,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Endereco")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -216,6 +224,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -236,6 +245,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Placa")
+                        .IsRequired()
                         .HasMaxLength(7)
                         .HasColumnType("nvarchar(7)");
 
@@ -243,6 +253,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sobrenome")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Tipo")
@@ -383,12 +394,14 @@ namespace Cadasvan01.Migrations
                     b.HasOne("Cadasvan01.Models.Usuario", "Aluno")
                         .WithMany("AvaliacoesFeitas")
                         .HasForeignKey("AlunoId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
                         .WithMany("AvaliacoesRecebidas")
                         .HasForeignKey("MotoristaId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Aluno");
 
@@ -399,7 +412,9 @@ namespace Cadasvan01.Migrations
                 {
                     b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
                         .WithMany()
-                        .HasForeignKey("MotoristaId");
+                        .HasForeignKey("MotoristaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Motorista");
                 });

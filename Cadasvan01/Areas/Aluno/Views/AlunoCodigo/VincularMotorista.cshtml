@@ -3,14 +3,21 @@
 }
 
 <h2>Vincular Motorista</h2>
+<br/>
+<p>Insira o código de vinculação</p>
 
-<form method="post" asp-action="VincularMotorista" asp-controller="AlunoCodigo">
-    <div>
-        <label for="codigo">Código de Vinculação</label>
-        <input type="text" id="codigo" name="codigo" required />
+<div class="containerConteudo" max-width=60%>
+    <div class="form-container">
+        <form method="post" asp-action="VincularMotorista" asp-controller="AlunoCodigo">
+            <div class="input-box">
+                <input class="input-box codigo" type="text" id="codigo" name="codigo" placeholder="Código de Vinculação" required />
+            </div>
+            <br/>
+            <button class="btnC btn-custom" type="submit">Vincular</button>
+        </form>
     </div>
-    <button type="submit">Vincular</button>
-</form>
+</div>
+
 
 @if (!String.IsNullOrEmpty(ViewBag.ErrorMessage))
 {

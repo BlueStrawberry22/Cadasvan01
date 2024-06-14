@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240612174031_TEste")]
-    partial class TEste
+    [Migration("20240614132846_Primeira")]
+    partial class Primeira
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -134,8 +134,6 @@ namespace Cadasvan01.Migrations
 
                     b.ToTable("CodigosVinculacao");
                 });
-
-       
 
             modelBuilder.Entity("Cadasvan01.Models.Funcao", b =>
                 {
@@ -435,7 +433,6 @@ namespace Cadasvan01.Migrations
                     b.Navigation("Motorista");
                 });
 
-            
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
                 {
                     b.HasOne("Cadasvan01.Models.Cidade", "Cidade")

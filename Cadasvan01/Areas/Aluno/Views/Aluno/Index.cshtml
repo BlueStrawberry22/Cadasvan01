@@ -23,13 +23,13 @@
     @Html.Partial("_AlunoAvisosPartial", Model.Avisos)
 }
 else
-{
-    <p>Você ainda não está vinculado a um motorista.</p>
-    <a asp-area="Aluno" asp-controller="AlunoCodigo" asp-action="VincularMotorista">Se vincule a um motorista</a>
-}
+{ 
+    <div class="containerConteudo">
+        <p>Você ainda não está vinculado a um motorista!</p>
+        <a class="btnC btn-custom" asp-area="Aluno" asp-controller="AlunoCodigo" asp-action="VincularMotorista">Se vincule a um motorista</a>
+    </div>
+    }
 <br />
-<!-- Link para editar endereço -->
-<a href="#" id="editarEnderecoLink" class="editar-endereco-link"><i class='bx bx-map'></i> @Model.Aluno.Endereco > </a>
 
 <!-- Modal de Edição de Endereço -->
 <div id="editarEnderecoModal" class="modal fade" tabindex="-1" role="dialog">

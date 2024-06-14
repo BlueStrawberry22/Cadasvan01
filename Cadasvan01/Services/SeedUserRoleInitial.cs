@@ -69,16 +69,21 @@ namespace Cadasvan01.Services
                 var userAdmin = new Usuario
                 {
                     Nome= email,
+                    Sobrenome = email,
+                    CPF = "11111111111",
+                    CidadeId = 1,
+                    CEP = "12945580",
+                    Endereco = "Rua blaus",
+                    Celular1 = "(00)00000-0000",
                     Tipo = tipo,
                     UserName = email,
+                    Placa= "abc123",
                     Email = email,
                     NormalizedUserName = email.ToUpper(),
                     NormalizedEmail = email.ToUpper(),
                     EmailConfirmed = true,
                     LockoutEnabled = false,
                     MotoristaId = null,
-                    CidadeId = 1,
-                    Celular1 = "(00)00000-0000",
                     SecurityStamp = Guid.NewGuid().ToString()
                 };
 

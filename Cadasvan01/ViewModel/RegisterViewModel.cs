@@ -52,7 +52,7 @@ namespace Cadasvan01.ViewModel
         public string? CNH { get; set; }
 
         [MaxLength(7)]
-        public string Placa { get; set; }
+        public string? Placa { get; set; }
 
         public UsuarioEnum Tipo { get; set; }
 

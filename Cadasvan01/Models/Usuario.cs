@@ -26,7 +26,7 @@ namespace Cadasvan01.Models
         [MaxLength(11)]
         public string? CNH { get; set; }
         [MaxLength(7)]
-        public string Placa { get; set; }
+        public string? Placa { get; set; }
         public UsuarioEnum Tipo { get; set; }
         public string? MotoristaId { get; set; }
         public virtual Usuario? Motorista { get; set; }
