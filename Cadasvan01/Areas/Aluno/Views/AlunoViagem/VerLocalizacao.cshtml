@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Ver Localização do Motorista";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div id="map" style="height: 500px; width: 100%;"></div>
+
+@section Scripts {
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBt_3ASFjMiOuQ2M-51rB6UPVWGFxiYQgw&callback=initMap" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.7/signalr.min.js"></script>
+    <script>
+        let map;
+        let marker;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: { lat: -23.550520, lng: -46.633308 } // Localização inicial de exemplo
+            });
+
+            marker = new google.maps.Marker({
+                map: map
+            });
+
+            // Conectar ao hub do SignalR
+            const connection = new signalR.HubConnectionBuilder().withUrl("/locationHub").build();
+
+            connection.on("ReceiveLocation", (motoristaId, latitude, longitude) => {
+                // Atualizar a posição do marcador no mapa
+                const motoristaLocation = { lat: latitude, lng: longitude };
+                marker.setPosition(motoristaLocation);
+                map.setCenter(motoristaLocation);
+            });
+
+            connection.start().then(() => {
+                console.log("Conectado ao SignalR Hub.");
+            }).catch(err => console.error(err.toString()));
+        }
+    </script>
+}
