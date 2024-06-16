@@ -33,12 +33,19 @@ namespace Cadasvan01.Areas.Aluno.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var presenca = new Presenca
+            var hoje = DateTime.Now.Date;
+            var presenca = _context.Presencas
+                .FirstOrDefault(p => p.UsuarioId == alunoId && p.DataViagem == hoje);
+
+            if (presenca == null)
             {
-                UsuarioId = alunoId,
-                MotoristaId = aluno.MotoristaId,
-                DataViagem = DateTime.Now
-            };
+                presenca = new Presenca
+                {
+                    UsuarioId = alunoId,
+                    MotoristaId = aluno.MotoristaId,
+                    DataViagem = hoje
+                };
+            }
 
             ViewData["MotoristaNome"] = aluno.Motorista.Nome;
 
@@ -68,16 +75,27 @@ namespace Cadasvan01.Areas.Aluno.Controllers
                 presenca.DataViagem = DateTime.Now.Date;
             }
 
-            if (ModelState.IsValid)
+            var hoje = DateTime.Now.Date;
+            var presencaExistente = _context.Presencas
+                .FirstOrDefault(p => p.UsuarioId == alunoId && p.DataViagem == hoje);
+
+            if (presencaExistente != null)
+            {
+                presencaExistente.ConfirmadoIda = presenca.ConfirmadoIda;
+                presencaExistente.ConfirmadoVolta = presenca.ConfirmadoVolta;
+                _context.Update(presencaExistente);
+            }
+            else
             {
                 _context.Add(presenca);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Aluno");
             }
 
-            ViewData["MotoristaNome"] = aluno.Motorista.Nome;
-            return PartialView("_PresencaAlunoPartial", presenca);
+            await _context.SaveChangesAsync();
+
+            return PartialView("_PresencaAlunoPartial", presencaExistente ?? presenca);
         }
+
+
 
         public async Task<IActionResult> Index()
         {

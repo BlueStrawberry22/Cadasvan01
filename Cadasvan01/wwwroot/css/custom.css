@@ -44,13 +44,14 @@
     margin-top: 20px;
 }
 
+
 .containerConteudo {
     background-color: white;
     border-radius: 8px;
     padding: 20px;
     margin-top: 10px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
     width: 100%; /* Certifique-se de que o container se ajuste ao tamanho da tela */
 }
 

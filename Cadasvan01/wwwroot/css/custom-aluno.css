@@ -17,12 +17,18 @@
     margin-bottom: 20px;
 }
 
-.codigo{
+.codigo {
     max-width: 50%;
 }
 
-.editar-endereco-link{
+.editar-endereco-link {
     color: #333;
+}
+
+.container-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espaçamento entre os containers */
 }
 
 .avaliacaodada-container {
@@ -36,8 +42,12 @@
     word-break: break-word;
 }
 
-.infosMotorista-container{
-    max-width: 30%;
+.infosMotorista-container {
+    max-width: 300px;
+}
+
+.presenca-container {
+    max-width: 370px;
 }
 
 .avaliacao-container {
@@ -124,6 +134,105 @@
 .avaliacao-estrelas .bx-star {
     color: lightgray;
 }
+
+
+.presenca-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.presenca-label {
+    font-weight: 600;
+    margin-right: 10px;
+    flex: 1;
+}
+
+.presenca-options {
+    display: flex;
+    flex: 2;
+    justify-content: space-between;
+}
+
+.presenca-option {
+    font-size: 30px;
+    box-shadow: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+    color: #ccc; /* Cor padrão dos ícones */
+}
+
+.presenca-radio {
+    display: none;
+}
+
+    .presenca-radio:checked + .check {
+        color: #12c00f
+    }
+
+    .presenca-radio:checked + .x {
+        color: #a70606
+    }
+
+.btn-custom {
+    background-color: #FF5722; /* Cor de fundo laranja */
+    color: white; /* Cor do texto */
+    border: none; /* Remover borda */
+    border-radius: 25px; /* Bordas arredondadas */
+    padding: 10px 20px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    transition: background-color 0.3s ease; /* Transição suave da cor de fundo */
+    font-weight: bold; /* Texto em negrito */
+    text-align: center; /* Centralizar o texto */
+}
+
+    .btn-custom:hover {
+        background-color: #E64A19; /* Cor de fundo ao passar o mouse */
+        color: white;
+    }
+
+
+.presenca-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.presenca-label {
+    font-weight: 600;
+    margin-right: 10px;
+    flex: 1;
+}
+
+.presenca-options {
+    display: flex;
+    flex: 2;
+    justify-content: space-between;
+}
+
+.presenca-option {
+    font-size: 30px;
+    box-shadow: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+    color: #ccc; /* Cor padrão dos ícones */
+}
+
+.presenca-radio {
+    display: none;
+}
+
+    .presenca-radio:checked + .check {
+        color: #12c00f
+    }
+
+    .presenca-radio:checked + .x {
+        color: #a70606
+    }
+
 
 .btn-custom {
     background-color: #FF5722; /* Cor de fundo laranja */

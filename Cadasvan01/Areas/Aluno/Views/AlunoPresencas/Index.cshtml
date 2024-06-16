@@ -4,19 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Histórico de presenças</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DataViagem)
+                <h3>Data da viagem</h3>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ConfirmadoIda)
+                <h3>Ida</h3>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ConfirmadoVolta)
+                <h3>Volta</h3>
             </th>
             <th></th>
         </tr>
@@ -29,15 +29,24 @@
                     @Html.DisplayFor(modelItem => item.DataViagem)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ConfirmadoIda)
+                    @if (item.ConfirmadoIda == true)
+                    {
+                        <i class='bx bxs-check-circle' style="color: #12c00f"></i>
+                    }
+                    else
+                    {
+                        <i class='bx bxs-x-circle' style="color: #a70606"></i>
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ConfirmadoVolta)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.PresencaId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.PresencaId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.PresencaId">Delete</a>
+                    @if (item.ConfirmadoVolta == true)
+                    {
+                        <i class='bx bxs-check-circle' style="color: #12c00f"></i>
+                    }
+                    else
+                    {
+                        <i class='bx bxs-x-circle' style="color: #a70606"></i>
+                    }
                 </td>
             </tr>
         }

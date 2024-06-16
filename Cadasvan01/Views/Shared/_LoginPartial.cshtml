@@ -37,6 +37,8 @@
                 else if (userRole == "Aluno")
                 {
                     <a class="dropdown-item" asp-area="Aluno" asp-controller="AlunoPerfil" asp-action="Edit">Gerenciar conta</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" asp-area="Aluno" asp-controller="AlunoPresencas" asp-action="Index">Ver Histórico de Presença</a>
                 }
                 <div class="dropdown-divider"></div>
                 <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="dropdown-item">

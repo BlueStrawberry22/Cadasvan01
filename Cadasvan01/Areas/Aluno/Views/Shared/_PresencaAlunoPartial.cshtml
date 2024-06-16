@@ -1,31 +1,81 @@
 ﻿@model Cadasvan01.Models.Presenca
 
-<div class="card">
-    <div class="card-header">
-        Presença do dia (@Model.DataViagem.ToString("dd/MM/yyyy"))
+<div id="presencaCard">
+    <div class="ConteudoHeader">
+        <h3>Presença do dia (@Model.DataViagem.ToString("dd/MM/yyyy"))</h3>
     </div>
-    <div class="card-body">
-        <form asp-action="CreatePartial" asp-controller="AlunoPresencas" method="post">
+    <div id="presencaFormContainer" style="display: @(Model.PresencaId == 0 ? "block" : "none");">
+        <form asp-action="CreatePartial" asp-controller="AlunoPresencas" method="post" id="presencaForm">
             <input type="hidden" asp-for="DataViagem" value="@Model.DataViagem.ToString("yyyy-MM-dd")" />
-            <div class="form-group">
-                <label>Ida:</label>
-                <div>
-                    <input type="radio" asp-for="ConfirmadoIda" value="true" />
-                    <label for="ConfirmadoIda">Sim</label>
-                    <input type="radio" asp-for="ConfirmadoIda" value="false" />
-                    <label for="ConfirmadoIda">Não</label>
+            <input type="hidden" asp-for="PresencaId" />
+            <div class="presenca-section">
+                <label class="presenca-label">Ida:</label>
+                <div class="presenca-options">
+                    <input type="radio" asp-for="ConfirmadoIda" value="true" class="presenca-radio" id="idaSim" />
+                    <label for="idaSim" class="presenca-option check"><i class='bx bxs-check-circle'></i></label>
+                    <input type="radio" asp-for="ConfirmadoIda" value="false" class="presenca-radio" id="idaNao" />
+                    <label for="idaNao" class="presenca-option x"><i class='bx bxs-x-circle'></i></label>
                 </div>
             </div>
-            <div class="form-group">
-                <label>Volta:</label>
-                <div>
-                    <input type="radio" asp-for="ConfirmadoVolta" value="true" />
-                    <label for="ConfirmadoVolta">Sim</label>
-                    <input type="radio" asp-for="ConfirmadoVolta" value="false" />
-                    <label for="ConfirmadoVolta">Não</label>
+            <div class="presenca-section">
+                <label class="presenca-label">Volta:</label>
+                <div class="presenca-options">
+                    <input type="radio" asp-for="ConfirmadoVolta" value="true" class="presenca-radio" id="voltaSim" />
+                    <label for="voltaSim" class="presenca-option check"><i class='bx bxs-check-circle'></i></label>
+                    <input type="radio" asp-for="ConfirmadoVolta" value="false" class="presenca-radio" id="voltaNao" />
+                    <label for="voltaNao" class="presenca-option x"><i class='bx bxs-x-circle'></i></label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btnC btn-custom" id="salvarBtn">Salvar</button>
         </form>
     </div>
+    <div id="presencaDisplayContainer" style="display: @(Model.PresencaId != 0 ? "block" : "none");">
+        <p>Você já definiu sua presença de hoje!</p>
+        <div class="presenca-section">
+            <label class="presenca-label">Ida:</label>
+            <i class='bx bxs-check-circle' id="idaDisplaySim" style="display: @(Model.ConfirmadoIda ? "inline" : "none");"></i>
+            <i class='bx bxs-x-circle' id="idaDisplayNao" style="display: @(!Model.ConfirmadoIda ? "inline" : "none");"></i>
+        </div>
+        <div class="presenca-section">
+            <label class="presenca-label">Volta:</label>
+            <i class='bx bxs-check-circle' id="voltaDisplaySim" style="display: @(Model.ConfirmadoVolta ? "inline" : "none");"></i>
+            <i class='bx bxs-x-circle' id="voltaDisplayNao" style="display: @(!Model.ConfirmadoVolta ? "inline" : "none");"></i>
+        </div>
+        <button type="button" class="btnC btn-custom" id="editarBtn">Editar</button>
+    </div>
 </div>
+
+<script>
+    function registerEventListeners() {
+        document.getElementById('salvarBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            var form = document.getElementById('presencaForm');
+            var formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Erro ao salvar presença');
+                }
+            }).then(data => {
+                document.getElementById('presencaCard').innerHTML = data;
+                registerEventListeners(); // Registrar os event listeners novamente após a atualização
+            }).catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+
+        document.getElementById('editarBtn').addEventListener('click', function () {
+            document.getElementById('presencaFormContainer').style.display = 'block';
+            document.getElementById('presencaDisplayContainer').style.display = 'none';
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        registerEventListeners(); // Registrar os event listeners no carregamento inicial
+    });
+</script>
