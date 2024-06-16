@@ -238,11 +238,17 @@ namespace Cadasvan01.Migrations
                     b.Property<string>("Endereco")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("float");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<string>("MotoristaId")
                         .HasColumnType("nvarchar(450)");
@@ -302,6 +308,38 @@ namespace Cadasvan01.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Cadasvan01.Models.Viagem", b =>
+                {
+                    b.Property<int>("ViagemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ViagemId"));
+
+                    b.Property<bool>("Ativa")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Destino")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("HoraFim")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HoraInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MotoristaId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ViagemId");
+
+                    b.HasIndex("MotoristaId");
+
+                    b.ToTable("Viagem");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -479,6 +517,17 @@ namespace Cadasvan01.Migrations
                     b.Navigation("Motorista");
                 });
 
+            modelBuilder.Entity("Cadasvan01.Models.Viagem", b =>
+                {
+                    b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
+                        .WithMany("Viagens")
+                        .HasForeignKey("MotoristaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Motorista");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Cadasvan01.Models.Funcao", null)
@@ -542,6 +591,8 @@ namespace Cadasvan01.Migrations
                     b.Navigation("AvaliacoesFeitas");
 
                     b.Navigation("AvaliacoesRecebidas");
+
+                    b.Navigation("Viagens");
                 });
 #pragma warning restore 612, 618
         }

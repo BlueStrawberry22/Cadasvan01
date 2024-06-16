@@ -32,7 +32,7 @@ namespace Cadasvan01.Models
         public virtual Usuario? Motorista { get; set; }
         public virtual ICollection<Usuario>? Alunos { get; set; }
         public virtual Cidade? Cidade { get; set; }
-
+        public virtual ICollection<Viagem> Viagens { get; set; } = new List<Viagem>();
         public double? CalcularMediaAvaliacoes()
         {
             if (AvaliacoesRecebidas == null || !AvaliacoesRecebidas.Any())
@@ -44,5 +44,7 @@ namespace Cadasvan01.Models
 
         public virtual ICollection<Avaliacao>? AvaliacoesFeitas { get; set; } = new List<Avaliacao>();
         public virtual ICollection<Avaliacao>? AvaliacoesRecebidas { get; set; } = new List<Avaliacao>();
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
     }
 }

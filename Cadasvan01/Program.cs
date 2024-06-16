@@ -3,6 +3,7 @@ using Cadasvan01.Models;
 using Cadasvan01.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient<ViaCEPService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+// Adicionar SignalR
+builder.Services.AddSignalR();
 
 // Outras configurações de serviço
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -84,5 +88,8 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// Mapear a Hub de SignalR
+app.MapHub<ViagemHub>("/viagemHub");
 
 app.Run();

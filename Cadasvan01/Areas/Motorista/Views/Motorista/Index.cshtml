@@ -30,6 +30,9 @@
     </div>
 </div>
 
+<button id="iniciarViagemBtn">Iniciar Viagem</button>
+<button id="encerrarViagemBtn" style="display:none;">Encerrar Viagem</button>
+
 <!--presenca -->
 <div class="row mb-3">
     <div class="col-12">
@@ -40,3 +43,38 @@
 
 <a asp-area="Motorista" asp-controller="MotoristaPresencas" asp-action="Historico" class="btnC btn-custom">Ver histórico</a>
 
+<script>
+    document.getElementById("iniciarViagemBtn").addEventListener("click", function () {
+        fetch('/api/viagens/Iniciar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ destino: 'Destino Exemplo' })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById("iniciarViagemBtn").style.display = "none";
+                    document.getElementById("encerrarViagemBtn").style.display = "block";
+                    viagemId = data.viagemId; // Armazenar o ID da viagem
+                }
+            });
+    });
+
+    document.getElementById("encerrarViagemBtn").addEventListener("click", function () {
+        fetch('/api/viagens/Encerrar/' + viagemId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById("iniciarViagemBtn").style.display = "block";
+                    document.getElementById("encerrarViagemBtn").style.display = "none";
+                }
+            });
+    });
+</script>

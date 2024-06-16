@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Cadasvan01.Migrations
 {
     /// <inheritdoc />
-    public partial class Presencas : Migration
+    public partial class teste : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -79,6 +79,8 @@ namespace Cadasvan01.Migrations
                     Placa = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: true),
                     Tipo = table.Column<int>(type: "int", nullable: false),
                     MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Latitude = table.Column<double>(type: "float", nullable: true),
+                    Longitude = table.Column<double>(type: "float", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -293,6 +295,29 @@ namespace Cadasvan01.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Viagem",
+                columns: table => new
+                {
+                    ViagemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Destino = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HoraInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HoraFim = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Ativa = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Viagem", x => x.ViagemId);
+                    table.ForeignKey(
+                        name: "FK_Viagem_AspNetUsers_MotoristaId",
+                        column: x => x.MotoristaId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -371,6 +396,11 @@ namespace Cadasvan01.Migrations
                 name: "IX_Presencas_UsuarioId",
                 table: "Presencas",
                 column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Viagem_MotoristaId",
+                table: "Viagem",
+                column: "MotoristaId");
         }
 
         /// <inheritdoc />
@@ -402,6 +432,9 @@ namespace Cadasvan01.Migrations
 
             migrationBuilder.DropTable(
                 name: "Presencas");
+
+            migrationBuilder.DropTable(
+                name: "Viagem");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
