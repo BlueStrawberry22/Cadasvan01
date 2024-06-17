@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240614184150_Presencas")]
-    partial class Presencas
+    [Migration("20240617173555_cidades")]
+    partial class cidades
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,7 +221,13 @@ namespace Cadasvan01.Migrations
                     b.Property<string>("Celular2")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CidadeDestinoId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CidadeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CidadePartidaId")
                         .HasColumnType("int");
 
                     b.Property<string>("Complemento")
@@ -292,7 +298,11 @@ namespace Cadasvan01.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CidadeDestinoId");
+
                     b.HasIndex("CidadeId");
+
+                    b.HasIndex("CidadePartidaId");
 
                     b.HasIndex("MotoristaId");
 
@@ -467,17 +477,31 @@ namespace Cadasvan01.Migrations
 
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
                 {
+                    b.HasOne("Cadasvan01.Models.Cidade", "CidadeDestino")
+                        .WithMany()
+                        .HasForeignKey("CidadeDestinoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Cadasvan01.Models.Cidade", "Cidade")
                         .WithMany("Usuarios")
                         .HasForeignKey("CidadeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Cadasvan01.Models.Cidade", "CidadePartida")
+                        .WithMany()
+                        .HasForeignKey("CidadePartidaId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
                         .WithMany("Alunos")
                         .HasForeignKey("MotoristaId");
 
                     b.Navigation("Cidade");
+
+                    b.Navigation("CidadeDestino");
+
+                    b.Navigation("CidadePartida");
 
                     b.Navigation("Motorista");
                 });

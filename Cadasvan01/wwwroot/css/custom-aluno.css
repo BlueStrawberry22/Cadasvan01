@@ -53,6 +53,7 @@
 .avaliacao-container {
     max-height: 400px;
     max-width: 200px;
+    float: right;
 }
 
 .avisos-container {

@@ -5,7 +5,7 @@
 namespace Cadasvan01.Migrations
 {
     /// <inheritdoc />
-    public partial class Avaliacao1 : Migration
+    public partial class motorista : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -52,30 +52,32 @@ else
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Editar Endereço</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" style="font-weight: bold">Editar Endereço</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="editarEnderecoForm" method="post" asp-action="EditarEndereco" asp-controller="Aluno" asp-area="Aluno">
                     <div class="form-group">
-                        <label for="cep">CEP</label>
+                        <label for="cep" >CEP</label>
                         <input type="text" id="cep" name="CEP" class="form-control" value="@Model.Aluno.CEP" />
                     </div>
+                   
                     <div class="form-group">
-                        <label for="endereco">Endereço</label>
+                        <label for="endereco" >Endereço</label>
                         <input type="text" id="endereco" name="Endereco" class="form-control" value="@Model.Aluno.Endereco" />
                     </div>
+                    
                     <div class="form-group">
-                        <label for="complemento">Complemento</label>
+                        <label for="complemento" >Complemento</label>
                         <input type="text" id="complemento" name="Complemento" class="form-control" value="@Model.Aluno.Complemento" />
                     </div>
+                    
                     <div class="form-group">
-                        <label for="bairro">Bairro</label>
-                        <input type="text" id="bairro" name="Bairro" class="form-control" value="@Model.Aluno.Bairro" />
+                        <label for="bairro" >Bairro</label>
+                        <input type="text" id="bairro" name="Bairro" class="form-control"  value="@Model.Aluno.Bairro" />
                     </div>
-                    <button type="submit" class="btnC btn-primary">Salvar</button>
+                    </br>
+                    <button type="submit" class="btnC btn-custom" style="margin-top:10px">Salvar</button>
                 </form>
             </div>
         </div>

@@ -29,9 +29,6 @@ namespace Cadasvan01.ViewModel
 
         [Display(Name = "Cidade")]
         public int CidadeId { get; set; }
-
-        [Display(Name = "Complemento")]
-
         public string? Complemento { get; set; }
 
         [Display(Name = "Bairro")]

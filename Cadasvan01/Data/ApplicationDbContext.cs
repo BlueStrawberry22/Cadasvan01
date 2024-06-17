@@ -39,6 +39,13 @@ namespace Cadasvan01.Data
                 .WithMany(u => u.AvaliacoesRecebidas)
                 .HasForeignKey(a => a.MotoristaId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Cidade>()
+                .HasMany(c => c.Usuarios)
+                .WithOne(u => u.Cidade)
+                .HasForeignKey(u => u.CidadeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

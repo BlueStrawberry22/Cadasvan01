@@ -1,41 +1,56 @@
 ﻿@model Cadasvan01.Areas.Motorista.Controllers.MotoristaIndexViewModel
 
+
 <h2>Alunos e endereços</h2>
+
+<hr />
+
+<a asp-area="Motorista" asp-controller="MotoristaPresencas" asp-action="Historico" class="btnC btn-custom">Ver histórico de presenças</a>
+
 
 @if (Model.AlunosVinculados != null && Model.AlunosVinculados.Count > 0)
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nome Completo</th>
-                <th>Cidade</th>
-                <th>Endereço</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var aluno in Model.AlunosVinculados)
-            {
+    <div class="containerConteudo">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@aluno.Nome @aluno.Sobrenome</td>
-                    <td>
-                        @if (aluno.Cidade != null)
-                        {
-                            @aluno.Cidade.Nome
-                        }
-                        else
-                        {
-                            <span class="text-danger">Cidade não encontrada</span>
-                        }
-                    </td>
-                    <td>@aluno.Endereco</td>
-                    <td>
-                        <button class="btn btn-danger" onclick="showConfirmModal('@aluno.Id')">Desvincular</button>
-                    </td>
+                    <th>Nome Completo</th>
+                    <th>Cidade</th>
+                    <th>Endereço</th>
+                    <th>Ações</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var aluno in Model.AlunosVinculados)
+                {
+                    <tr>
+                        <td>@aluno.Nome @aluno.Sobrenome</td>
+                        <td>
+                            @if (aluno.Cidade != null)
+                            {
+                                @aluno.Cidade.Nome
+                            }
+                            else
+                            {
+                                <span class="text-danger">Cidade não encontrada</span>
+                            }
+                        </td>
+                        <td>
+                            @aluno.Endereco @if (@aluno.Complemento != null)
+                            {
+                                @aluno.Complemento
+                            }
+                        </td>
+
+                        <td>
+                            <button class="btn btn-danger" onclick="showConfirmModal('@aluno.Id')">Desvincular</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
 }
 else
 {

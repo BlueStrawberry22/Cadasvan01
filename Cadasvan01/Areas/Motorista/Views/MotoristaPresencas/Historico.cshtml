@@ -2,56 +2,77 @@
 
 @{
     ViewData["Title"] = "Histórico";
+    var alunosVinculados = ViewBag.AlunosVinculados as List<Cadasvan01.Models.Usuario>;
 }
 
 <h2>Histórico de Presenças:</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Data</th>
-            <th>Aluno</th>
-            <th>Ida</th>
-            <th>Volta</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var presenca in Model)
-        {
+<hr>
+
+<form method="get" action="@Url.Action("Historico", "MotoristaPresencas", new { area = "Motorista" })">
+    <div class="form-group selectAlunos">
+        <label for="alunoId">Selecione o Aluno:</label>
+        <select id="alunoId" name="alunoId" class="form-control">
+            <option value="">Todos</option>
+            @foreach (var aluno in alunosVinculados)
+            {
+                <option value="@aluno.Id">@aluno.Nome @aluno.Sobrenome</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btnC btn-custom">Filtrar</button>
+</form>
+
+<div class="containerConteudo presencaAluno">
+    <table class="table">
+        <thead>
             <tr>
-                <td>@(presenca.DataViagem.ToString("dd/MM/yyyy"))</td>
-                <td>@Html.DisplayFor(modelItem => presenca.Usuario.Nome)</td>
-                <td class="text-center">
-                    @if (presenca.ConfirmadoIda)
-                    {
-                        <span style="color: green;">&#x2714;</span>
-                    }
-                    else
-                    {
-                        <span style="color: red;">&#x2716;</span>
-                    }
-                </td>
-                <td class="text-center">
-                    @if (presenca.ConfirmadoVolta)
-                    {
-                        <span style="color: green;">&#x2714;</span>
-                    }
-                    else
-                    {
-                        <span style="color: red;">&#x2716;</span>
-                    }
-                </td>
+                <th>Data</th>
+                <th>Aluno</th>
+                <th>Ida</th>
+                <th>Volta</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var presenca in Model)
+            {
+                <tr>
+                    <td>@(presenca.DataViagem.ToString("dd/MM/yyyy"))</td>
+                    <td>@Html.DisplayFor(modelItem => presenca.Usuario.Nome)</td>
+                    <td class="text-center">
+                        @if (presenca.ConfirmadoIda)
+                        {
+                            <span style="color: green;">&#x2714;</span>
+                        }
+                        else
+                        {
+                            <span style="color: red;">&#x2716;</span>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @if (presenca.ConfirmadoVolta)
+                        {
+                            <span style="color: green;">&#x2714;</span>
+                        }
+                        else
+                        {
+                            <span style="color: red;">&#x2716;</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
 
 <style>
     .table {
         width: 100%;
         max-width: 600px;
         margin: 0 auto;
-        border-collapse: collapse;
+        border-radius: 15px
     }
 
         .table th,
@@ -61,8 +82,8 @@
         }
 
         .table th {
-            background-color: #673AB7;
-            color: white;
+            background-color: transparent;
+            color: #333;
             text-align: left;
         }
 
@@ -78,8 +99,13 @@
             text-align: center;
         }
 
-    h2 {
-        color: #673AB7;
-        text-align: center;
+    .selectAlunos{
+        max-width: 50%;
+        border-radius: 20px
     }
+
+    .presencaAluno{
+        width: 600px
+    }
+
 </style>

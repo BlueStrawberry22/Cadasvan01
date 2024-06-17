@@ -77,7 +77,6 @@ namespace Cadasvan01.Services
                     Celular1 = "(00)00000-0000",
                     Tipo = tipo,
                     UserName = email,
-                    Placa= "abc123",
                     Email = email,
                     NormalizedUserName = email.ToUpper(),
                     NormalizedEmail = email.ToUpper(),

@@ -83,6 +83,18 @@
         color: #333;
     }
 
+.presenca-body th {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+    .presenca-body th:last-child {
+        border-bottom: none;
+    }
+
 .avisos-body ul {
     list-style-type: none;
     padding: 0;

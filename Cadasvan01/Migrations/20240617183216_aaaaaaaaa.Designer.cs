@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240614190003_Avaliacao1")]
-    partial class Avaliacao1
+    [Migration("20240617183216_aaaaaaaaa")]
+    partial class aaaaaaaaa
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -205,8 +205,7 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CNH")
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CPF")
                         .HasMaxLength(11)
@@ -240,6 +239,10 @@ namespace Cadasvan01.Migrations
 
                     b.Property<string>("Endereco")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Itinerario")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -470,7 +473,7 @@ namespace Cadasvan01.Migrations
                     b.HasOne("Cadasvan01.Models.Cidade", "Cidade")
                         .WithMany("Usuarios")
                         .HasForeignKey("CidadeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Cadasvan01.Models.Usuario", "Motorista")

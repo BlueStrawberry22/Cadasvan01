@@ -2,6 +2,7 @@
 
 <div>
     <h2>Informações do Motorista</h2>
+    <hr />
     <div class="containerConteudo avaliacao-container">
         <p><strong>Avaliação:</strong></p>
         <p class="avaliacao-estrelas">
@@ -27,14 +28,19 @@
             }
         </p>
     </div>
-    <p><strong>Nome Completo:</strong> @Model.Motorista.Nome @Model.Motorista.Sobrenome</p>
-    <p><strong>Email:</strong> @Model.Motorista.Celular1</p>
-    @if (Model.Motorista.Celular2 != null && Model.Motorista.Celular2 != Model.Motorista.Celular1)
-    {
-        <p><strong>Email:</strong> @Model.Motorista.Celular2</p>
-    }
-    <p><strong>CNH:</strong> @Model.Motorista.CNH</p>
-    <p><strong>Placa:</strong> @Model.Motorista.Placa</p>
+
+    <div>
+        <p><strong>Nome Completo:</strong> @Model.Motorista.Nome @Model.Motorista.Sobrenome</p>
+        <p><strong>Email:</strong> @Model.Motorista.Email</p>
+        <p><strong>Telefone 1:</strong> @Model.Motorista.Celular1</p>
+        @if (Model.Motorista.Celular2 != null && Model.Motorista.Celular2 != Model.Motorista.Celular1)
+        {
+            <p><strong>Telefone 2:</strong> @Model.Motorista.Celular2</p>
+        }
+        <p><strong>CNH:</strong> @Model.Motorista.CNH</p>
+    </div>
+
+
 
     @if (Model.Avaliacao != null && Model.Avaliacao.AvaliacaoEstrelas > 0)
     {
@@ -68,9 +74,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Avaliar Motorista</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="avaliacaoForm" method="post" asp-action="AvaliarMotorista" asp-controller="Aluno" asp-area="Aluno">
@@ -89,7 +93,7 @@
                         <textarea id="opiniao" name="Opiniao" class="form-control" rows="4"></textarea>
                     </div>
                     <input type="hidden" name="MotoristaId" value="@Model.Motorista.Id" />
-                    <button type="submit" class="btnC btn-primary">Enviar Avaliação</button>
+                    <button type="submit" class="btnC btn-custom" style="margin-top: 10px">Enviar Avaliação</button>
                 </form>
             </div>
         </div>

@@ -65,7 +65,7 @@ namespace Cadasvan01.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(MotoristaViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -73,16 +73,16 @@ namespace Cadasvan01.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    Nome= model.Nome,
+                    Nome = model.Nome,
                     Sobrenome = model.Sobrenome,
                     CPF = model.CPF,
                     Tipo = Enums.UsuarioEnum.Motorista,
-                    Placa = model.Placa,
                     CNH = model.CNH,
+                    CidadeId = model.CidadeId,
                     Celular1 = model.Celular1,
                     Celular2 = model.Celular2,
-                    CidadeId = model.CidadeId,
-                    Endereco = model.Endereco
+                    Itinerario = model.Itinerario
+
 
                 };
                 var result = await _userManager.CreateAsync(user, model.Senha);

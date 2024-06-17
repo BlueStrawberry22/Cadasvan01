@@ -21,13 +21,6 @@ body {
     margin-bottom: 60px;
 }
 
-.bg-motorista {
-    background-color: #6D5ECC;
-}
-
-.bg-aluno {
-    background-color: #F17530;
-}
 
 /* Adicione este CSS ao seu arquivo de estilos global */
 .avisos-container {

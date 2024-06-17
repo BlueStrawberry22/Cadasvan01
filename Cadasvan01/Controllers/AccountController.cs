@@ -152,6 +152,8 @@ namespace Cadasvan01.Controllers
                     Celular1 = model.Celular1,
                     Celular2 = model.Celular2,
                     Endereco = model.Endereco,
+                    Bairro = model.Bairro,
+                    Complemento = model.Complemento,
                     CaminhoImagemPerfil = model.CaminhoImagemPerfil,
                 };
 

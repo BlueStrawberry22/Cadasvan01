@@ -105,10 +105,12 @@ namespace Cadasvan01.Areas.Aluno.Controllers
                 .Include(p => p.Motorista)
                 .Include(p => p.Usuario)
                 .Where(p => p.UsuarioId == alunoId)
+                .OrderByDescending(p => p.DataViagem)
                 .ToListAsync();
 
             return View(presencasAluno);
         }
+
 
         public async Task<IActionResult> Details(int? id)
         {

@@ -33,13 +33,13 @@
         <p>Você já definiu sua presença de hoje!</p>
         <div class="presenca-section">
             <label class="presenca-label">Ida:</label>
-            <i class='bx bxs-check-circle' id="idaDisplaySim" style="display: @(Model.ConfirmadoIda ? "inline" : "none");"></i>
-            <i class='bx bxs-x-circle' id="idaDisplayNao" style="display: @(!Model.ConfirmadoIda ? "inline" : "none");"></i>
+            <i class='bx bxs-check-circle' id="idaDisplaySim" style="display: @(Model.ConfirmadoIda ? "inline" : "none"); color: #12c00f"></i>
+            <i class='bx bxs-x-circle' id="idaDisplayNao" style="display: @(!Model.ConfirmadoIda ? "inline" : "none"); color: #a70606"></i>
         </div>
         <div class="presenca-section">
             <label class="presenca-label">Volta:</label>
-            <i class='bx bxs-check-circle' id="voltaDisplaySim" style="display: @(Model.ConfirmadoVolta ? "inline" : "none");"></i>
-            <i class='bx bxs-x-circle' id="voltaDisplayNao" style="display: @(!Model.ConfirmadoVolta ? "inline" : "none");"></i>
+            <i class='bx bxs-check-circle' id="voltaDisplaySim" style="display: @(Model.ConfirmadoVolta ? "inline" : "none"); color: #12c00f"></i>
+            <i class='bx bxs-x-circle' id="voltaDisplayNao" style="display: @(!Model.ConfirmadoVolta ? "inline" : "none"); color: #a70606"></i>
         </div>
         <button type="button" class="btnC btn-custom" id="editarBtn">Editar</button>
     </div>
@@ -79,3 +79,5 @@
         registerEventListeners(); // Registrar os event listeners no carregamento inicial
     });
 </script>
+
+

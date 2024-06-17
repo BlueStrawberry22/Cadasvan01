@@ -1,55 +1,92 @@
 ﻿@model List<Cadasvan01.Models.Presenca>
 
-<div class="presencas-motorista-container">
-    <div class="presencas-motorista-header">
-        <h3>Presenças confirmadas:</h3>
+@{
+    var dataAtual = DateTime.Now.ToString("dd/MM/yyyy");
+}
+
+<div class="containerConteudo presenca-container">
+    <div class="ConteudoHeader">
+        <h3>Presenças confirmadas @dataAtual</h3>
     </div>
-    <div class="presencas-motorista-body">
-        @if (Model.Any())
-        {
-            <p>Nenhuma presença registrada hoje.</p>
-        }
-        else
-        {
-            <table class="presencas-motorista-tabela">
-                <thead>
+ 
+    @if (Model.Any())
+    {
+        <table class="presenca-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Ida</th>
+                    <th>Volta</th>
+                </tr>
+            </thead>
+            <hr />
+            <tbody>
+                @foreach (var presenca in Model)
+                {
                     <tr>
-                        <th>Data</th>
-                        <th>Nome</th>
-                        <th>Ida</th>
-                        <th>Volta</th>
+                        <td>@presenca.Usuario.Nome</td>
+                        <td>
+                            @if (presenca.ConfirmadoIda)
+                            {
+                                <i class='bx bxs-check-circle' style="color: #12c00f"></i>
+                            }
+                            else
+                            {
+                                <i class='bx bxs-x-circle' style="color: #a70606"></i>
+                            }
+                        </td>
+                        <td>
+                            @if (presenca.ConfirmadoVolta)
+                            {
+                                <i class='bx bxs-check-circle' style="color: #12c00f"></i>
+                            }
+                            else
+                            {
+                                <i class='bx bxs-x-circle' style="color: #a70606"></i>
+                            }
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var presenca in Model)
-                    {
-                        <tr>
-                            <td>@presenca.DataViagem.ToString("dd/MM/yyyy")</td>
-                            <td>@presenca.Usuario.Nome</td>
-                            <td>
-                                @if (presenca.ConfirmadoIda)
-                                {
-                                    <span class="confirmado">&#x2714;</span>
-                                }
-                                else
-                                {
-                                    <span class="nao-confirmado">&#x2716;</span>
-                                }
-                            </td>
-                            <td>
-                                @if (presenca.ConfirmadoVolta)
-                                {
-                                    <span class="confirmado">&#x2714;</span>
-                                }
-                                else
-                                {
-                                    <span class="nao-confirmado">&#x2716;</span>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+
+                    
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <p>Nenhuma presença registrada hoje.</p>
+    }
+
+<style>
+        .presenca-container {
+            max-width: 620PX;
         }
-    </div>
-</div>
+
+
+        .presenca-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .presenca-table th,
+            .presenca-table td {
+                padding: 12px 15px;
+                text-align: left;
+            }
+
+            .presenca-table th {
+                background-color: transparent;
+                color: #333333;
+                font-weight: 600;
+            }
+
+            .presenca-table tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            .presenca-table tr:nth-child(odd) {
+                background-color: #ffffff;
+            }
+
+</style>

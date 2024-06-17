@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
     [Area("Motorista")]
+    [Route("Motorista/[controller]")]
     public class MotoristaPresencasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,13 +21,31 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Historico()
+        private async Task<List<Usuario>> GetAlunosVinculados(string motoristaId)
+        {
+            return await _context.Usuarios
+                .Where(u => u.MotoristaId == motoristaId)
+                .ToListAsync();
+        }
+
+        [HttpGet("Historico")]
+        public async Task<IActionResult> Historico(string alunoId)
         {
             var motoristaId = _userManager.GetUserId(User);
-            var historicoPresencas = await _context.Presencas
+            var alunosVinculados = await GetAlunosVinculados(motoristaId);
+            ViewBag.AlunosVinculados = alunosVinculados;
+
+            var query = _context.Presencas
                 .Include(p => p.Motorista)
                 .Include(p => p.Usuario)
-                .Where(p => p.MotoristaId == motoristaId)
+                .Where(p => p.MotoristaId == motoristaId);
+
+            if (!string.IsNullOrEmpty(alunoId))
+            {
+                query = query.Where(p => p.UsuarioId == alunoId);
+            }
+
+            var historicoPresencas = await query
                 .OrderBy(p => p.DataViagem)
                 .ToListAsync();
 

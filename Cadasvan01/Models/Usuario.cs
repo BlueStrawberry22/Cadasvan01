@@ -13,6 +13,7 @@ namespace Cadasvan01.Models
         [MaxLength(11)]
         public string CPF { get; set; }
         public int CidadeId { get; set; }
+
         public string CEP { get; set; }
         public string? Complemento { get; set; }
         public string? Bairro { get; set; }
@@ -23,7 +24,9 @@ namespace Cadasvan01.Models
         [Phone]
         [RegularExpression(@"^\(\d{2}\)\d{5}-\d{4}$", ErrorMessage = "Formato indicado: (00)00000-0000.")]
         public string? Celular2 { get; set; }
-        [MaxLength(11)]
+
+        [MaxLength(500)]
+        public string Itinerario { get; set; }
         public string? CNH { get; set; }
         [MaxLength(7)]
         public string? Placa { get; set; }
@@ -42,7 +45,10 @@ namespace Cadasvan01.Models
             return AvaliacoesRecebidas.Average(a => a.AvaliacaoEstrelas);
         }
 
+
         public virtual ICollection<Avaliacao>? AvaliacoesFeitas { get; set; } = new List<Avaliacao>();
         public virtual ICollection<Avaliacao>? AvaliacoesRecebidas { get; set; } = new List<Avaliacao>();
+
+
     }
 }

@@ -4,6 +4,7 @@ using Cadasvan01.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240617174934_motorista")]
+    partial class motorista
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -202,7 +205,8 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CNH")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<string>("CPF")
                         .HasMaxLength(11)
@@ -217,7 +221,13 @@ namespace Cadasvan01.Migrations
                     b.Property<string>("Celular2")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CidadeDestinoId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CidadeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CidadePartidaId")
                         .HasColumnType("int");
 
                     b.Property<string>("Complemento")
@@ -236,10 +246,6 @@ namespace Cadasvan01.Migrations
 
                     b.Property<string>("Endereco")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Itinerario")
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -292,7 +298,11 @@ namespace Cadasvan01.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CidadeDestinoId");
+
                     b.HasIndex("CidadeId");
+
+                    b.HasIndex("CidadePartidaId");
 
                     b.HasIndex("MotoristaId");
 
@@ -467,17 +477,31 @@ namespace Cadasvan01.Migrations
 
             modelBuilder.Entity("Cadasvan01.Models.Usuario", b =>
                 {
+                    b.HasOne("Cadasvan01.Models.Cidade", "CidadeDestino")
+                        .WithMany()
+                        .HasForeignKey("CidadeDestinoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Cadasvan01.Models.Cidade", "Cidade")
                         .WithMany("Usuarios")
                         .HasForeignKey("CidadeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Cadasvan01.Models.Cidade", "CidadePartida")
+                        .WithMany()
+                        .HasForeignKey("CidadePartidaId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
                         .WithMany("Alunos")
                         .HasForeignKey("MotoristaId");
 
                     b.Navigation("Cidade");
+
+                    b.Navigation("CidadeDestino");
+
+                    b.Navigation("CidadePartida");
 
                     b.Navigation("Motorista");
                 });
