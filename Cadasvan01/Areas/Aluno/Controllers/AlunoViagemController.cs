@@ -36,7 +36,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
                 .Where(v => v.MotoristaId == aluno.MotoristaId && v.Ativa)
                 .FirstOrDefaultAsync();
 
-            return View(viagem);
+            return View();
         }
 
         public IActionResult VerLocalizacao()

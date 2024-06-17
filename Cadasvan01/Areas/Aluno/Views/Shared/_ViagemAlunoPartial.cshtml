@@ -1,0 +1,21 @@
+﻿@model Cadasvan01.Models.Viagem
+
+@if (Model != null)
+{
+    <div class="containerConteudo infosMotorista-container">
+        <div class="ConteudoHeader"> <h3>Viagem em andamento</h3></div>
+        <p>Seu motorista iniciou uma viagem!</p>
+        <p><strong>Destino:</strong> @Model.Destino</p>
+        <p><strong>Hora de Início:</strong> @Model.HoraInicio</p>
+        <a asp-area ="Aluno" asp-controller="AlunoViagem" class="btn btn-primary" asp-action="VerLocalizacao">Ver localização do motorista</a>
+       
+    </div>
+}
+else
+{
+    <div class="containerConteudo infosMotorista-container">
+        <div class="ConteudoHeader"> <h3>Sem viagem em andamento</h3></div>
+        <p>Seu motorista não está em nenhuma viagem.</p>
+    </div>
+}
+

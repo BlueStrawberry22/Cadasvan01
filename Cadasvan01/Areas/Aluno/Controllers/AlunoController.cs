@@ -43,6 +43,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
 
             Usuario motorista = null;
             List<Aviso> avisos = new List<Aviso>();
+            Viagem viagemAtiva = null;
 
             if (!string.IsNullOrEmpty(aluno.MotoristaId))
             {
@@ -51,13 +52,16 @@ namespace Cadasvan01.Areas.Aluno.Controllers
                     .Where(a => a.MotoristaId == aluno.MotoristaId)
                     .OrderByDescending(a => a.DataPublicacao)
                     .ToListAsync();
+                viagemAtiva = await _context.Viagens
+                      .FirstOrDefaultAsync(v => v.MotoristaId == aluno.MotoristaId && v.Ativa);
             }
 
             var model = new AlunoIndexViewModel
             {
                 Aluno = aluno,
                 Motorista = motorista,
-                Avisos = avisos
+                Avisos = avisos,
+                ViagemAtiva = viagemAtiva
             };
 
             return View(model);
@@ -188,6 +192,8 @@ namespace Cadasvan01.Areas.Aluno.Controllers
         public Usuario Aluno { get; set; }
         public Usuario Motorista { get; set; }
         public List<Aviso> Avisos { get; set; }
+        public Viagem ViagemAtiva { get; set; } // Adicionado para a viagem ativa
+
     }
 
     public class EditarEnderecoViewModel
