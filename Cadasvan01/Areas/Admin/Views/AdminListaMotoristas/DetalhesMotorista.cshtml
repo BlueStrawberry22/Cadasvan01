@@ -1,48 +1,137 @@
 ﻿@model Cadasvan01.Models.Usuario
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes do Motorista";
 }
 
 <h1>Detalhes do Motorista</h1>
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            Nome Completo
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nome) @Html.DisplayFor(model => model.Sobrenome)
-        </dd>
-        <dt class = "col-sm-2">
-            CPF
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CPF)
-        </dd>
-        <dt class = "col-sm-2">
-            Cidade
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CidadeId)
-        </dd>
-        <dt class = "col-sm-2">
-            Endereço
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Endereco)
-        </dd>
-        <dt class = "col-sm-2">
-            CNH
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CNH)
-        </dd>
-    </dl>
+<div class="motorista-detalhes">
+    <div class="foto-perfil">
+        @if (!string.IsNullOrEmpty(Model.CaminhoImagemPerfil))
+        {
+            <img src="@Model.CaminhoImagemPerfil" alt="Foto de perfil do motorista" />
+        }
+        else
+        {
+            <img src="~/images/default-profile.jpg" alt="Foto de perfil padrão" />
+        }
+    </div>
+    <div class="informacoes">
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Nome Completo
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Nome) @Html.DisplayFor(model => model.Sobrenome)
+            </dd>
+            <dt class="col-sm-2">
+                Cidade
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Cidade.Nome)
+            </dd>
+            <dt class="col-sm-2">
+                Itinerário
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Itinerario)
+            </dd>
+            <dt class="col-sm-2">
+                Celular 1
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Celular1)
+            </dd>
+            <dt class="col-sm-2">
+                Celular 2
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Celular2)
+            </dd>
+            <dt class="col-sm-2">
+                CNH
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CNH)
+            </dd>
+            <dt class="col-sm-2">
+                Modelo da Van 1
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ModeloVan1)
+            </dd>
+            <dt class="col-sm-2">
+                Cor da Van 1
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CorVan1)
+            </dd>
+            <dt class="col-sm-2">
+                Placa da Van 1
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PlacaVan1)
+            </dd>
+            <dt class="col-sm-2">
+                Modelo da Van 2
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ModeloVan2)
+            </dd>
+            <dt class="col-sm-2">
+                Cor da Van 2
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CorVan2)
+            </dd>
+            <dt class="col-sm-2">
+                Placa da Van 2
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PlacaVan2)
+            </dd>
+            <dt class="col-sm-2">
+                Email
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        </dl>
+    </div>
 </div>
 
-<div>
-    <a asp-area="Admin" asp-controller="AdminListaMotoristas" asp-action="EditarMotorista" asp-route-id="@Model?.Id">Editar</a> |
-    <a asp-area="Admin" asp-controller="AdminListaMotoristas" asp-action="ListaMotoristas">Voltar para a Lista</a>
+<div class="botoes-acoes">
+    <a asp-area="Admin" asp-controller="AdminListaMotoristas" asp-action="ListaMotoristas" class="btn btn-secondary">Voltar para a Lista</a>
 </div>
+
+<style>
+    .motorista-detalhes {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .foto-perfil {
+        margin-right: 20px;
+    }
+
+        .foto-perfil img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+    .informacoes {
+        flex: 1;
+    }
+
+    .botoes-acoes {
+        margin-top: 20px;
+    }
+
+        .botoes-acoes .btn {
+            margin-right: 10px;
+        }
+</style>

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Cadasvan01.Migrations
 {
     /// <inheritdoc />
-    public partial class vaaaau : Migration
+    public partial class NovaMigracao : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

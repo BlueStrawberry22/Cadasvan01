@@ -1,9 +1,11 @@
 ﻿using Cadasvan01.Data;
 using Cadasvan01.Enums;
+using Cadasvan01.Extensions;
 using Cadasvan01.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cadasvan01.Areas.Admin.Controllers
@@ -31,22 +33,6 @@ namespace Cadasvan01.Areas.Admin.Controllers
                 .ToList();
 
             return View(motoristas);
-        }
-
-        public IActionResult EditarMotorista(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var motorista = _context.Usuarios.FirstOrDefault(u => u.Id.ToString() == id);
-            if (motorista == null)
-            {
-                return NotFound();
-            }
-
-            return View(motorista);
         }
 
         public IActionResult DetalhesMotorista(string id)
@@ -95,7 +81,6 @@ namespace Cadasvan01.Areas.Admin.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("ListaMotoristas", "AdminListaMotoristas");
-        }
-
+        }        
     }
 }

@@ -1,0 +1,111 @@
+﻿@model Cadasvan01.Models.Usuario
+
+@{
+    ViewData["Title"] = "Detalhes do Aluno";
+}
+
+<h1>Detalhes do Aluno</h1>
+
+<div class="aluno-detalhes">
+    <div class="foto-perfil">
+        @if (!string.IsNullOrEmpty(Model.CaminhoImagemPerfil))
+        {
+            <img src="@Model.CaminhoImagemPerfil" alt="Foto de perfil do aluno" />
+        }
+        else
+        {
+            <img src="~/images/default-profile.jpg" alt="Foto de perfil padrão" />
+        }
+    </div>
+    <div class="informacoes">
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Nome Completo:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Nome) @Html.DisplayFor(model => model.Sobrenome)
+            </dd>
+            <dt class="col-sm-2">
+                Cidade:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Cidade.Nome)
+            </dd>
+            <dt class="col-sm-2">
+                Endereço:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Endereco), @Html.DisplayFor(model => model.Bairro), @Html.DisplayFor(model => model.Complemento)
+            </dd>
+            <dt class="col-sm-2">
+                Telefone:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Celular1)
+            </dd>
+            @if(@Model.Celular2 != null && @Model.Celular2 != @Model.Celular1){
+                <dt class="col-sm-2">
+                    Telefone:
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Celular2)
+                </dd>
+            }
+            
+            <dt class="col-sm-2">
+                Motorista Vinculado:
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.Motorista != null)
+                {
+                    @Html.DisplayFor(model => model.Motorista.Nome) @Html.DisplayFor(model => model.Motorista.Sobrenome)
+                }
+                else
+                {
+                    <span>Nenhum motorista vinculado</span>
+                }
+            </dd>
+            <dt class="col-sm-2">
+                Email:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="botoes-acoes">
+    <a asp-area="Admin" asp-controller="AdminListaAlunos" asp-action="ListaAlunos" class="btn btn-secondary">Voltar para a Lista</a>
+</div>
+
+<style>
+    .aluno-detalhes {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .foto-perfil {
+        margin-right: 20px;
+    }
+
+        .foto-perfil img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+    .informacoes {
+        flex: 1;
+    }
+
+    .botoes-acoes {
+        margin-top: 20px;
+    }
+
+        .botoes-acoes .btn {
+            margin-right: 10px;
+        }
+</style>

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Cadasvan01.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Alunos";
+}
+
+<h1>Alunos</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome Completo</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Nome @user.Sobrenome</td>
+                <td>@user.Email</td>
+                <td>
+                    <a asp-area="Admin" asp-controller="AdminListaAlunos" asp-action="DetalhesAlunos" asp-route-id="@user.Id">Detalhes</a> |
+                    <a asp-area="Admin" asp-controller="AdminListaAluno" asp-action="DeletarAluno" asp-route-id="@user.Id">Deletar</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
