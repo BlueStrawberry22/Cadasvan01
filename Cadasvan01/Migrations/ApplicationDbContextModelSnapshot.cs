@@ -243,6 +243,12 @@ namespace Cadasvan01.Migrations
                     b.Property<string>("Endereco")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FotoVan1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FotoVan2")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Itinerario")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");

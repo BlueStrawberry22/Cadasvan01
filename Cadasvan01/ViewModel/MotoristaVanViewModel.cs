@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Cadasvan01.ViewModel
 {
@@ -14,5 +15,8 @@ namespace Cadasvan01.ViewModel
 
         [Display(Name = "Placa da Van")]
         public string Placa { get; set; }
+
+        [Display(Name = "Foto da Van")]
+        public IFormFile Foto { get; set; }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240618075605_vaaaau")]
+    [Migration("20240618082430_vaaaau")]
     partial class vaaaau
     {
         /// <inheritdoc />
@@ -244,6 +244,12 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Endereco")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FotoVan1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FotoVan2")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Itinerario")

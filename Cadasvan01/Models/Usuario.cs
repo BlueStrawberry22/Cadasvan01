@@ -39,10 +39,13 @@ namespace Cadasvan01.Models
         public string ModeloVan1 { get; set; }
         public string CorVan1 { get; set; }
         public string? PlacaVan1 { get; set; }
+        public string? FotoVan1 { get; set; }
 
         public string? ModeloVan2 { get; set; }
         public string? CorVan2 { get; set; }
         public string? PlacaVan2 { get; set; }
+
+        public string? FotoVan2 { get; set; }
 
 
         public string? VanSelecionada { get; set; }
