@@ -3,20 +3,18 @@
 }
 @model Cadasvan01.Areas.Aluno.Controllers.AlunoIndexViewModel
 
-
 <a href="#" id="editarEnderecoLink" class="editar-endereco-link"><i class='bx bx-map'></i> @Model.Aluno.Endereco > </a>
 
-<br/>
+<br />
 
 @if (Model.Motorista != null)
 {
     <div class="containerConteudo infosMotorista-container">
         <div class="ConteudoHeader"> <h3>Motorista contratado</h3></div>
         <p>Veja as informações do seu motorista!</p>
-       
-
         <a href="@Url.Action("InfosMotorista", "Aluno", new { id = Model.Motorista.Id, area = "Aluno" })" class="btnC btn-custom">
-            Acessar</a>
+            Acessar
+        </a>
     </div>
 
     <div>
@@ -25,25 +23,19 @@
 
     <a asp-area="Aluno" asp-controller="AlunoPresencas" asp-action="Index" class="btn btn-primary">Ver Histórico de Presença</a>
 
-
-
     <br />
     @Html.Partial("_AlunoAvisosPartial", Model.Avisos)
     <br />
     @Html.Partial("_ViagemAlunoPartial", Model.ViagemAtiva)
-
-   
-
-  
-
-   }
+}
 else
-{ 
+{
     <div class="containerConteudo">
         <p>Você ainda não está vinculado a um motorista!</p>
         <a class="btnC btn-custom" asp-area="Aluno" asp-controller="AlunoCodigo" asp-action="VincularMotorista">Se vincule a um motorista</a>
     </div>
-    }
+}
+
 <br />
 
 <!-- Modal de Edição de Endereço -->
@@ -81,7 +73,6 @@ else
     </div>
 </div>
 
-
 @section Scripts {
     <script>
         $(document).ready(function () {
@@ -92,4 +83,3 @@ else
         });
     </script>
 }
-

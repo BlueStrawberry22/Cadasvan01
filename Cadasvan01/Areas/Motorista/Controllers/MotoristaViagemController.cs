@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Cadasvan01.Data;
 using Cadasvan01.Models;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
@@ -69,4 +69,3 @@ namespace Cadasvan01.Areas.Motorista.Controllers
         }
     }
 }
-

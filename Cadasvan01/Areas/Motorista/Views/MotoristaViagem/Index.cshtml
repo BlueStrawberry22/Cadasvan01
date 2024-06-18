@@ -2,84 +2,31 @@
 
 <h2>Viagens Ativas</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Destino</th>
-            <th>Hora de Início</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var viagem in Model)
-        {
-            <tr>
-                <td>@viagem.Destino</td>
-                <td>@viagem.HoraInicio</td>
-                <td>
-                    <form asp-action="EncerrarViagem" method="post">
-                        <input type="hidden" name="id" value="@viagem.ViagemId" />
-                        <button type="submit" class="btn btn-danger">Encerrar Viagem</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<h2>Iniciar Nova Viagem</h2>
-<form asp-action="IniciarViagem" method="post">
-    <div class="form-group">
-        <label for="destino">Destino</label>
-        <input type="text" class="form-control" id="destino" name="destino" required />
+@if (Model.Any())
+{
+    @foreach (var viagem in Model)
+    {
+        <div class="containerConteudo infosMotorista-container">
+            <div class="ConteudoHeader"> <h3>Viagem em andamento</h3></div>
+            <p>Destino: @viagem.Destino</p>
+            <p>Hora de Início: @viagem.HoraInicio</p>
+            <form asp-action="EncerrarViagem" method="post">
+                <input type="hidden" name="id" value="@viagem.ViagemId" />
+                <button type="submit" class="btn btn-danger">Encerrar Viagem</button>
+            </form>
+        </div>
+    }
+}
+else
+{
+    <div class="containerConteudo infosMotorista-container">
+        <div class="ConteudoHeader"> <h3>Iniciar Nova Viagem</h3></div>
+        <form asp-action="IniciarViagem" method="post">
+            <div class="form-group">
+                <label for="destino">Destino</label>
+                <input type="text" class="form-control" id="destino" name="destino" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Iniciar Viagem</button>
+        </form>
     </div>
-    <button type="submit" class="btn btn-primary">Iniciar Viagem</button>
-</form>
-
-@section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.7/signalr.min.js"></script>
-    <script>
-        // Conectar ao hub do SignalR
-        const connection = new signalR.HubConnectionBuilder().withUrl("/locationHub").build();
-
-        connection.start().then(() => {
-            console.log("Conectado ao SignalR Hub.");
-            // Atualizar a localização periodicamente
-            setInterval(updateLocation, 5000);
-        }).catch(err => console.error(err.toString()));
-
-        // Obter e enviar a localização
-        function updateLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    position => {
-                        const latitude = position.coords.latitude;
-                        const longitude = position.coords.longitude;
-
-                        connection.invoke("SendLocation", "@User.Identity.Name", latitude, longitude)
-                            .catch(err => console.error(err.toString()));
-                    },
-                    error => {
-                        switch (error.code) {
-                            case error.PERMISSION_DENIED:
-                                console.error("Erro: Permissão de localização negada.");
-                                alert("Por favor, permita o acesso à localização nas configurações do navegador.");
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                console.error("Erro: Localização indisponível.");
-                                break;
-                            case error.TIMEOUT:
-                                console.error("Erro: Tempo de solicitação de localização esgotado.");
-                                break;
-                            case error.UNKNOWN_ERROR:
-                                console.error("Erro desconhecido ao obter a localização.");
-                                break;
-                        }
-                    }
-                );
-            } else {
-                console.log("Geolocalização não é suportada por este navegador.");
-            }
-        }
-    </script>
 }
