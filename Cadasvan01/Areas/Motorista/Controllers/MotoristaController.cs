@@ -28,9 +28,10 @@ namespace Cadasvan01.Areas.Motorista.Controllers
         {
             var motoristaId = _userManager.GetUserId(User);
             var today = DateTime.Today;
+
             var motorista = await _context.Usuarios
                 .Include(u => u.Alunos)
-                .ThenInclude(a => a.Cidade)
+                .Include(u => u.Vans)
                 .FirstOrDefaultAsync(u => u.Id == motoristaId);
 
             if (motorista == null)
@@ -59,11 +60,13 @@ namespace Cadasvan01.Areas.Motorista.Controllers
                 AlunosVinculados = motorista.Alunos.ToList(),
                 PresencasHoje = presencasOrdenadas,
                 ViagensAtivas = viagensAtivas,
-                VanSelecionada = motorista.VanSelecionada // Atribua a van selecionada aqui
+                Vans = motorista.Vans.ToList(),
+                VanSelecionada = motorista.VanSelecionada
             };
 
             return View(model);
         }
+
 
 
         [HttpGet]
@@ -134,7 +137,8 @@ namespace Cadasvan01.Areas.Motorista.Controllers
         public List<Presenca> PresencasHoje { get; set; }
         public List<Usuario> AlunosVinculados { get; set; }
         public IEnumerable<Viagem> ViagensAtivas { get; set; }
-        public string VanSelecionada { get; set; } // Adicione esta propriedade
+        public List<Van> Vans { get; set; } // Adicione esta propriedade
+        public string VanSelecionada { get; set; }
     }
 
 }

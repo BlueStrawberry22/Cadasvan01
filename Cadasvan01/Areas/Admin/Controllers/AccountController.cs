@@ -1,4 +1,5 @@
 ﻿using Cadasvan01.Data;
+using Cadasvan01.Enums;
 using Cadasvan01.Extensions;
 using Cadasvan01.Models;
 using Cadasvan01.Services;
@@ -8,6 +9,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SixLabors.ImageSharp; // Adicione esta linha
+using SixLabors.ImageSharp.Processing; // Adicione esta linha
+using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace Cadasvan01.Controllers
 {
@@ -52,15 +56,9 @@ namespace Cadasvan01.Controllers
         [HttpGet]
         public async Task<IActionResult> Register()
         {
-            //recupera os tipos do enum e monta um selectlist
             ViewData["SelectTipo"] = SelectListExtensions.MontarSelectListParaEnum(new Usuario().Tipo);
-
-            //consulta nas cidades em ordem alfabética
             var cidades = await _context.Cidades.OrderBy(o => o.Nome).ToListAsync();
-
-            //monta um selectList com as cidades
             ViewData["Cidades"] = new SelectList(cidades, "CidadeId", "Nome");
-
             return View();
         }
 
@@ -75,27 +73,68 @@ namespace Cadasvan01.Controllers
                     Email = model.Email,
                     Nome = model.Nome,
                     Sobrenome = model.Sobrenome,
-                    CPF = model.CPF,
                     CNH = model.CNH,
                     Tipo = Enums.UsuarioEnum.Motorista,
                     CidadeId = model.CidadeId,
                     Itinerario = model.Itinerario,
-                    ModeloVan1 = model.ModeloVan1,
-                    CorVan1 = model.CorVan1,
-                    PlacaVan1 = model.PlacaVan1,
-                    ModeloVan2 = model.ModeloVan2,
-                    CorVan2 = model.CorVan2,
-                    PlacaVan2 = model.PlacaVan2,
                     Celular1 = model.Celular1,
                     Celular2 = model.Celular2,
-                    
-
+                    Vans = new List<Van>()
                 };
+
                 var result = await _userManager.CreateAsync(user, model.Senha);
 
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, "Motorista");
+
+                    foreach (var vanModel in model.Vans)
+                    {
+                        if (vanModel.Foto != null)
+                        {
+                            string uploadsFolder = Path.Combine(_webHostEnviroment.WebRootPath, "images/vans");
+                            if (!Directory.Exists(uploadsFolder))
+                            {
+                                Directory.CreateDirectory(uploadsFolder);
+                            }
+
+                            string uniqueFileName = Guid.NewGuid().ToString() + "_" + vanModel.Foto.FileName;
+                            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                            using (var image = Image.Load(vanModel.Foto.OpenReadStream()))
+                            {
+                                image.Mutate(x => x.Resize(new ResizeOptions
+                                {
+                                    Size = new Size(300, 300),
+                                    Mode = ResizeMode.Crop
+                                }));
+                                await image.SaveAsync(filePath, new JpegEncoder());
+                            }
+
+                            user.Vans.Add(new Van
+                            {
+                                Modelo = vanModel.Modelo,
+                                Cor = vanModel.Cor,
+                                Placa = vanModel.Placa,
+                                Foto = "/images/vans/" + uniqueFileName,
+                                MotoristaId = user.Id
+                            });
+                        }
+                        else
+                        {
+                            user.Vans.Add(new Van
+                            {
+                                Modelo = vanModel.Modelo,
+                                Cor = vanModel.Cor,
+                                Placa = vanModel.Placa,
+                                MotoristaId = user.Id
+                            });
+                        }
+                    }
+
+                    _context.Update(user);
+                    await _context.SaveChangesAsync();
+
                     return RedirectToAction("Index", "Admin");
                 }
 
@@ -109,7 +148,7 @@ namespace Cadasvan01.Controllers
             var cidades = await _context.Cidades.OrderBy(o => o.Nome).ToListAsync();
             ViewData["Cidades"] = new SelectList(cidades, "CidadeId", "Nome");
 
-            return View();
+            return View(model);
         }
     }
 }

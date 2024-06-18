@@ -5,18 +5,19 @@ namespace Cadasvan01.ViewModel
 {
     public class MotoristaVanViewModel
     {
+        public int Id { get; set; }
         [Required]
-        [Display(Name = "Modelo da Van")]
         public string Modelo { get; set; }
 
         [Required]
-        [Display(Name = "Cor da Van")]
         public string Cor { get; set; }
 
-        [Display(Name = "Placa da Van")]
+        [Required]
         public string Placa { get; set; }
 
-        [Display(Name = "Foto da Van")]
         public IFormFile Foto { get; set; }
+
+        public string CaminhoFotoVan { get; set; } // Caminho da foto existente
     }
+
 }

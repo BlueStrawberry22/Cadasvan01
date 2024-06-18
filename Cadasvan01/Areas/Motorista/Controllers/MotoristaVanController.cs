@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
@@ -39,6 +42,14 @@ namespace Cadasvan01.Areas.Motorista.Controllers
                 var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
+                    var van = new Van
+                    {
+                        Modelo = model.Modelo,
+                        Cor = model.Cor,
+                        Placa = model.Placa,
+                        MotoristaId = user.Id
+                    };
+
                     if (model.Foto != null)
                     {
                         string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images/vans");
@@ -48,27 +59,24 @@ namespace Cadasvan01.Areas.Motorista.Controllers
                         }
                         string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Foto.FileName;
                         string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+
+                        using (var image = Image.Load(model.Foto.OpenReadStream()))
                         {
-                            await model.Foto.CopyToAsync(fileStream);
+                            // Redimensiona a imagem
+                            image.Mutate(x => x.Resize(new ResizeOptions
+                            {
+                                Size = new Size(300, 300), // Define o tamanho desejado
+                                Mode = ResizeMode.Crop
+                            }));
+
+                            // Salva a imagem redimensionada
+                            await image.SaveAsync(filePath, new JpegEncoder());
                         }
-                        user.FotoVan1 = "/images/vans/" + uniqueFileName;
-                        user.FotoVan2 = "/images/vans/" + uniqueFileName;
+
+                        van.Foto = "/images/vans/" + uniqueFileName;
                     }
 
-                    if (string.IsNullOrEmpty(user.ModeloVan1))
-                    {
-                        user.ModeloVan1 = model.Modelo;
-                        user.CorVan1 = model.Cor;
-                        user.PlacaVan1 = model.Placa;
-                    }
-                    else
-                    {
-                        user.ModeloVan2 = model.Modelo;
-                        user.CorVan2 = model.Cor;
-                        user.PlacaVan2 = model.Placa;
-                    }
-                    _context.Update(user);
+                    _context.Vans.Add(van);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Index", "Motorista");
                 }
@@ -76,32 +84,85 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DeletarVan(string van)
+        [HttpGet]
+        public async Task<IActionResult> EditarVan(int id)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user != null)
+            var van = await _context.Vans.FindAsync(id);
+            if (van == null)
             {
-                if (user.ModeloVan1 == van)
+                return NotFound();
+            }
+
+            var model = new MotoristaVanViewModel
+            {
+                Id = van.Id,
+                Modelo = van.Modelo,
+                Cor = van.Cor,
+                Placa = van.Placa,
+                CaminhoFotoVan = van.Foto
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditarVan(MotoristaVanViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var van = await _context.Vans.FindAsync(model.Id);
+                if (van == null)
                 {
-                    user.ModeloVan1 = null;
-                    user.CorVan1 = null;
-                    user.PlacaVan1 = null;
-                    user.FotoVan1 = null; // Se houver um campo para a foto da van
+                    return NotFound();
                 }
-                else if (user.ModeloVan2 == van)
+
+                van.Modelo = model.Modelo;
+                van.Cor = model.Cor;
+                van.Placa = model.Placa;
+
+                if (model.Foto != null)
                 {
-                    user.ModeloVan2 = null;
-                    user.CorVan2 = null;
-                    user.PlacaVan2 = null;
-                    user.FotoVan2 = null; // Se houver um campo para a foto da van
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images/vans");
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Foto.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var image = Image.Load(model.Foto.OpenReadStream()))
+                    {
+                        // Redimensiona a imagem
+                        image.Mutate(x => x.Resize(new ResizeOptions
+                        {
+                            Size = new Size(300, 300), // Define o tamanho desejado
+                            Mode = ResizeMode.Crop
+                        }));
+
+                        // Salva a imagem redimensionada
+                        await image.SaveAsync(filePath, new JpegEncoder());
+                    }
+
+                    van.Foto = "/images/vans/" + uniqueFileName;
                 }
-                _context.Update(user);
+
+                _context.Update(van);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Motorista");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeletarVan(int id)
+        {
+            var van = await _context.Vans.FindAsync(id);
+            if (van != null)
+            {
+                _context.Vans.Remove(van);
                 await _context.SaveChangesAsync();
             }
             return Ok();
-        }
-
-
+        } 
     }
 }

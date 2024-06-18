@@ -3,43 +3,69 @@
 <div>
     <h2>Informações do Motorista</h2>
     <hr />
-    <div class="containerConteudo avaliacao-container">
-        <p><strong>Avaliação:</strong></p>
-        <p class="avaliacao-estrelas">
+
+    <div class="headerinfosMotorista">
+        @if (Model.Motorista.CaminhoImagemPerfil != null)
+        {
+            <img src="@Model.Motorista.CaminhoImagemPerfil" alt="Foto de Perfil" class="profile-pic" />
+        }
+        else
+        {
+            <img src="~/images/default-profile.jpg" class="profile-pic" />
+        }
+
+        <div class="header-details">
+            <h2>@Model.Motorista.Nome @Model.Motorista.Sobrenome</h2>
+            <p>@Model.Motorista.Itinerario</p>
+        </div>
+    </div>
+    <div class="containerConteudo modeloVan-container">
+
+        <!--Avaliação-->
+        <p>
+            <strong><i class='bx bx-star'></i> Avaliação:</strong>
             @if (Model.MediaAvaliacoes > 0)
             {
-                @for (int i = 0; i < Math.Floor(Model.MediaAvaliacoes); i++)
-                {
-                    <i class='bx bxs-star'></i>
-                }
-                @if (Model.MediaAvaliacoes % 1 != 0)
-                {
-                    <i class='bx bx-star-half'></i>
-                }
-                @for (int i = 0; i < (5 - Math.Ceiling(Model.MediaAvaliacoes)); i++)
-                {
-                    <i class='bx bx-star'></i>
-                }
-            <p><strong>Média:</strong> @Model.MediaAvaliacoes.ToString("0.0") estrelas</p>
+                <a href="#" id="mediaAvaliacoesLink" data-toggle="modal" data-target="#mediaAvaliacoesModal" class="linksInfos">
+                    @Model.MediaAvaliacoes.ToString("0.0") estrelas
+                </a>
             }
             else
             {
             <p>Nenhuma avaliação foi feita ainda.</p>
             }
         </p>
-    </div>
+        <hr/>
 
-    <div>
-        <p><strong>Nome Completo:</strong> @Model.Motorista.Nome @Model.Motorista.Sobrenome</p>
-        <p><strong>Email:</strong> @Model.Motorista.Email</p>
-        <p><strong>Telefone:</strong> @Model.Motorista.Celular1</p>
+        <!--Vans-->
+        <p>
+            <strong><i class='bx bx-bus-school'></i> Vans: </strong>
+            @if (Model.Motorista.Vans != null && Model.Motorista.Vans.Any())
+            {
+                <a href="#" id="modeloVanLink" data-toggle="modal" data-target="#modeloVanModal" class="linksInfos">
+                    @Model.Motorista.Vans.FirstOrDefault(v => v.Modelo == Model.Motorista.VanSelecionada)?.Modelo <small class="anotacao">Ver vans ></small>
+                    
+                </a>
+            }
+            else
+            {
+            <p>Nenhuma van cadastrada.</p>
+            }
+        </p>
+        <hr />
+
+        <!--Itinerario-->
+        <p><strong><i class='bx bx-map-alt'></i> Itinerário:</strong> @Model.Motorista.Itinerario</p>
+
+        <hr />
+
+        <p><strong><i class='bx bx-phone'></i> Telefone 1:</strong> @Model.Motorista.Celular1</p>
         @if (Model.Motorista.Celular2 != null && Model.Motorista.Celular2 != Model.Motorista.Celular1)
         {
-            <p><strong>Telefone:</strong> @Model.Motorista.Celular2</p>
+            <hr />
+            <p><strong><i class='bx bx-phone'></i> Telefone 2:</strong> @Model.Motorista.Celular2</p>
         }
-        <p><strong>CNH:</strong> @Model.Motorista.CNH</p>
     </div>
-
 
 
     @if (Model.Avaliacao != null && Model.Avaliacao.AvaliacaoEstrelas > 0)
@@ -66,6 +92,61 @@
     }
 
     <button id="desvincularBtn" class="btnC btn-danger">Desvincular</button>
+</div>
+
+<!-- Modal de Média de Avaliações -->
+<div id="mediaAvaliacoesModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Média de Avaliações</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Conteúdo das avaliações -->
+                @foreach (var avaliacao in Model.Motorista.AvaliacoesRecebidas)
+                {
+                    <p>
+                        
+                        @for (int i = 0; i < avaliacao.AvaliacaoEstrelas; i++)
+                        {
+                            <i class='bx bxs-star'></i>
+                        }
+                        - @avaliacao.Opiniao 
+                        <br/>
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Modelos de Vans -->
+<div id="modeloVanModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modelos de Vans</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @foreach (var van in Model.Motorista.Vans)
+                {
+                    <h3>@van.Modelo</h3>
+                    <div>
+                        @if (!string.IsNullOrEmpty(van.Foto))
+                        {
+                            <img src="@van.Foto" alt="@van.Modelo" class="ImagemVan">
+                        }
+                        <p><strong>Modelo da van: </strong>@van.Modelo </p>
+                        <p><strong>Cor da van: </strong>@van.Cor</p>
+                        <p><strong>Placa da van: </strong>@van.Placa</p>
+                        <hr />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal de Avaliação -->
@@ -141,6 +222,14 @@
                 }
             });
 
+            $('#mediaAvaliacoesLink').on('click', function () {
+                $('#mediaAvaliacoesModal').modal('show');
+            });
+
+            $('#modeloVanLink').on('click', function () {
+                $('#modeloVanModal').modal('show');
+            });
+
             $('#desvincularBtn').on('click', function () {
                 $('#confirmModal').modal('show');
             });
@@ -158,3 +247,22 @@
 }
 
 <form id="desvincularForm" method="post" asp-area="Aluno" asp-controller="AlunoCodigo" asp-action="DesvincularMotorista"></form>
+
+<style>
+    .ImagemVan {
+        width: 100%;
+        max-width: 300px; /* Tamanho máximo desejado */
+        height: auto;
+        object-fit: cover; /* Mantém a proporção da imagem */
+        border-radius: 8px; /* Bordas arredondadas, se desejar */
+        margin-bottom: 20px; /* Espaçamento inferior */
+    }
+
+    .linksInfos {
+        color:orangered;
+    }
+    .anotacao{
+        font-size:12px;
+        color: gray;
+    }
+</style>

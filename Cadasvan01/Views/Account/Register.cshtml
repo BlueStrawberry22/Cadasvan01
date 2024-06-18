@@ -16,7 +16,7 @@
                 <span asp-validation-for="Sobrenome" class="text-danger"></span>
             </div>
             <div class="input-box .col-sm-12">
-                <input asp-for="CPF" placeholder="CPF" class="form-control" maxlength="14" />
+                <input asp-for="CPF" placeholder="CPF" class="form-control" id="cpf" maxlength="14" />
                 <span asp-validation-for="CPF" class="text-danger"></span>
             </div>
             <div class="input-box">
@@ -41,11 +41,11 @@
                 <span asp-validation-for="CidadeId" class="text-danger"></span>
             </div>
             <div class="input-box">
-                <input asp-for="Celular1" placeholder="Número de telefone principal" class="form-control" id="celular1" />
+                <input asp-for="Celular1" placeholder="Número de telefone principal" class="form-control" id="telefone" />
                 <span asp-validation-for="Celular1" class="text-danger"></span>
             </div>
             <div class="input-box">
-                <input asp-for="Celular2" placeholder="Número de telefone secundário" class="form-control" id="celular2" />
+                <input asp-for="Celular2" placeholder="Número de telefone secundário" class="form-control" id="telefone2" />
                 <span asp-validation-for="Celular2" class="text-danger"></span>
             </div>
             <div class="input-box">
@@ -79,6 +79,28 @@
 
 @section Scripts {
     <script>
+        $(document).ready(function () {
+            $('#telefone, #telefone2').on('input', function () {
+                var value = $(this).val().replace(/\D/g, '');
+                if (value.length > 10) {
+                    value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1)$2-$3');
+                } else if (value.length > 5) {
+                    value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1)$2-$3');
+                } else if (value.length > 2) {
+                    value = value.replace(/^(\d{2})(\d{0,5})/, '($1)$2');
+                }
+                $(this).val(value);
+            });
+
+            $('#cpf').on('input', function () {
+                var value = $(this).val().replace(/\D/g, '');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                $(this).val(value);
+            });
+        });
+
         document.getElementById('cep').addEventListener('blur', async function () {
             var cep = this.value.replace(/\D/g, '');
             console.log(`CEP informado: ${cep}`);

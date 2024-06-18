@@ -10,7 +10,7 @@ namespace Cadasvan01.Models
         public string? CaminhoImagemPerfil { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
-        [MaxLength(11)]
+        [MaxLength(14)]
         public string CPF { get; set; }
         public int CidadeId { get; set; }
 
@@ -36,16 +36,7 @@ namespace Cadasvan01.Models
         public virtual Cidade? Cidade { get; set; }
 
 
-        public string ModeloVan1 { get; set; }
-        public string CorVan1 { get; set; }
-        public string? PlacaVan1 { get; set; }
-        public string? FotoVan1 { get; set; }
-
-        public string? ModeloVan2 { get; set; }
-        public string? CorVan2 { get; set; }
-        public string? PlacaVan2 { get; set; }
-
-        public string? FotoVan2 { get; set; }
+        public virtual ICollection<Van> Vans { get; set; }
 
 
         public string? VanSelecionada { get; set; }

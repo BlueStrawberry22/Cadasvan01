@@ -5,6 +5,7 @@
 <form asp-action="Editar" method="post">
     <div class="form-group">
         <input type="hidden" asp-for="AvisoId" />
+        <input type="hidden" asp-for="MotoristaId" />
         <label asp-for="Titulo"></label>
         <input asp-for="Titulo" class="form-control" />
     </div>
@@ -12,5 +13,5 @@
         <label asp-for="Conteudo"></label>
         <textarea asp-for="Conteudo" class="form-control"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button type="submit" class="btnC btn-custom">Salvar</button>
 </form>

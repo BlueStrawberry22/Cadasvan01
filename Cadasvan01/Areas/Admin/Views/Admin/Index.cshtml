@@ -1,16 +1,45 @@
-﻿﻿
+﻿@{
+    ViewBag.IsIndex = true;
+}
 <br />
-<div class="container">
-    <div class="jumbotron">
-        <p>
-            <h2>Esta é a área do Administrador</h2>
-        </p>
+
+<div class="container-flex">
+    <div class="containerConteudo container-registro">
+        <div class="ConteudoHeader">
+            <h3>Registro de motoristas</h3>
+
+        </div>
+        <p>Registre novos motoristas:</p>
+        <br/>
+        <a asp-area="Admin" asp-controller="AdminAccount" asp-action="Register" class="btnC btn-dark">Registro de motoristas</a>
+
     </div>
-    <a asp-area="Admin" asp-controller="Cidades" asp-action="Index" class="btn btn-dark">Cidades</a>
-    </p>
-    <a asp-area="Admin" asp-controller="AdminAccount" asp-action="Register" class="btn btn-dark">Registro de motoristas</a>
-    </p>
-    <a asp-area="Admin" asp-controller="AdminListaMotoristas" asp-action="ListaMotoristas" class="btn btn-dark">Lista de motoristas</a>
-    </p>
-    <a asp-area="Admin" asp-controller="AdminListaAlunos" asp-action="ListaAlunos" class="btn btn-dark">Lista de alunos</a>
+    <div class="containerConteudo container-lista">
+        <div class="ConteudoHeader">
+            <h3>Listas de usuários</h3>
+            
+        </div>
+        <p>Veja as listas de alunos e motoristas:</p>
+        <br/>
+        <br />
+        <a asp-area="Admin" asp-controller="AdminListaAlunos" asp-action="ListaAlunos" class="btnC btn-dark">Lista de alunos</a> 
+        <a asp-area="Admin" asp-controller="AdminListaMotoristas" asp-action="ListaMotoristas" class="btnC btn-dark">Lista de motoristas</a>
+    </div>
+
+    <div class="containerConteudo container-cidade">
+        <div class="ConteudoHeader">
+            <h3> Gerenciar cidades</h3>
+
+        </div>
+        <p>Adicione, edite ou exclua as cidades</p>
+        <br />
+        <a asp-area="Admin" asp-controller="Cidades" asp-action="Index" class="btnC btn-dark">Cidades</a>
+
+    </div>
 </div>
+
+<style>
+    btnC{
+        margin-bottom:10px;
+    }
+</style>

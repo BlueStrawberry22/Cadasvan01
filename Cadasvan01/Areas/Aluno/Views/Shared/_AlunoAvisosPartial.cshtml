@@ -44,8 +44,11 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2 id="modalTitulo"></h2> 
-        <p id="modalConteudo"></p>
-        <button id="okButton">Ok</button>
+        <div class="container">
+            <p id="modalConteudo"></p>
+        </div>
+        
+        <button id="okButton" class="btnC btn-custom">Ok</button>
     </div>
 </div>
 
@@ -55,6 +58,7 @@
         position: fixed;
         z-index: 1;
         padding-top: 60px;
+        
         left: 0;
         top: 0;
         width: 100%;
@@ -67,6 +71,7 @@
     .modal-content {
         background-color: #fefefe;
         margin: 5% auto;
+        max-width: 400px;
         padding: 20px;
         border: 1px solid #888;
         width: 80%;

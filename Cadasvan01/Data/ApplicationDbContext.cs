@@ -13,6 +13,7 @@ namespace Cadasvan01.Data
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Cidade> Cidades { get; set; }
+        public DbSet<Van> Vans { get; set; }
         public DbSet<Aviso> Avisos { get; set; }
         public DbSet<Presenca> Presencas { get; set; }
         public DbSet<Avaliacao> Avaliacoes { get; set; }
@@ -28,6 +29,11 @@ namespace Cadasvan01.Data
                 .WithOne(u => u.Motorista)
                 .HasForeignKey(u => u.MotoristaId)
                 .IsRequired(false);
+
+            modelBuilder.Entity<Usuario>()
+                .HasMany(u => u.Vans)
+                .WithOne(v => v.Motorista)
+                .HasForeignKey(v => v.MotoristaId);
 
             modelBuilder.Entity<Avaliacao>()
                 .HasOne(a => a.Aluno)

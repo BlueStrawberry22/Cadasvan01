@@ -1,13 +1,12 @@
 ﻿@model IEnumerable<Cadasvan01.Models.Aviso>
 
 <h2>Avisos</h2>
-<a asp-area="Motorista" asp-controller="MotoristaAvisos" asp-action="Criar">Criar Novo Aviso</a>
+<a asp-area="Motorista" asp-controller="MotoristaAvisos" asp-action="Criar">Criar um novo aviso</a>
 <table class="table">
     <thead>
         <tr>
-            <th>Titulo</th>
-            <th>Conteudo</th>
-            <th>DataPublicacao</th>
+            <th>Título</th>
+            <th>Data de publicação</th>
             <th></th>
         </tr>
     </thead>
@@ -16,11 +15,10 @@
         {
             <tr>
                 <td>@aviso.Titulo</td>
-                <td>@aviso.Conteudo</td>
                 <td>@aviso.DataPublicacao</td>
                 <td>
-                    <a asp-action="Editar" asp-route-id="@aviso.AvisoId">Editar</a> |
-                    <a asp-action="Deletar" asp-route-id="@aviso.AvisoId">Apagar</a>
+                    <a asp-action="Editar" asp-route-id="@aviso.AvisoId"><i class='bx bx-edit-alt'></i> Editar</a> |
+                    <a asp-action="Deletar" asp-route-id="@aviso.AvisoId"><i class='bx bx-trash'></i> Apagar</a>
                 </td>
             </tr>
         }

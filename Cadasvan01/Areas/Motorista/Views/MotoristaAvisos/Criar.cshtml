@@ -2,14 +2,28 @@
 
 <h2>Criar Aviso</h2>
 
-<form asp-action="Criar" method="post">
+<form asp-action="Criar" method="post" class="containerConteudo form">
     <div class="form-group">
-        <label asp-for="Titulo"></label>
+        <label asp-for="Titulo">Título</label>
         <input asp-for="Titulo" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Conteudo"></label>
-        <textarea asp-for="Conteudo" class="form-control"></textarea>
+        <label asp-for="Conteudo">Mensagem</label>
+        <textarea asp-for="Conteudo" class="form-control mensagem"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button type="submit" class="btnC btn-custom">Salvar</button>
 </form>
+
+
+<style>
+    .form{
+        max-width: 50%;
+        position: center;
+
+    }
+
+    .mensagem{
+        height: 250px;
+    }
+
+</style>

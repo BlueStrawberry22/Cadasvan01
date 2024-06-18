@@ -14,7 +14,7 @@
             <p>Van: @viagem.VanSelecionada</p> <!-- Exibe a van selecionada -->
             <form asp-action="EncerrarViagem" method="post">
                 <input type="hidden" name="id" value="@viagem.ViagemId" />
-                <button type="submit" class="btn btn-danger">Encerrar Viagem</button>
+                <button type="submit" class="btnC btn-danger">Encerrar Viagem</button>
             </form>
         </div>
     }
@@ -29,7 +29,7 @@ else
                 <input type="text" class="form-control" id="destino" name="destino" required />
             </div>
             
-            <button type="submit" class="btn btn-primary">Iniciar Viagem</button>
+            <button type="submit" class="btnC btn-custom">Iniciar Viagem</button>
         </form>
     </div>
 }

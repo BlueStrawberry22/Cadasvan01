@@ -30,32 +30,64 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="CidadeId"></label>
+        <label asp-for="CidadeId">Cidade</label>
         <select asp-for="CidadeId" class="form-control" asp-items="ViewBag.Cidades"></select>
         <span asp-validation-for="CidadeId" class="text-danger"></span>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Endereco"></label>
-        <input asp-for="Endereco" class="form-control" />
-        <span asp-validation-for="Endereco" class="text-danger"></span>
-    </div>
-
     </br>
+
+    <div class="row">
+        <div class="form-group col-2">
+            <label asp-for="Celular1">Telefone</label>
+            <input asp-for="Celular1" class="form-control" id="telefone" />
+            <span asp-validation-for="Celular1" class="text-danger"></span>
+        </div>
+        <div class="form-group col-2">
+            <label asp-for="Celular2">Telefone secundário</label>
+            <input asp-for="Celular2" class="form-control" id="telefone2" />
+            <span asp-validation-for="Celular2" class="text-danger"></span>
+        </div>
+    </div>
     
     <label asp-for="ImagemPerfil">
         <div class="custom-file">
+            <label asp-for="ImagemPerfil">Imagem de perfil</label> <br/>
             <input asp-for="ImagemPerfil" class="custom-file-input" id="customFile">
             <label class="custom-file-label" for="customFile"></label>
         </div>
     </label>
     <span asp-validation-for="ImagemPerfil" class="text-danger"></span>
 
-    <button type="submit" class="btn btn-primary">Save changes</button>
+    <br/>
+    <button type="submit" class="btnC btn-custom" style="margin-top:20px">Salvar</button>
 </form>
 
 @section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#telefone, #telefone2').on('input', function () {
+                var value = $(this).val().replace(/\D/g, '');
+                if (value.length > 10) {
+                    value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1)$2-$3');
+                } else if (value.length > 5) {
+                    value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1)$2-$3');
+                } else if (value.length > 2) {
+                    value = value.replace(/^(\d{2})(\d{0,5})/, '($1)$2');
+                }
+                $(this).val(value);
+            });
+
+            $('#cpf').on('input', function () {
+                var value = $(this).val().replace(/\D/g, '');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                $(this).val(value);
+            });
+        });
+    </script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
     }
 }

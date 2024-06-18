@@ -42,9 +42,11 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             {
                 Id = user.Id,
                 Nome= user.Nome,
+                Sobrenome = user.Sobrenome,
                 CPF = user.CPF,
                 CidadeId = user.CidadeId,
-                Endereco = user.Endereco,
+                Celular1 = user.Celular1,
+                Celular2 = user.Celular2,
                 CaminhoImagemPerfil = user.CaminhoImagemPerfil
             };
 
@@ -74,7 +76,8 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             user.Nome= model.Nome;
             user.CPF = model.CPF;
             user.CidadeId = model.CidadeId;
-            user.Endereco = model.Endereco;
+            user.Celular1 = model.Celular1;
+            user.Celular2 = model.Celular2;
 
             if (model.ImagemPerfil != null)
             {

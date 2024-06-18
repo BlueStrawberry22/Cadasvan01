@@ -42,8 +42,13 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             {
                 Id = user.Id,
                 Nome= user.Nome,
+                Sobrenome= user.Sobrenome,
                 CPF = user.CPF,
+                CNH = user.CNH,
                 CidadeId = user.CidadeId,
+                Itinerario =user.Itinerario,
+                Celular1 = user.Celular1,
+                Celular2 = user.Celular2,
                 Endereco = user.Endereco,
                 CaminhoImagemPerfil = user.CaminhoImagemPerfil
             };
@@ -73,8 +78,12 @@ namespace Cadasvan01.Areas.Motorista.Controllers
 
             user.Nome= model.Nome;
             user.CPF = model.CPF;
+            user.CNH = model.CNH;
             user.CidadeId = model.CidadeId;
             user.Endereco = model.Endereco;
+            user.Itinerario = model.Itinerario;
+            user.Celular1 = model.Celular1; 
+            user.Celular2 = model.Celular2;
 
             if (model.ImagemPerfil != null)
             {

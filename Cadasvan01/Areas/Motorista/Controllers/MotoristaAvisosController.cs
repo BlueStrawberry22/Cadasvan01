@@ -75,6 +75,14 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             {
                 try
                 {
+                    var avisoOriginal = await _context.Avisos.AsNoTracking().FirstOrDefaultAsync(a => a.AvisoId == id);
+                    if (avisoOriginal == null)
+                    {
+                        return NotFound();
+                    }
+
+                    aviso.MotoristaId = avisoOriginal.MotoristaId; // Preserve o MotoristaId
+
                     _context.Update(aviso);
                     await _context.SaveChangesAsync();
                 }
@@ -102,10 +110,9 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             if (aviso == null)
             {
                 return NotFound();
-            }          
+            }
             return View(aviso);
         }
-
 
         [HttpPost, ActionName("Deletar")]
         [ValidateAntiForgeryToken]

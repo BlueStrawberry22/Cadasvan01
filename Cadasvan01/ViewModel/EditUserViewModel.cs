@@ -28,6 +28,14 @@ namespace Cadasvan01.ViewModel
         [MaxLength(11)]
         public string? CNH { get; set; }
 
+        public string Itinerario { get; set; }
+        [Phone]
+        [Required(ErrorMessage = "Item obrigatório.")]
+        public string Celular1 { get; set; }
+
+        [Phone]
+        public string? Celular2 { get; set; }
+
         [MaxLength(7)]
         public string Placa { get; set; }
 

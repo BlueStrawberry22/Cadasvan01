@@ -24,44 +24,22 @@ namespace Cadasvan01.ViewModel
 
         [Display(Name = "Cidade")]
         public int CidadeId { get; set; }
+        public string CEP { get; set; }
+        public string? Complemento { get; set; }
+        public string? Bairro { get; set; }
+        public string Endereco { get; set; }
+        [Phone]
+        public string Celular1 { get; set; }
+        [Phone]
+        public string? Celular2 { get; set; }
 
         [Display(Name = "Itinerário")]
         [Required(ErrorMessage = "Item obrigatório.")]
         [MaxLength(500, ErrorMessage = "O itinerário deve ter no máximo 500 caracteres.")]
         public string Itinerario { get; set; }
 
-        [Phone]
-        [Required(ErrorMessage = "Item obrigatório.")]
-        public string Celular1 { get; set; }
-
-        [Phone]
-        public string? Celular2 { get; set; }
         [MaxLength(11)]
         public string? CNH { get; set; }
-
-
-
-        [Display(Name = "Modelo da Van 1")]
-        [Required(ErrorMessage = "Item obrigatório.")]
-        public string ModeloVan1 { get; set; }
-
-        [Display(Name = "Cor da Van 1")]
-        [Required(ErrorMessage = "Item obrigatório.")]
-        public string CorVan1 { get; set; }
-
-        [Display(Name = "Placa da Van 1")]
-        public string? PlacaVan1 { get; set; }
-
-        [Display(Name = "Modelo da Van 2")]
-        public string? ModeloVan2 { get; set; }
-
-        [Display(Name = "Cor da Van 2")]
-        public string? CorVan2 { get; set; }
-
-        [Display(Name = "Placa da Van 2")]
-        public string? PlacaVan2 { get; set; }
-
-
 
         public UsuarioEnum Tipo { get; set; }
 
@@ -79,5 +57,6 @@ namespace Cadasvan01.ViewModel
         [DataType(DataType.Password)]
         [Compare(nameof(Senha), ErrorMessage = "As senhas devem ser iguais.")]
         public string ConfirmaSenha { get; set; }
+        public List<MotoristaVanViewModel> Vans { get; set; } = new List<MotoristaVanViewModel>();
     }
 }

@@ -4,7 +4,7 @@
     ViewBag.IsIndex = true;
 }
 
-<a href="#" id="editarVanLink" class="editar-van-link"><i class='bx bx-bus-school'></i> @Html.Raw(Model.Motorista.VanSelecionada ?? Model.Motorista.ModeloVan1) </a>
+<a href="#" id="editarVanLink" class="editar-van-link"><i class='bx bx-bus-school'></i> @Html.Raw(Model.VanSelecionada ?? "Selecionar Van")</a>
 
 <div class="container-flex">
     <div class="containerConteudo infosAlunos-container">
@@ -49,6 +49,8 @@
     </div>
 </div>
 
+
+<!--seleção de vans-->
 <div id="editarVanModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editarVanModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -58,33 +60,25 @@
             </div>
             <div class="modal-body">
                 <form id="editarVanForm">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="vanSelecionada" value="@Model.Motorista.ModeloVan1" id="van1" checked>
-                        <label class="form-check-label" for="van1">
-                            @Model.Motorista.ModeloVan1
-                        </label>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="deletarVan('@Model.Motorista.ModeloVan1')">
-                            <i class='bx bx-trash'></i>
-                        </button>
-                    </div>
-                    @if (!string.IsNullOrEmpty(Model.Motorista.ModeloVan2))
+                    @foreach (var van in Model.Vans)
                     {
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="vanSelecionada" value="@Model.Motorista.ModeloVan2" id="van2">
-                            <label class="form-check-label" for="van2">
-                                @Model.Motorista.ModeloVan2
+                            <input class="form-check-input" type="radio" name="vanSelecionada" value="@van.Modelo" id="van@van.Id" @(Model.VanSelecionada == van.Modelo ? "checked" : "")>
+                            <label class="form-check-label" for="van@van.Id">
+                                @van.Modelo
                             </label>
-                            <button type="button" class="btn btn-danger btn-sm" onclick="deletarVan('@Model.Motorista.ModeloVan2')">
+                            <a type="button" class="btn btn-sm" style="background-color:forestgreen; color:white" asp-area="Motorista"
+                               asp-controller="MotoristaVan" asp-action="EditarVan" asp-route-id="@van.Id">
+                                <i class='bx bx-edit-alt'></i>
+                            </a>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deletarVan('@van.Id')">
                                 <i class='bx bx-trash'></i>
                             </button>
                         </div>
                     }
-                    else
-                    {
-                        <div class="form-check">
-                            <a href="@Url.Action("AdicionarVan", "MotoristaVan")" class="btn btn-link">Adicionar Van</a>
-                        </div>
-                    }
+                    <div class="form-check">
+                        <a href="@Url.Action("AdicionarVan", "MotoristaVan")" class="btn btn-link">Adicionar Van</a>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -119,12 +113,12 @@
             });
         });
 
-        function deletarVan(van) {
+        function deletarVan(vanId) {
             if (confirm('Tem certeza que deseja deletar esta van?')) {
                 $.ajax({
                     url: '@Url.Action("DeletarVan", "MotoristaVan")',
                     type: 'POST',
-                    data: { van: van },
+                    data: { id: vanId },
                     success: function () {
                         location.reload();
                     },
