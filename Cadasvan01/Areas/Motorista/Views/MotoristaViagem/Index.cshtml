@@ -34,31 +34,39 @@ else
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.7/signalr.min.js"></script>
     <script>
-        const connection = new signalR.HubConnectionBuilder().withUrl("/locationHub").build();
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const connection = new signalR.HubConnectionBuilder().withUrl("/locationHub").build();
 
-        connection.start().then(() => {
-            console.log("Conectado ao SignalR Hub.");
-            setInterval(updateLocation, 5000);
-        }).catch(err => console.error("Erro ao conectar ao SignalR Hub:", err.toString()));
+            connection.start().then(() => {
+                console.log("Conectado ao SignalR Hub.");
+                setInterval(updateLocation, 10000); 
+            }).catch(err => console.error("Erro ao conectar ao SignalR Hub:", err.toString()));
 
-        function updateLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    position => {
-                        const latitude = position.coords.latitude;
-                        const longitude = position.coords.longitude;
+            function updateLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        position => {
+                            const latitude = position.coords.latitude;
+                            const longitude = position.coords.longitude;
 
-                        console.log(`Enviando localização: (${latitude}, ${longitude})`);
-                        connection.invoke("SendLocation", "@User.Identity.Name", latitude, longitude)
-                            .catch(err => console.error("Erro ao enviar localização:", err.toString()));
-                    },
-                    error => {
-                        console.error("Erro ao obter localização:", error.message);
-                    }
-                );
-            } else {
-                console.log("Geolocalização não é suportada por este navegador.");
+                            console.log(`Enviando localização: (${latitude}, ${longitude})`);
+                            connection.invoke("SendLocation", "@User.Identity.Name", latitude, longitude)
+                                .then(() => {
+                                    console.log("Localização enviada com sucesso.");
+                                })
+                                .catch(err => console.error("Erro ao enviar localização:", err.toString()));
+                        },
+                        error => {
+                            console.error("Erro ao obter localização: " + error.message);
+                            if (error.code === error.PERMISSION_DENIED) {
+                                alert("Por favor, permita o acesso à sua localização nas configurações do navegador.");
+                            }
+                        }
+                    );
+                } else {
+                    console.log("Geolocalização não é suportada por este navegador.");
+                }
             }
-        }
+        });
     </script>
 }

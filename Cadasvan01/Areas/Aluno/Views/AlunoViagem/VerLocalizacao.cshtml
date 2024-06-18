@@ -11,7 +11,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.7/signalr.min.js"></script>
     <script>
         let map;
-        let marker;
+        let motoristaMarker;
+        let alunoMarker;
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -19,22 +20,52 @@
                 center: { lat: -23.550520, lng: -46.633308 } // Localização inicial de exemplo
             });
 
-            marker = new google.maps.Marker({
-                map: map
+            motoristaMarker = new google.maps.Marker({
+                map: map,
+                label: 'M'
+            });
+
+            alunoMarker = new google.maps.Marker({
+                map: map,
+                label: 'A'
             });
 
             const connection = new signalR.HubConnectionBuilder().withUrl("/locationHub").build();
 
             connection.on("ReceiveLocation", (motoristaId, latitude, longitude) => {
-                console.log(`Recebendo localização: (${latitude}, ${longitude})`);
+                console.log(`Recebendo localização do motorista: (${latitude}, ${longitude})`);
                 const motoristaLocation = { lat: latitude, lng: longitude };
-                marker.setPosition(motoristaLocation);
+                motoristaMarker.setPosition(motoristaLocation);
                 map.setCenter(motoristaLocation);
             });
 
             connection.start().then(() => {
                 console.log("Conectado ao SignalR Hub.");
+                setInterval(updateAlunoLocation, 10000); // Atualiza a cada 10 segundos (10000 ms)
             }).catch(err => console.error("Erro ao conectar ao SignalR Hub:", err.toString()));
+        }
+
+        function updateAlunoLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        console.log(`Enviando localização do aluno: (${latitude}, ${longitude})`);
+                        const alunoLocation = { lat: latitude, lng: longitude };
+                        alunoMarker.setPosition(alunoLocation);
+                    },
+                    error => {
+                        console.error("Erro ao obter localização: " + error.message);
+                        if (error.code === error.PERMISSION_DENIED) {
+                            alert("Por favor, permita o acesso à sua localização nas configurações do navegador.");
+                        }
+                    }
+                );
+            } else {
+                console.log("Geolocalização não é suportada por este navegador.");
+            }
         }
     </script>
 }

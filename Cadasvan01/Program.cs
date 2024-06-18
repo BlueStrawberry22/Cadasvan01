@@ -47,7 +47,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddHttpsRedirection(options =>
 {
     options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-    options.HttpsPort = 5001; // Certifique-se de usar a porta HTTPS correta
+    options.HttpsPort = 5001;
 });
 
 var app = builder.Build();
@@ -68,6 +68,34 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "motorista",
+    pattern: "{area:exists}/{controller=Motorista}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "aluno",
+    pattern: "{area:exists}/{controller=Aluno}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<LocationHub>("/locationHub");
+
+app.Run();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
