@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Cadasvan01.Migrations
 {
     /// <inheritdoc />
-    public partial class cidades : Migration
+    public partial class PC : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -69,15 +69,14 @@ namespace Cadasvan01.Migrations
                     Sobrenome = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CPF = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
                     CidadeId = table.Column<int>(type: "int", nullable: false),
-                    CidadePartidaId = table.Column<int>(type: "int", nullable: true),
-                    CidadeDestinoId = table.Column<int>(type: "int", nullable: true),
                     CEP = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Complemento = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Bairro = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Endereco = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Celular1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Celular2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CNH = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
+                    Itinerario = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    CNH = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Placa = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: true),
                     Tipo = table.Column<int>(type: "int", nullable: false),
                     MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -105,20 +104,8 @@ namespace Cadasvan01.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Cidades_CidadeDestinoId",
-                        column: x => x.CidadeDestinoId,
-                        principalTable: "Cidades",
-                        principalColumn: "CidadeId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_AspNetUsers_Cidades_CidadeId",
                         column: x => x.CidadeId,
-                        principalTable: "Cidades",
-                        principalColumn: "CidadeId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Cidades_CidadePartidaId",
-                        column: x => x.CidadePartidaId,
                         principalTable: "Cidades",
                         principalColumn: "CidadeId",
                         onDelete: ReferentialAction.Restrict);
@@ -340,19 +327,9 @@ namespace Cadasvan01.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_CidadeDestinoId",
-                table: "AspNetUsers",
-                column: "CidadeDestinoId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_CidadeId",
                 table: "AspNetUsers",
                 column: "CidadeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_CidadePartidaId",
-                table: "AspNetUsers",
-                column: "CidadePartidaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_MotoristaId",

@@ -76,13 +76,19 @@ namespace Cadasvan01.Controllers
                     Nome = model.Nome,
                     Sobrenome = model.Sobrenome,
                     CPF = model.CPF,
-                    Tipo = Enums.UsuarioEnum.Motorista,
                     CNH = model.CNH,
+                    Tipo = Enums.UsuarioEnum.Motorista,
                     CidadeId = model.CidadeId,
+                    Itinerario = model.Itinerario,
+                    ModeloVan1 = model.ModeloVan1,
+                    CorVan1 = model.CorVan1,
+                    PlacaVan1 = model.PlacaVan1,
+                    ModeloVan2 = model.ModeloVan2,
+                    CorVan2 = model.CorVan2,
+                    PlacaVan2 = model.PlacaVan2,
                     Celular1 = model.Celular1,
                     Celular2 = model.Celular2,
-                    Itinerario = model.Itinerario
-
+                    
 
                 };
                 var result = await _userManager.CreateAsync(user, model.Senha);

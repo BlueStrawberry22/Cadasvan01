@@ -4,6 +4,8 @@
     ViewBag.IsIndex = true;
 }
 
+<a href="#" id="editarVanLink" class="editar-van-link"><i class='bx bx-bus-school'></i> @Html.Raw(Model.Motorista.VanSelecionada ?? Model.Motorista.ModeloVan1) </a>
+
 <div class="container-flex">
     <div class="containerConteudo infosAlunos-container">
         <div class="ConteudoHeader">
@@ -37,4 +39,88 @@
     </div>
 </div>
 
+<!-- Modal de Seleção de Van -->
+<div id="editarVanModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editarVanModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarVanModalLabel">Selecionar Van</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editarVanForm">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="vanSelecionada" value="@Model.Motorista.ModeloVan1" id="van1" checked>
+                        <label class="form-check-label" for="van1">
+                            @Model.Motorista.ModeloVan1
+                        </label>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deletarVan('@Model.Motorista.ModeloVan1')">
+                            <i class='bx bx-trash'></i>
+                        </button>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.Motorista.ModeloVan2))
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="vanSelecionada" value="@Model.Motorista.ModeloVan2" id="van2">
+                            <label class="form-check-label" for="van2">
+                                @Model.Motorista.ModeloVan2
+                            </label>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deletarVan('@Model.Motorista.ModeloVan2')">
+                                <i class='bx bx-trash'></i>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-check">
+                            <a href="@Url.Action("AdicionarVan", "MotoristaVan")" class="btn btn-link">Adicionar Van</a>
+                        </div>
+                    }
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="vanSelecionadaBtn">Selecionar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#editarVanLink').on('click', function (e) {
+                e.preventDefault();
+                $('#editarVanModal').modal('show');
+            });
+
+            $('#vanSelecionadaBtn').on('click', function () {
+                var vanSelecionada = $('input[name="vanSelecionada"]:checked').val();
+                $.ajax({
+                    url: '@Url.Action("SelecionarVan", "Motorista")',
+                    type: 'POST',
+                    data: { van: vanSelecionada },
+                    success: function (response) {
+                        if (response.vanSelecionada) {
+                            $('#editarVanLink').html('<i class="bx bx-bus-school"></i> ' + response.vanSelecionada);
+                            $('#editarVanModal').modal('hide');
+                        }
+                    }
+                });
+            });
+        });
+
+        function deletarVan(van) {
+            if (confirm('Tem certeza que deseja deletar esta van?')) {
+                $.ajax({
+                    url: '@Url.Action("DeletarVan", "MotoristaVan")',
+                    type: 'POST',
+                    data: { van: van },
+                    success: function () {
+                        location.reload();
+                    }
+                });
+            }
+        }
+    </script>
+}

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240617183216_aaaaaaaaa")]
-    partial class aaaaaaaaa
+    [Migration("20240617233126_PC1")]
+    partial class PC1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -230,6 +230,12 @@ namespace Cadasvan01.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CorVan1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CorVan2")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -241,14 +247,20 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Itinerario")
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("ModeloVan1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModeloVan2")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MotoristaId")
                         .HasColumnType("nvarchar(450)");
@@ -273,9 +285,11 @@ namespace Cadasvan01.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Placa")
-                        .HasMaxLength(7)
-                        .HasColumnType("nvarchar(7)");
+                    b.Property<string>("PlacaVan1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PlacaVan2")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

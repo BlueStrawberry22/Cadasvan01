@@ -39,8 +39,29 @@ namespace Cadasvan01.ViewModel
         [MaxLength(11)]
         public string? CNH { get; set; }
 
-        [MaxLength(7)]
-        public string? Placa { get; set; }
+
+
+        [Display(Name = "Modelo da Van 1")]
+        [Required(ErrorMessage = "Item obrigatório.")]
+        public string ModeloVan1 { get; set; }
+
+        [Display(Name = "Cor da Van 1")]
+        [Required(ErrorMessage = "Item obrigatório.")]
+        public string CorVan1 { get; set; }
+
+        [Display(Name = "Placa da Van 1")]
+        public string? PlacaVan1 { get; set; }
+
+        [Display(Name = "Modelo da Van 2")]
+        public string? ModeloVan2 { get; set; }
+
+        [Display(Name = "Cor da Van 2")]
+        public string? CorVan2 { get; set; }
+
+        [Display(Name = "Placa da Van 2")]
+        public string? PlacaVan2 { get; set; }
+
+
 
         public UsuarioEnum Tipo { get; set; }
 

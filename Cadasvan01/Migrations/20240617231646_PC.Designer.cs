@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240617185534_aaaaaaaaa0")]
-    partial class aaaaaaaaa0
+    [Migration("20240617231646_PC")]
+    partial class PC
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -241,8 +241,8 @@ namespace Cadasvan01.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Itinerario")
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");

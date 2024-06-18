@@ -32,10 +32,10 @@
     <div>
         <p><strong>Nome Completo:</strong> @Model.Motorista.Nome @Model.Motorista.Sobrenome</p>
         <p><strong>Email:</strong> @Model.Motorista.Email</p>
-        <p><strong>Telefone 1:</strong> @Model.Motorista.Celular1</p>
+        <p><strong>Telefone:</strong> @Model.Motorista.Celular1</p>
         @if (Model.Motorista.Celular2 != null && Model.Motorista.Celular2 != Model.Motorista.Celular1)
         {
-            <p><strong>Telefone 2:</strong> @Model.Motorista.Celular2</p>
+            <p><strong>Telefone:</strong> @Model.Motorista.Celular2</p>
         }
         <p><strong>CNH:</strong> @Model.Motorista.CNH</p>
     </div>

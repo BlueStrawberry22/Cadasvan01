@@ -1,0 +1,32 @@
+﻿@model Cadasvan01.ViewModel.MotoristaVanViewModel
+
+@{
+    ViewData["Title"] = "Adicionar Van";
+}
+
+<h2>Adicionar Van</h2>
+
+<form asp-action="AdicionarVan" method="post">
+    <div class="form-group">
+        <label asp-for="Modelo" class="control-label"></label>
+        <input asp-for="Modelo" class="form-control" />
+        <span asp-validation-for="Modelo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Cor" class="control-label"></label>
+        <input asp-for="Cor" class="form-control" />
+        <span asp-validation-for="Cor" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Placa" class="control-label"></label>
+        <input asp-for="Placa" class="form-control" />
+        <span asp-validation-for="Placa" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Salvar" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

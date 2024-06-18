@@ -28,13 +28,25 @@ namespace Cadasvan01.Models
         [MaxLength(500)]
         public string Itinerario { get; set; }
         public string? CNH { get; set; }
-        [MaxLength(7)]
-        public string? Placa { get; set; }
+
         public UsuarioEnum Tipo { get; set; }
         public string? MotoristaId { get; set; }
         public virtual Usuario? Motorista { get; set; }
         public virtual ICollection<Usuario>? Alunos { get; set; }
         public virtual Cidade? Cidade { get; set; }
+
+
+        public string ModeloVan1 { get; set; }
+        public string CorVan1 { get; set; }
+        public string? PlacaVan1 { get; set; }
+
+        public string? ModeloVan2 { get; set; }
+        public string? CorVan2 { get; set; }
+        public string? PlacaVan2 { get; set; }
+
+
+        public string? VanSelecionada { get; set; }
+
 
         public double? CalcularMediaAvaliacoes()
         {

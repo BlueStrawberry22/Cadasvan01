@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using Cadasvan01.Enums;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
     [Area("Motorista")]
-    [Authorize(Roles="Motorista")]
-    
+    [Authorize(Roles = "Motorista")]
     public class MotoristaController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -58,6 +58,7 @@ namespace Cadasvan01.Areas.Motorista.Controllers
 
             return View(model);
         }
+
         [HttpGet]
         public async Task<IActionResult> AlunosVinculados()
         {
@@ -101,10 +102,24 @@ namespace Cadasvan01.Areas.Motorista.Controllers
 
             return RedirectToAction("AlunosVinculados");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SelecionarVan(string van)
+        {
+            var motoristaId = _userManager.GetUserId(User);
+            var motorista = await _context.Usuarios.FirstOrDefaultAsync(u => u.Id == motoristaId);
+
+            if (motorista == null)
+            {
+                return NotFound();
+            }
+
+            motorista.VanSelecionada = van;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { VanSelecionada = motorista.VanSelecionada });
+        }
     }
-
-
-
 
     public class MotoristaIndexViewModel
     {
@@ -112,5 +127,4 @@ namespace Cadasvan01.Areas.Motorista.Controllers
         public List<Presenca> PresencasHoje { get; set; }
         public List<Usuario> AlunosVinculados { get; set; }
     }
-
 }

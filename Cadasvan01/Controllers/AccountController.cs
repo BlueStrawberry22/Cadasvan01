@@ -146,7 +146,6 @@ namespace Cadasvan01.Controllers
                     Sobrenome = model.Sobrenome,
                     CPF = model.CPF,
                     Tipo = UsuarioEnum.Aluno,
-                    Placa = model.Placa ?? string.Empty,
                     CidadeId = model.CidadeId,
                     CEP = model.CEP,
                     Celular1 = model.Celular1,
