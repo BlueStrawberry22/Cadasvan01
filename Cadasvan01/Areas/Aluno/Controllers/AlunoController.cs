@@ -44,6 +44,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             Usuario motorista = null;
             List<Aviso> avisos = new List<Aviso>();
             Presenca presencaHoje = null;
+            Viagem viagemAtiva = null;
 
             if (!string.IsNullOrEmpty(aluno.MotoristaId))
             {
@@ -53,9 +54,13 @@ namespace Cadasvan01.Areas.Aluno.Controllers
                     .OrderByDescending(a => a.DataPublicacao)
                     .ToListAsync();
 
+                viagemAtiva = await _context.Viagens
+                      .FirstOrDefaultAsync(v => v.MotoristaId == aluno.MotoristaId && v.Ativa);
+
                 var hoje = DateTime.Now.Date;
                 presencaHoje = await _context.Presencas
                     .FirstOrDefaultAsync(p => p.UsuarioId == alunoId && p.DataViagem == hoje);
+                
             }
 
             var model = new AlunoIndexViewModel
@@ -63,7 +68,8 @@ namespace Cadasvan01.Areas.Aluno.Controllers
                 Aluno = aluno,
                 Motorista = motorista,
                 Avisos = avisos,
-                PresencaHoje = presencaHoje
+                PresencaHoje = presencaHoje,
+                ViagemAtiva = viagemAtiva
             };
 
             return View(model);
@@ -196,6 +202,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
         public Usuario Motorista { get; set; }
         public List<Aviso> Avisos { get; set; }
         public Presenca PresencaHoje { get; set; }
+        public Viagem ViagemAtiva { get; set; }
     }
 
     public class EditarEnderecoViewModel

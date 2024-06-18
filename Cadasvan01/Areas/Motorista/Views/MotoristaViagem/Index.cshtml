@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Cadasvan01.Models.Viagem>
+
+<h2>Viagens Ativas</h2>
+
+@if (Model.Any())
+{
+    @foreach (var viagem in Model)
+    {
+        <div class="containerConteudo infosMotorista-container">
+            <div class="ConteudoHeader"> <h3>Viagem em andamento</h3></div>
+            <p>Destino: @viagem.Destino</p>
+            <p>Hora de Início: @viagem.HoraInicio</p>
+            <form asp-action="EncerrarViagem" method="post">
+                <input type="hidden" name="id" value="@viagem.ViagemId" />
+                <button type="submit" class="btn btn-danger">Encerrar Viagem</button>
+            </form>
+        </div>
+    }
+}
+else
+{
+    <div class="containerConteudo infosMotorista-container">
+        <div class="ConteudoHeader"> <h3>Iniciar Nova Viagem</h3></div>
+        <form asp-action="IniciarViagem" method="post">
+            <div class="form-group">
+                <label for="destino">Destino</label>
+                <input type="text" class="form-control" id="destino" name="destino" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Iniciar Viagem</button>
+        </form>
+    </div>
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.7/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder().withUrl("/locationHub").build();
+
+        connection.start().then(() => {
+            console.log("Conectado ao SignalR Hub.");
+            setInterval(updateLocation, 5000);
+        }).catch(err => console.error("Erro ao conectar ao SignalR Hub:", err.toString()));
+
+        function updateLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        console.log(`Enviando localização: (${latitude}, ${longitude})`);
+                        connection.invoke("SendLocation", "@User.Identity.Name", latitude, longitude)
+                            .catch(err => console.error("Erro ao enviar localização:", err.toString()));
+                    },
+                    error => {
+                        console.error("Erro ao obter localização:", error.message);
+                    }
+                );
+            } else {
+                console.log("Geolocalização não é suportada por este navegador.");
+            }
+        }
+    </script>
+}

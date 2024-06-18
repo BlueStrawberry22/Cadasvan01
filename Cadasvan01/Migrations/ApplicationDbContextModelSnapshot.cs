@@ -324,6 +324,38 @@ namespace Cadasvan01.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Cadasvan01.Models.Viagem", b =>
+                {
+                    b.Property<int>("ViagemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ViagemId"));
+
+                    b.Property<bool>("Ativa")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Destino")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("HoraFim")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HoraInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MotoristaId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ViagemId");
+
+                    b.HasIndex("MotoristaId");
+
+                    b.ToTable("Viagens");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -495,6 +527,17 @@ namespace Cadasvan01.Migrations
                         .HasForeignKey("MotoristaId");
 
                     b.Navigation("Cidade");
+
+                    b.Navigation("Motorista");
+                });
+
+            modelBuilder.Entity("Cadasvan01.Models.Viagem", b =>
+                {
+                    b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
+                        .WithMany()
+                        .HasForeignKey("MotoristaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Motorista");
                 });

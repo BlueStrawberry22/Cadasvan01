@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Cadasvan01.Migrations
 {
     /// <inheritdoc />
-    public partial class PC : Migration
+    public partial class teste1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,9 +77,15 @@ namespace Cadasvan01.Migrations
                     Celular2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Itinerario = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     CNH = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Placa = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: true),
                     Tipo = table.Column<int>(type: "int", nullable: false),
                     MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ModeloVan1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CorVan1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PlacaVan1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModeloVan2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CorVan2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PlacaVan2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VanSelecionada = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -294,6 +300,29 @@ namespace Cadasvan01.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Viagens",
+                columns: table => new
+                {
+                    ViagemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MotoristaId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Destino = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HoraInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HoraFim = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Ativa = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Viagens", x => x.ViagemId);
+                    table.ForeignKey(
+                        name: "FK_Viagens_AspNetUsers_MotoristaId",
+                        column: x => x.MotoristaId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -372,6 +401,11 @@ namespace Cadasvan01.Migrations
                 name: "IX_Presencas_UsuarioId",
                 table: "Presencas",
                 column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Viagens_MotoristaId",
+                table: "Viagens",
+                column: "MotoristaId");
         }
 
         /// <inheritdoc />
@@ -403,6 +437,9 @@ namespace Cadasvan01.Migrations
 
             migrationBuilder.DropTable(
                 name: "Presencas");
+
+            migrationBuilder.DropTable(
+                name: "Viagens");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

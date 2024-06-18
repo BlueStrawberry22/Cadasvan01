@@ -22,6 +22,10 @@
 
         </div>
 
+        <div>
+           @Html.Partial("_ViagemAlunoPartial", Model.ViagemAtiva)
+        </div>
+
         <div class ="containerConteudo infosMotorista-container">
             @if (Model.PresencaHoje != null)
             {

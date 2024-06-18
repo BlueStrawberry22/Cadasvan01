@@ -8,12 +8,6 @@
         var user = UserManager.GetUserAsync(User).Result;
         var userRole = UserManager.GetRolesAsync(user).Result.FirstOrDefault();
 
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class='bx bxs-bell'></i>
-            </a>
-        </li>
-
         <li class="nav-item dropdown">
             @{
                 string profileImageUrl;

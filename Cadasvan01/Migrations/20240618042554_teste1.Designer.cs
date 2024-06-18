@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240617233126_PC1")]
-    partial class PC1
+    [Migration("20240618042554_teste1")]
+    partial class teste1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -307,6 +307,9 @@ namespace Cadasvan01.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("VanSelecionada")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CidadeId");
@@ -322,6 +325,38 @@ namespace Cadasvan01.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Cadasvan01.Models.Viagem", b =>
+                {
+                    b.Property<int>("ViagemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ViagemId"));
+
+                    b.Property<bool>("Ativa")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Destino")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("HoraFim")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HoraInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MotoristaId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ViagemId");
+
+                    b.HasIndex("MotoristaId");
+
+                    b.ToTable("Viagens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -495,6 +530,17 @@ namespace Cadasvan01.Migrations
                         .HasForeignKey("MotoristaId");
 
                     b.Navigation("Cidade");
+
+                    b.Navigation("Motorista");
+                });
+
+            modelBuilder.Entity("Cadasvan01.Models.Viagem", b =>
+                {
+                    b.HasOne("Cadasvan01.Models.Usuario", "Motorista")
+                        .WithMany()
+                        .HasForeignKey("MotoristaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Motorista");
                 });

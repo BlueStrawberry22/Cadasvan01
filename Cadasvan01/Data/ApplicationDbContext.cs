@@ -16,6 +16,7 @@ namespace Cadasvan01.Data
         public DbSet<Aviso> Avisos { get; set; }
         public DbSet<Presenca> Presencas { get; set; }
         public DbSet<Avaliacao> Avaliacoes { get; set; }
+        public DbSet<Viagem> Viagens { get; set; }
         public DbSet<CodigoVinculacao> CodigosVinculacao { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
