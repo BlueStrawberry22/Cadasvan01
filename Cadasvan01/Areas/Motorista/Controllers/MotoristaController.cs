@@ -39,9 +39,9 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             }
 
             var presencasHoje = await _context.Presencas
-               .Include(p => p.Usuario)
-               .Where(p => p.MotoristaId == motoristaId && p.DataViagem.Date == today)
-               .ToListAsync();
+                .Include(p => p.Usuario)
+                .Where(p => p.MotoristaId == motoristaId && p.DataViagem.Date == today)
+                .ToListAsync();
 
             var presencasOrdenadas = presencasHoje
                 .OrderByDescending(p => p.ConfirmadoIda && p.ConfirmadoVolta)
@@ -49,15 +49,22 @@ namespace Cadasvan01.Areas.Motorista.Controllers
                 .ThenByDescending(p => p.ConfirmadoVolta)
                 .ToList();
 
+            var viagensAtivas = await _context.Viagens
+                .Where(v => v.MotoristaId == motoristaId && v.Ativa)
+                .ToListAsync();
+
             var model = new MotoristaIndexViewModel
             {
                 Motorista = motorista,
                 AlunosVinculados = motorista.Alunos.ToList(),
-                PresencasHoje = presencasOrdenadas
+                PresencasHoje = presencasOrdenadas,
+                ViagensAtivas = viagensAtivas,
+                VanSelecionada = motorista.VanSelecionada // Atribua a van selecionada aqui
             };
 
             return View(model);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> AlunosVinculados()
@@ -126,5 +133,8 @@ namespace Cadasvan01.Areas.Motorista.Controllers
         public Usuario Motorista { get; set; }
         public List<Presenca> PresencasHoje { get; set; }
         public List<Usuario> AlunosVinculados { get; set; }
+        public IEnumerable<Viagem> ViagensAtivas { get; set; }
+        public string VanSelecionada { get; set; } // Adicione esta propriedade
     }
+
 }

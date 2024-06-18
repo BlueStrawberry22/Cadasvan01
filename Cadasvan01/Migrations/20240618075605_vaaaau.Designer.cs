@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadasvan01.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240618042554_teste1")]
-    partial class teste1
+    [Migration("20240618075605_vaaaau")]
+    partial class vaaaau
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -351,6 +351,9 @@ namespace Cadasvan01.Migrations
                     b.Property<string>("MotoristaId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("VanSelecionada")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ViagemId");
 

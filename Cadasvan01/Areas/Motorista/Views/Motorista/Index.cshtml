@@ -17,6 +17,16 @@
 
     <div class="containerConteudo infosAlunos-container">
         <div class="ConteudoHeader">
+            <h3>Código de vinculação</h3>
+        </div>
+        <p>Crie um código de vinculação e compartilhe-o com um aluno!</p>
+        <a asp-area="Motorista" asp-controller="MotoristaCodigo" asp-action="GerarCodigo" class="btnC btn-custom">Gerar um código de vinculação</a>
+    </div>
+</div>
+
+<div class="container-flex">
+    <div class="containerConteudo infosAlunos-container">
+        <div class="ConteudoHeader">
             <h3>Seus avisos</h3>
         </div>
         <p>Crie e gerencie seus avisos publicados!</p>
@@ -25,15 +35,12 @@
 
     <div class="containerConteudo infosAlunos-container">
         <div class="ConteudoHeader">
-            <h3>Código de vinculação</h3>
+            <h3>Sua Viagem</h3>
         </div>
-        <p>Crie um código de vinculação e compartilhe-o com um aluno!</p>
-        <a asp-area="Motorista" asp-controller="MotoristaCodigo" asp-action="GerarCodigo" class="btnC btn-custom">Gerar um código de vinculação</a>
+        <a class="btnC btn-custom" asp-area="Motorista" asp-controller="MotoristaViagem" asp-action="Index">Viagem</a>
     </div>
-</div>
 
-<button id="iniciarViagemBtn">Iniciar Viagem</button>
-<button id="encerrarViagemBtn" style="display:none;">Encerrar Viagem</button>
+</div>
 
 <!--presenca -->
 <div class="row mb-3">
@@ -126,40 +133,5 @@
             }
         }
     </script>
+
 }
-
-<script>
-    document.getElementById("iniciarViagemBtn").addEventListener("click", function () {
-        fetch('/api/viagens/Iniciar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ destino: 'Destino Exemplo' })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data) {
-                    document.getElementById("iniciarViagemBtn").style.display = "none";
-                    document.getElementById("encerrarViagemBtn").style.display = "block";
-                    viagemId = data.viagemId; // Armazenar o ID da viagem
-                }
-            });
-    });
-
-    document.getElementById("encerrarViagemBtn").addEventListener("click", function () {
-        fetch('/api/viagens/Encerrar/' + viagemId, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data) {
-                    document.getElementById("iniciarViagemBtn").style.display = "block";
-                    document.getElementById("encerrarViagemBtn").style.display = "none";
-                }
-            });
-    });
-</script>

@@ -46,7 +46,6 @@ namespace Cadasvan01.Data
                 .WithOne(u => u.Cidade)
                 .HasForeignKey(u => u.CidadeId)
                 .OnDelete(DeleteBehavior.Restrict);
-
         }
     }
 }

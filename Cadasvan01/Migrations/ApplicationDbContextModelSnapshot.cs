@@ -349,6 +349,9 @@ namespace Cadasvan01.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("VanSelecionada")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ViagemId");
 
                     b.HasIndex("MotoristaId");

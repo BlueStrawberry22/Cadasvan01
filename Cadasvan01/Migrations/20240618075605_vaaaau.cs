@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Cadasvan01.Migrations
 {
     /// <inheritdoc />
-    public partial class teste1 : Migration
+    public partial class vaaaau : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -310,7 +310,8 @@ namespace Cadasvan01.Migrations
                     Destino = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HoraInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HoraFim = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Ativa = table.Column<bool>(type: "bit", nullable: false)
+                    Ativa = table.Column<bool>(type: "bit", nullable: false),
+                    VanSelecionada = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

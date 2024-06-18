@@ -5,6 +5,7 @@ using Cadasvan01.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using Cadasvan01.ViewModel;
 
 namespace Cadasvan01.Areas.Motorista.Controllers
 {
@@ -29,20 +30,30 @@ namespace Cadasvan01.Areas.Motorista.Controllers
                 .Where(v => v.MotoristaId == motoristaId && v.Ativa)
                 .ToListAsync();
 
-            return View(viagens);
+            var motorista = await _context.Usuarios.FindAsync(motoristaId);
+
+            var viewModel = new MotoristaViagemViewModel
+            {
+                Viagens = viagens,
+                VanSelecionada = motorista.VanSelecionada // Preencha a propriedade VanSelecionada
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> IniciarViagem(string destino)
         {
             var motoristaId = _userManager.GetUserId(User);
+            var motorista = await _context.Usuarios.FindAsync(motoristaId);
 
             var viagem = new Viagem
             {
                 MotoristaId = motoristaId,
                 Destino = destino,
                 HoraInicio = DateTime.Now,
-                Ativa = true
+                Ativa = true,
+                VanSelecionada = motorista.VanSelecionada // Adicione a van selecionada à viagem
             };
 
             _context.Add(viagem);

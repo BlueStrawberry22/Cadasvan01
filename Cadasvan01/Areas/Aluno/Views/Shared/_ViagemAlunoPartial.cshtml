@@ -6,9 +6,9 @@
         <div class="ConteudoHeader"> <h3>Viagem em andamento</h3></div>
         <p>Seu motorista iniciou uma viagem!</p>
         <p><strong>Destino:</strong> @Model.Destino</p>
+        <p><strong>Van:</strong> @Model.VanSelecionada</p> <!-- Adicione esta linha -->
         <p><strong>Hora de Início:</strong> @Model.HoraInicio</p>
-        <a asp-area ="Aluno" asp-controller="AlunoViagem" class="btn btn-primary" asp-action="VerLocalizacao">Ver localização do motorista</a>
-       
+        <a asp-area="Aluno" asp-controller="AlunoViagem" class="btn btn-primary" asp-action="VerLocalizacao">Ver localização do motorista</a>
     </div>
 }
 else

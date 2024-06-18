@@ -20,5 +20,7 @@ namespace Cadasvan01.Models
         public DateTime HoraInicio { get; set; }
         public DateTime? HoraFim { get; set; }
         public bool Ativa { get; set; }
+
+        public string VanSelecionada { get; set; } // Nova propriedade
     }
 }

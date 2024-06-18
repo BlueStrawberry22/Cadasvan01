@@ -1,15 +1,17 @@
-﻿@model IEnumerable<Cadasvan01.Models.Viagem>
+﻿@using Cadasvan01.ViewModel
+@model MotoristaViagemViewModel
 
 <h2>Viagens Ativas</h2>
 
-@if (Model.Any())
+@if (Model.Viagens.Any())
 {
-    @foreach (var viagem in Model)
+    @foreach (var viagem in Model.Viagens)
     {
         <div class="containerConteudo infosMotorista-container">
             <div class="ConteudoHeader"> <h3>Viagem em andamento</h3></div>
             <p>Destino: @viagem.Destino</p>
             <p>Hora de Início: @viagem.HoraInicio</p>
+            <p>Van: @viagem.VanSelecionada</p> <!-- Exibe a van selecionada -->
             <form asp-action="EncerrarViagem" method="post">
                 <input type="hidden" name="id" value="@viagem.ViagemId" />
                 <button type="submit" class="btn btn-danger">Encerrar Viagem</button>
@@ -26,6 +28,7 @@ else
                 <label for="destino">Destino</label>
                 <input type="text" class="form-control" id="destino" name="destino" required />
             </div>
+            
             <button type="submit" class="btn btn-primary">Iniciar Viagem</button>
         </form>
     </div>
@@ -39,7 +42,7 @@ else
 
             connection.start().then(() => {
                 console.log("Conectado ao SignalR Hub.");
-                setInterval(updateLocation, 10000); 
+                setInterval(updateLocation, 10000);
             }).catch(err => console.error("Erro ao conectar ao SignalR Hub:", err.toString()));
 
             function updateLocation() {
