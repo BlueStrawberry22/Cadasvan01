@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adicionar serviços ao contêiner.
+//serivcos
 builder.Services.AddHttpClient<ViaCEPService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -19,7 +19,6 @@ builder.Services.AddRazorPages();
 // Adicionar SignalR
 builder.Services.AddSignalR();
 
-// Outras configurações de serviço
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -43,7 +42,6 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Motorista", politica => politica.RequireRole("Motorista"));
 });
 
-// Configuração de redirecionamento HTTP para HTTPS
 builder.Services.AddHttpsRedirection(options =>
 {
     options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
@@ -61,8 +59,6 @@ using (var serviceScope = app.Services.CreateScope())
     servicoSeed.SeedRoles();
     servicoSeed.SeedUsers();
 }
-
-// Configurar o pipeline HTTP.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

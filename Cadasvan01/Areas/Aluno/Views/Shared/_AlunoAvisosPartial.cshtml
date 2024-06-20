@@ -114,7 +114,6 @@
                 body: JSON.stringify(id)
             }).then(response => {
                 if (response.ok) {
-                    // Atualizar o DOM para refletir a mudança de status
                     var statusBadge = document.getElementById('status-' + id);
                     if (statusBadge) {
                         statusBadge.textContent = 'Lido';

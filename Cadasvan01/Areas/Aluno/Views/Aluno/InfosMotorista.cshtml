@@ -94,7 +94,7 @@
     <button id="desvincularBtn" class="btnC btn-danger">Desvincular</button>
 </div>
 
-<!-- Modal de Média de Avaliações -->
+<!-- Modal mediia avaliacoes -->
 <div id="mediaAvaliacoesModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -103,7 +103,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Conteúdo das avaliações -->
+                <!-- conteudo avaliações -->
                 @foreach (var avaliacao in Model.Motorista.AvaliacoesRecebidas)
                 {
                     <p>
@@ -121,7 +121,7 @@
     </div>
 </div>
 
-<!-- Modal de Modelos de Vans -->
+<!-- modal modelo das vans -->
 <div id="modeloVanModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -149,7 +149,7 @@
     </div>
 </div>
 
-<!-- Modal de Avaliação -->
+<!-- modal avaliar -->
 <div id="avaliacaoModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -181,7 +181,7 @@
     </div>
 </div>
 
-<!-- Modal de Confirmação -->
+<!-- modal de confirmação -->
 <div id="confirmModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -212,7 +212,6 @@
 
             $('#editarAvaliacaoBtn').on('click', function () {
                 $('#avaliacaoModal').modal('show');
-                // Preencher o modal com os dados da avaliação existente
                 var avaliacaoEstrelas = @Model.Avaliacao != null ? '@Model.Avaliacao.AvaliacaoEstrelas' : 'null';
                 var opiniao = @Model.Avaliacao != null ? '@Model.Avaliacao.Opiniao' : 'null';
 
@@ -251,11 +250,11 @@
 <style>
     .ImagemVan {
         width: 100%;
-        max-width: 300px; /* Tamanho máximo desejado */
+        max-width: 300px;
         height: auto;
-        object-fit: cover; /* Mantém a proporção da imagem */
-        border-radius: 8px; /* Bordas arredondadas, se desejar */
-        margin-bottom: 20px; /* Espaçamento inferior */
+        object-fit: cover; 
+        border-radius: 8px;
+        margin-bottom: 20px;
     }
 
     .linksInfos {

@@ -22,7 +22,6 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             _userManager = userManager;
         }
 
-        // GET: Motorista/MotoristaViagem
         public async Task<IActionResult> Index()
         {
             var motoristaId = _userManager.GetUserId(User);
@@ -35,7 +34,7 @@ namespace Cadasvan01.Areas.Motorista.Controllers
             var viewModel = new MotoristaViagemViewModel
             {
                 Viagens = viagens,
-                VanSelecionada = motorista.VanSelecionada // Preencha a propriedade VanSelecionada
+                VanSelecionada = motorista.VanSelecionada 
             };
 
             return View(viewModel);
@@ -53,7 +52,7 @@ namespace Cadasvan01.Areas.Motorista.Controllers
                 Destino = destino,
                 HoraInicio = DateTime.Now,
                 Ativa = true,
-                VanSelecionada = motorista.VanSelecionada // Adicione a van selecionada à viagem
+                VanSelecionada = motorista.VanSelecionada 
             };
 
             _context.Add(viagem);

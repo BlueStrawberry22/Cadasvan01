@@ -137,7 +137,7 @@ namespace Cadasvan01.Areas.Motorista.Controllers
         public List<Presenca> PresencasHoje { get; set; }
         public List<Usuario> AlunosVinculados { get; set; }
         public IEnumerable<Viagem> ViagensAtivas { get; set; }
-        public List<Van> Vans { get; set; } // Adicione esta propriedade
+        public List<Van> Vans { get; set; } 
         public string VanSelecionada { get; set; }
     }
 

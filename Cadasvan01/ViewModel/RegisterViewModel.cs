@@ -5,7 +5,6 @@ namespace Cadasvan01.ViewModel
 {
     public class RegisterViewModel
     {
-        // Outros campos já existentes...
 
         [Display(Name = "Imagem de Perfil")]
         public IFormFile? ImagemPerfil { get; set; }

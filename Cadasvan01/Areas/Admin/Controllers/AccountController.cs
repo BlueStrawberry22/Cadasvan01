@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SixLabors.ImageSharp; // Adicione esta linha
-using SixLabors.ImageSharp.Processing; // Adicione esta linha
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing; 
 using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace Cadasvan01.Controllers

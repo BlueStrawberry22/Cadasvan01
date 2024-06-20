@@ -60,16 +60,16 @@ namespace Cadasvan01.Areas.Motorista.Controllers
                         string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Foto.FileName;
                         string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
+                        //coiso pra formatar imagem
                         using (var image = Image.Load(model.Foto.OpenReadStream()))
                         {
-                            // Redimensiona a imagem
                             image.Mutate(x => x.Resize(new ResizeOptions
                             {
-                                Size = new Size(300, 300), // Define o tamanho desejado
+                                Size = new Size(300, 300), 
                                 Mode = ResizeMode.Crop
                             }));
 
-                            // Salva a imagem redimensionada
+                            
                             await image.SaveAsync(filePath, new JpegEncoder());
                         }
 
@@ -132,14 +132,14 @@ namespace Cadasvan01.Areas.Motorista.Controllers
 
                     using (var image = Image.Load(model.Foto.OpenReadStream()))
                     {
-                        // Redimensiona a imagem
+                      
                         image.Mutate(x => x.Resize(new ResizeOptions
                         {
-                            Size = new Size(300, 300), // Define o tamanho desejado
+                            Size = new Size(300, 300), 
                             Mode = ResizeMode.Crop
                         }));
 
-                        // Salva a imagem redimensionada
+                        
                         await image.SaveAsync(filePath, new JpegEncoder());
                     }
 

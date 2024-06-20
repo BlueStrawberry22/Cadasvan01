@@ -22,7 +22,6 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             _userManager = userManager;
         }
 
-        // Método existente
         public async Task<IActionResult> Index()
         {
             var alunoId = _userManager.GetUserId(User);
@@ -39,7 +38,6 @@ namespace Cadasvan01.Areas.Aluno.Controllers
             return PartialView("_AlunoAvisosPartial", avisos);
         }
 
-        // Novo método para verificar o status
         public async Task<IActionResult> VerificarStatus()
         {
             var avisos = await _context.Avisos.ToListAsync();

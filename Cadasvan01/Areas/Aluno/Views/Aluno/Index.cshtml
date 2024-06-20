@@ -18,8 +18,6 @@
                 Acessar
             </a>
 
-
-
         </div>
 
         <div>
@@ -37,6 +35,13 @@
             }
         </div>
 
+        <div class="containerConteudo infosMotorista-container">
+            <div class="ConteudoHeader"><h3>Auxílio transporte</h3></div>
+
+            <p>Gere um documento para o seu auxílio transporte!</p>
+            <a asp-area="Aluno" asp-controller="AlunoRequerimento" asp-action="Index" class="btnC btn-custom">Gerar PDF</a>
+        </div>
+
     </div>
 
     @Html.Partial("_AlunoAvisosPartial", Model.Avisos)
@@ -51,7 +56,7 @@ else
 }
 <br />
 
-<!-- Modal de Edição de Endereço -->
+<!-- modal do endereço -->
 <div id="editarEnderecoModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

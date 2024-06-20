@@ -13,6 +13,6 @@ namespace Cadasvan01.Models
         public string MotoristaId { get; set; }
         public virtual Usuario Motorista { get; set; }
 
-        public bool Lido { get; set; } = false; // Adiciona a propriedade Lido
+        public bool Lido { get; set; } = false; // pra mudar o badge do aviso
     }
 }

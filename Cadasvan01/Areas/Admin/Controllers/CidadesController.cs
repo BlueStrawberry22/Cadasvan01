@@ -62,7 +62,6 @@ namespace Cadasvan01.Controllers
             return View(cidade);
         }
 
-        // GET: Cidades/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

@@ -154,7 +154,7 @@ namespace Cadasvan01.Areas.Aluno.Controllers
 
             var motorista = await _context.Users
                 .Include(m => m.AvaliacoesRecebidas)
-                .Include(m => m.Vans) // Certifique-se de incluir as vans
+                .Include(m => m.Vans) 
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (motorista == null)

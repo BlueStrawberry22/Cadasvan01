@@ -63,7 +63,7 @@
                 }
             }).then(data => {
                 document.getElementById('presencaCard').innerHTML = data;
-                registerEventListeners(); // Registrar os event listeners novamente após a atualização
+                registerEventListeners(); 
             }).catch(error => {
                 console.error('Erro:', error);
             });
@@ -76,7 +76,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        registerEventListeners(); // Registrar os event listeners no carregamento inicial
+        registerEventListeners(); 
     });
 </script>
 
